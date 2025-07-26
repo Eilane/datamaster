@@ -2,9 +2,7 @@
 
 ## Projeto DataMaster
 
-**Objetivo:**  
-O projeto tem como objetivo simular e implementar um caso de uso concreto, abordando os principais conceitos e fundamentos essenciais de uma plataforma de dados moderna.  
-A solução será focada na disponibilização de dados com **alta qualidade**, **segurança**, **monitoramento eficiente** e **escalabilidade**, assegurando uma gestão de dados **robusta, confiável e sustentável**.
+
 
 ---
 
@@ -24,7 +22,9 @@ A solução será focada na disponibilização de dados com **alta qualidade**, 
 ---
 
 ## 1. Objetivo
-*Em desenvolvimento...*
+
+O projeto tem como objetivo simular e implementar um caso de uso concreto, abordando os principais conceitos e fundamentos essenciais de uma plataforma de dados moderna.  
+A solução será focada na disponibilização de dados com **alta qualidade**, **segurança**, **monitoramento eficiente** e **escalabilidade**, assegurando uma gestão de dados **robusta, confiável e sustentável**.
 
 ## 2. Análise de Mercado e Tecnologias Escolhidas
 *Em desenvolvimento...*
