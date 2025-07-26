@@ -18,6 +18,7 @@
 8. [Expurgo de Dados](#expurgo-de-dados)  
 9. [Plano de Recuperação e Local de Armazenamento](#plano-de-recuperação-e-local-de-armazenamento)  
 10. [Visualização de Dados](#visualização-de-dados)
+11. [Solução Técnica]((#solução-técnica)
 
 ---
 
@@ -51,6 +52,9 @@ A solução será focada na disponibilização de dados com **alta qualidade**, 
 *Em desenvolvimento...*
 
 ## 10. Visualização de Dados
+*Em desenvolvimento...*
+
+## 11. Solução Técnica
 *Em desenvolvimento...*
 
 
