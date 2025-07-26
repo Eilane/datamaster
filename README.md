@@ -18,7 +18,7 @@
 8. [Expurgo de Dados](#expurgo-de-dados)  
 9. [Plano de Recuperação e Local de Armazenamento](#plano-de-recuperação-e-local-de-armazenamento)  
 10. [Visualização de Dados](#visualização-de-dados)
-11. [Solução Técnica]((#solução-técnica)
+11. [Solução Técnica](#solução-técnica)
 
 ---
 
