@@ -6,7 +6,7 @@
 2. [Caso de Uso](#caso-de-uso)
 3. [Arquitetura da Solução](#arquitetura-da-solução)
 4. [Monitoramento e Observabilidade](#monitoramento-e-observabilidade)  
-5. [Mascaramento de Dados](#mascaramento-de-dados)  
+5. [Pipelines de Dados](#Pipelines-de-dados)  
 6. [Cadastro de Tabelas e Modelagem de Dados](#cadastro-de-tabelas-e-modelagem-de-dados)  
 7. [Motor de Qualidade de Dados](#motor-de-qualidade-de-dados)  
 8. [Expurgo de Dados](#expurgo-de-dados)  
@@ -57,7 +57,7 @@ Publicar os dados da camada Gold em um banco de dados transacional, por meio de 
 ## 4. Monitoramento e Observabilidade
 *Em desenvolvimento...*
 
-## 5. Mascaramento de Dados
+## 5. Pipelines de Dados
 *Em desenvolvimento...*
 
 ## 6. Cadastro de Tabelas e Modelagem de Dados
