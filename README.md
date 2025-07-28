@@ -60,6 +60,11 @@ Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos dir
 
 ### **3.0.1 - Estrutura lógica das camadas do Data Lake**
 
+Os dados estão organizados no Data Lake conforme o padrão de design da arquitetura Medallion, que estrutura a informação em camadas lógicas (Bronze, Silver e Gold), foi adicionado a camada adicional "raw" que mantém os dados em seu formato original (csv,parquet,json). 
+
+<img width="575" height="487" alt="image" src="https://github.com/user-attachments/assets/f96555a8-8d81-4688-846c-e88f119a6362" />
+
+
 ## 4. Monitoramento e Observabilidade
 *Em desenvolvimento...*
 
