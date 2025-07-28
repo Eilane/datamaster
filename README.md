@@ -58,7 +58,7 @@ Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos dir
 
 <img width="991" height="661" alt="image" src="https://github.com/user-attachments/assets/8e2d9eb2-5fe9-4bc1-b758-2d8262bf1ccc" />
 
-
+### **3.0.1 - Estrutura lógica das camadas do Data Lake**
 
 ## 4. Monitoramento e Observabilidade
 *Em desenvolvimento...*
