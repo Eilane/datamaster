@@ -56,7 +56,20 @@ A solução será focada na disponibilização de dados com **alta qualidade**, 
 
 ## 11. Análise das Tecnologias Escolhidas
 
-1.0.1 Comparativo: Azure Functions vs Docker vs AKS (Python API Consumer)
+### 11.0.1 Microsoft - Plataforma de Integração como Serviço 
+
+A Microsoft foi nomeada líder no Quadrante Mágico™ da Gartner® de 2024 para Plataforma de Integração como Serviço 
+O Azure Integration Services — Inclui o Azure API Management, o Azure Logic Apps, o Azure Service Bus, o Azure Event Grid, o **Azure Functions e o Azure Data Factory**
+
+<img width="656" height="739" alt="image" src="https://github.com/user-attachments/assets/bfad38f6-5e0c-4823-89f2-8a52aca3e82c" />
+
+
+### 11.0.2 Databricks 
+
+Databricks como Líder no Quadrante Mágico™ da Gartner® de 2025 para Plataformas de Ciência de Dados e Aprendizado de Máquina.
+<img width="730" height="748" alt="image" src="https://github.com/user-attachments/assets/3b941f6b-ce65-412c-aebb-3e526e39595a" />
+
+### 11.0.3 Comparativo: Azure Functions vs Docker vs AKS (Python API Consumer)
 
 | Critério                        | Azure Functions                          | Docker (App Service / ACI)                | AKS (Azure Kubernetes Service)             |
 |--------------------------------|-------------------------------------------|-------------------------------------------|--------------------------------------------|
@@ -84,5 +97,8 @@ A solução será focada na disponibilização de dados com **alta qualidade**, 
 ## 12. Referências
 
 https://www.gartner.com/reviews/market/cloud-database-management-systems/compare/product/amazon-simple-storage-service-amazon-s3-vs-azure-data-lake
+https://www.databricks.com/blog/databricks-named-leader-2025-gartner-magic-quadrant-data-science-and-machine-learning
+https://azure.microsoft.com/en-us/blog/microsoft-named-a-leader-in-2024-gartner-magic-quadrant-for-integration-platform-as-a-service/
+
 
 
