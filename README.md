@@ -27,8 +27,34 @@
 O projeto tem como objetivo simular e implementar um caso de uso concreto, abordando os principais conceitos e fundamentos essenciais de uma plataforma de dados moderna.  
 A solução será focada na disponibilização de dados com **alta qualidade**, **segurança**, **monitoramento eficiente** e **escalabilidade**, assegurando uma gestão de dados **robusta, confiável e sustentável**.
 
+## 2. Caso de Uso
+
+**2.0.1 - Integração de Dados Clientes PJ**
+Coletar, analisar e disponibilizar dados cadastrais de clientes pessoa física e dados públicos de empresas, com foco em qualidade, governança e integração ao ecossistema analítico corporativo.
+
+**2.0.2 - Escopo do Caso de Uso**
+Obtenção de dados fictícios de clientes (PF)
+Simular a ingestão de cadastros de clientes pessoa juridica pertencentes a uma empresa fictícia do setor de empréstimos.
+
+Integração com dados públicos de empresas (CNPJ)
+Realizar a extração de dados públicos junto ao Ministério da Fazenda
+
+Armazenamento no Data Lake corporativo
+Persistir todos os dados obtidos nas camadas Bronze (raw), Silver (refinada) e Gold (qualificada) do Data Lake.
+
+Verificação da situação cadastral da empresa
+Validar se a empresa encontra-se em situação ativa, inativa, inapta ou baixada.
+
+Análise de possíveis indícios de irregularidade
+Executar regras e validações para identificar possíveis inconsistências ou comportamentos suspeitos nos dados de CNPJ.
+
+Disponibilização via Banco de Dados Transacional (ELT reverso)
+Publicar os dados da camada Gold em um banco de dados transacional, por meio de ELT reverso, otimizando o consumo por aplicações analíticas.
+
+
 ## 2. Arquitetura da Solução
-*Em desenvolvimento...*
+<img width="982" height="668" alt="image" src="https://github.com/user-attachments/assets/e2ee6414-4bbb-4866-80fc-6a5b46db4fc3" />
+
 
 ## 3. Monitoramento e Observabilidade
 *Em desenvolvimento...*
