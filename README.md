@@ -1,5 +1,4 @@
 # DataMaster
----
 
 ## Sumário
 
