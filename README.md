@@ -59,6 +59,6 @@ A solução será focada na disponibilização de dados com **alta qualidade**, 
 
 ## 12. Referências
 
-[https://www.gartner.com/reviews/market/cloud-database-management-systems/compare/product/amazon-simple-storage-service-amazon-s3-vs-azure-data-lake]
+https://www.gartner.com/reviews/market/cloud-database-management-systems/compare/product/amazon-simple-storage-service-amazon-s3-vs-azure-data-lake
 
 
