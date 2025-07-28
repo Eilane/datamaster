@@ -9,17 +9,18 @@
 ## Sumário
 
 1. [Objetivo](#objetivo)
-2. [Arquitetura da Solução](#arquitetura-da-solução)
-3. [Monitoramento e Observabilidade](#monitoramento-e-observabilidade)  
-4. [Mascaramento de Dados](#mascaramento-de-dados)  
-5. [Cadastro de Tabelas e Modelagem de Dados](#cadastro-de-tabelas-e-modelagem-de-dados)  
-6. [Motor de Qualidade de Dados](#motor-de-qualidade-de-dados)  
-7. [Expurgo de Dados](#expurgo-de-dados)  
-8. [Plano de Recuperação e Local de Armazenamento](#plano-de-recuperação-e-local-de-armazenamento)  
-9. [Visualização de Dados](#visualização-de-dados)
-10. [Solução Técnica](#solução-técnica)
-11. [Análise das Tecnologias Escolhidas](#análise-de-mercado-e-tecnologias-escolhidas)  
-12. [Referências](#referências)
+2. [Caso de Uso](#caso-de-uso)
+3. [Arquitetura da Solução](#arquitetura-da-solução)
+4. [Monitoramento e Observabilidade](#monitoramento-e-observabilidade)  
+5. [Mascaramento de Dados](#mascaramento-de-dados)  
+6. [Cadastro de Tabelas e Modelagem de Dados](#cadastro-de-tabelas-e-modelagem-de-dados)  
+7. [Motor de Qualidade de Dados](#motor-de-qualidade-de-dados)  
+8. [Expurgo de Dados](#expurgo-de-dados)  
+9. [Plano de Recuperação e Local de Armazenamento](#plano-de-recuperação-e-local-de-armazenamento)  
+10. [Visualização de Dados](#visualização-de-dados)
+11. [Solução Técnica](#solução-técnica)
+12. [Análise das Tecnologias Escolhidas](#análise-de-mercado-e-tecnologias-escolhidas)  
+13. [Referências](#referências)
 ---
 
 ## 1. Objetivo
@@ -27,62 +28,66 @@
 O projeto tem como objetivo simular e implementar um caso de uso concreto, abordando os principais conceitos e fundamentos essenciais de uma plataforma de dados moderna.  
 A solução será focada na disponibilização de dados com **alta qualidade**, **segurança**, **monitoramento eficiente** e **escalabilidade**, assegurando uma gestão de dados **robusta, confiável e sustentável**.
 
+
 ## 2. Caso de Uso
 
 **2.0.1 - Integração de Dados Clientes PJ**
+
 Coletar, analisar e disponibilizar dados cadastrais de clientes pessoa física e dados públicos de empresas, com foco em qualidade, governança e integração ao ecossistema analítico corporativo.
 
 **2.0.2 - Escopo do Caso de Uso**
-Obtenção de dados fictícios de clientes (PF)
+
+**Obtenção de dados fictícios de clientes (PF):**
 Simular a ingestão de cadastros de clientes pessoa juridica pertencentes a uma empresa fictícia do setor de empréstimos.
 
-Integração com dados públicos de empresas (CNPJ)
+**Integração com dados públicos de empresas (CNPJ):**
 Realizar a extração de dados públicos junto ao Ministério da Fazenda
 
-Armazenamento no Data Lake corporativo
+**Armazenamento no Data Lake corporativo:**
 Persistir todos os dados obtidos nas camadas Bronze (raw), Silver (refinada) e Gold (qualificada) do Data Lake.
 
-Verificação da situação cadastral da empresa
+**Verificação da situação cadastral da empresa:**
 Validar se a empresa encontra-se em situação ativa, inativa, inapta ou baixada.
 
-Análise de possíveis indícios de irregularidade
+**Análise de possíveis indícios de irregularidade:**
 Executar regras e validações para identificar possíveis inconsistências ou comportamentos suspeitos nos dados de CNPJ.
 
-Disponibilização via Banco de Dados Transacional (ELT reverso)
+**Disponibilização via Banco de Dados Transacional (ELT reverso):**
 Publicar os dados da camada Gold em um banco de dados transacional, por meio de ELT reverso, otimizando o consumo por aplicações analíticas.
 
 
-## 2. Arquitetura da Solução
+
+## 3. Arquitetura da Solução
 <img width="982" height="668" alt="image" src="https://github.com/user-attachments/assets/e2ee6414-4bbb-4866-80fc-6a5b46db4fc3" />
 
 
-## 3. Monitoramento e Observabilidade
+## 4. Monitoramento e Observabilidade
 *Em desenvolvimento...*
 
-## 4. Mascaramento de Dados
+## 5. Mascaramento de Dados
 *Em desenvolvimento...*
 
-## 5. Cadastro de Tabelas e Modelagem de Dados
+## 6. Cadastro de Tabelas e Modelagem de Dados
 *Em desenvolvimento...*
 
-## 6. Motor de Qualidade de Dados
+## 7. Motor de Qualidade de Dados
 *Em desenvolvimento...*
 
-## 7. Expurgo de Dados
+## 8. Expurgo de Dados
 *Em desenvolvimento...*
 
-## 8. Plano de Recuperação e Local de Armazenamento
+## 9. Plano de Recuperação e Local de Armazenamento
 *Em desenvolvimento...*
 
-## 9. Visualização de Dados
+## 10. Visualização de Dados
 *Em desenvolvimento...*
 
-## 10. Solução Técnica
+## 11. Solução Técnica
 *Em desenvolvimento...*
 
-## 11. Análise das Tecnologias Escolhidas
+## 12. Análise das Tecnologias Escolhidas
 
-### 11.0.1 Microsoft - Plataforma de Integração como Serviço 
+### 12.0.1 Microsoft - Plataforma de Integração como Serviço 
 
 A Microsoft foi nomeada líder no Quadrante Mágico™ da Gartner® de 2024 para Plataforma de Integração como Serviço 
 O Azure Integration Services — Inclui o Azure API Management, o Azure Logic Apps, o Azure Service Bus, o Azure Event Grid, o **Azure Functions e o Azure Data Factory**
@@ -90,12 +95,12 @@ O Azure Integration Services — Inclui o Azure API Management, o Azure Logic Ap
 <img width="656" height="739" alt="image" src="https://github.com/user-attachments/assets/bfad38f6-5e0c-4823-89f2-8a52aca3e82c" />
 
 
-### 11.0.2 Databricks 
+### 12.0.2 Databricks 
 
 Databricks como Líder no Quadrante Mágico™ da Gartner® de 2025 para Plataformas de Ciência de Dados e Aprendizado de Máquina.
 <img width="730" height="748" alt="image" src="https://github.com/user-attachments/assets/3b941f6b-ce65-412c-aebb-3e526e39595a" />
 
-### 11.0.3 Comparativo: Azure Functions vs Docker vs AKS (Python API Consumer)
+### 12.0.3 Comparativo: Azure Functions vs Docker vs AKS (Python API Consumer)
 
 | Critério                        | Azure Functions                          | Docker (App Service / ACI)                | AKS (Azure Kubernetes Service)             |
 |--------------------------------|-------------------------------------------|-------------------------------------------|--------------------------------------------|
@@ -120,7 +125,7 @@ Databricks como Líder no Quadrante Mágico™ da Gartner® de 2025 para Platafo
 | Infraestrutura de produção complexa e escalável  | **AKS (Kubernetes)**    |
 
 
-## 12. Referências
+## 13. Referências
 
 https://www.gartner.com/reviews/market/cloud-database-management-systems/compare/product/amazon-simple-storage-service-amazon-s3-vs-azure-data-lake
 https://www.databricks.com/blog/databricks-named-leader-2025-gartner-magic-quadrant-data-science-and-machine-learning
