@@ -43,11 +43,13 @@ Persistir todos os dados obtidos nas no Data Lake.
 **Verificação da situação cadastral da empresa:**
 Validar se a empresa encontra-se em situação ativa, inativa, inapta ou baixada.
 
-**Análise de possíveis indícios de irregularidade:**
+**Análise de possíveis irregularidades:**
 Executar regras e validações para identificar possíveis inconsistências ou comportamentos suspeitos nos dados de CNPJ.
 
 **Disponibilização via Banco de Dados Transacional (ELT reverso):**
 Publicar os dados da camada Gold em um banco de dados transacional, por meio de ELT reverso, otimizando o consumo por aplicações analíticas.
+
+<img width="674" height="457" alt="image" src="https://github.com/user-attachments/assets/baff0c30-b39f-41e9-9905-bfc177d4209a" />
 
 
 ## 3. Arquitetura da Solução
