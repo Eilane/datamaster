@@ -50,7 +50,6 @@ Executar regras e validações para identificar possíveis inconsistências ou c
 Publicar os dados da camada Gold em um banco de dados transacional, por meio de ELT reverso, otimizando o consumo por aplicações analíticas.
 
 
-
 ## 3. Arquitetura da Solução
 <img width="982" height="668" alt="image" src="https://github.com/user-attachments/assets/e2ee6414-4bbb-4866-80fc-6a5b46db4fc3" />
 
