@@ -38,7 +38,7 @@ Simular a ingestão de cadastros de clientes pessoa juridica pertencentes a uma 
 Realizar a extração de dados públicos junto ao Ministério da Fazenda
 
 **Armazenamento no Data Lake corporativo:**
-Persistir todos os dados obtidos nas camadas Bronze (raw), Silver (refinada) e Gold (qualificada) do Data Lake.
+Persistir todos os dados obtidos nas no Data Lake.
 
 **Verificação da situação cadastral da empresa:**
 Validar se a empresa encontra-se em situação ativa, inativa, inapta ou baixada.
@@ -51,7 +51,8 @@ Publicar os dados da camada Gold em um banco de dados transacional, por meio de 
 
 
 ## 3. Arquitetura da Solução
-<img width="982" height="668" alt="image" src="https://github.com/user-attachments/assets/e2ee6414-4bbb-4866-80fc-6a5b46db4fc3" />
+<img width="991" height="661" alt="image" src="https://github.com/user-attachments/assets/8e2d9eb2-5fe9-4bc1-b758-2d8262bf1ccc" />
+
 
 
 ## 4. Monitoramento e Observabilidade
