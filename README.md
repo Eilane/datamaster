@@ -25,11 +25,11 @@ A solução será focada na disponibilização de dados com **alta qualidade**, 
 
 ## 2. Caso de Uso
 
-**2.0.1 - Integração de Dados Clientes PJ**
+### **2.0.1 - Integração de Dados Clientes PJ**
 
 Coletar, analisar e disponibilizar dados cadastrais de clientes pessoa física e dados públicos de empresas, com foco em qualidade, governança e integração ao ecossistema analítico corporativo.
 
-**2.0.2 - Escopo do Caso de Uso**
+### **2.0.2 - Escopo do Caso de Uso**
 
 **Obtenção de dados fictícios de clientes (PF):**
 Simular a ingestão de cadastros de clientes pessoa juridica pertencentes a uma empresa fictícia do setor de empréstimos.
