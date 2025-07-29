@@ -74,7 +74,7 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 
 ## 6. Cadastro de Tabelas e Modelagem de Dados
 
-Enriquecimento das tabelas delta com metadados personalizados.
+Enriquecimento das tabelas delta na camada GOLD com metadados personalizados para aplicação das regras de qualidade.
 
 ## 7. Motor de Qualidade de Dados
 
