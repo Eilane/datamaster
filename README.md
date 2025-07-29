@@ -73,7 +73,8 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 *Em desenvolvimento...*
 
 ## 6. Cadastro de Tabelas e Modelagem de Dados
-*Em desenvolvimento...*
+
+Enriquecimento das tabelas delta com metadados personalizados.
 
 ## 7. Motor de Qualidade de Dados
 *Em desenvolvimento...*
