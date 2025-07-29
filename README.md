@@ -77,7 +77,18 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 Enriquecimento das tabelas delta com metadados personalizados.
 
 ## 7. Motor de Qualidade de Dados
-*Em desenvolvimento...*
+
+### Regras 
+
+| Nº  | Dimensão      | Regra de Qualidade                                                  | Criticidade |
+|-----|---------------|-----------------------------------------------------------------------|-------------|
+| 1   | Completude    | Campos obrigatórios como CNPJ não podem estar nulos              | Alta        | 
+| 2   | Unicidade     | CNPJ não pode se repetir entre registros                             | Alta        | 
+| 3   | Completude    | Nome da empresa não pode estar em branco                             | Alta        |
+| 4   | Validade      | E-mail deve conter “@” e domínio válido                              | Média       | 
+| 5   | Atualização   | Status cadastral da empresa deve ser atualizado mensalmente          | Alta        | 
+| 6  | Atualização   | Validar se a data da última atualização está dentro do prazo esperado| Alta        |
+
 
 ## 8. Expurgo de Dados
 *Em desenvolvimento...*
