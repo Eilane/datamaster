@@ -56,7 +56,8 @@ Publicar os dados da camada Gold em um banco de dados transacional, por meio de 
 
 Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos diretamente de suas fontes de origem e integrados a uma arquitetura de dados Lakehouse na nuvem pública Microsoft Azure.
 
-<img width="991" height="661" alt="image" src="https://github.com/user-attachments/assets/8e2d9eb2-5fe9-4bc1-b758-2d8262bf1ccc" />
+<img width="996" height="665" alt="image" src="https://github.com/user-attachments/assets/6ca5ddeb-362b-46df-8e51-f3500779608c" />
+
 
 ### **3.0.1 - Estrutura lógica das camadas do Data Lake**
 
