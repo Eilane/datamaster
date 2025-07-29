@@ -68,7 +68,9 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 
 
 ## 4. Monitoramento e Observabilidade
-*Em desenvolvimento...*
+
+<img width="806" height="524" alt="image" src="https://github.com/user-attachments/assets/b066a50e-45cd-4320-b353-9aa9669633df" />
+
 
 ## 5. Pipelines de Dados
 *Em desenvolvimento...*
@@ -77,7 +79,7 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 
 Enriquecimento das tabelas delta na camada GOLD com metadados personalizados para aplicação das regras de qualidade.
 
-## 7. Motor de Qualidade de Dados
+## 7. Motor de Qualidade de Dados na Camada Gold
 
 ### Regras 
 
