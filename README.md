@@ -49,7 +49,7 @@ Executar regras e validações para identificar possíveis inconsistências ou c
 **Disponibilização via Banco de Dados Transacional (ELT reverso):**
 Publicar os dados da camada Gold em um banco de dados transacional, por meio de ELT reverso, otimizando o consumo por aplicações analíticas.
 
-<img width="674" height="457" alt="image" src="https://github.com/user-attachments/assets/baff0c30-b39f-41e9-9905-bfc177d4209a" />
+<img width="788" height="588" alt="image" src="https://github.com/user-attachments/assets/c61f2c98-5fc6-41f0-87f3-aea69a1ee47c" />
 
 
 ## 3. Arquitetura da Solução
