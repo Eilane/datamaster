@@ -80,6 +80,7 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 *Em desenvolvimento...*
 
 ## 6. Resiliência dos Pipelines de Dados
+*Em desenvolvimento...*
 
 ## 7. Cadastro de Tabelas e Modelagem de Dados
 
