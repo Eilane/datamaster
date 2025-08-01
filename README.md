@@ -6,15 +6,16 @@
 2. [Caso de Uso](#caso-de-uso)
 3. [Arquitetura da Solução](#arquitetura-da-solução)
 4. [Monitoramento e Observabilidade](#monitoramento-e-observabilidade)  
-5. [Pipelines de Dados](#Pipelines-de-dados)  
-6. [Cadastro de Tabelas e Modelagem de Dados](#cadastro-de-tabelas-e-modelagem-de-dados)  
-7. [Motor de Qualidade de Dados](#motor-de-qualidade-de-dados)  
-8. [Expurgo de Dados](#expurgo-de-dados)  
-9. [Plano de Recuperação e Local de Armazenamento](#plano-de-recuperação-e-local-de-armazenamento)  
-10. [Visualização de Dados](#visualização-de-dados)
-11. [Solução Técnica](#solução-técnica)
-12. [Análise das Tecnologias Escolhidas](#análise-de-mercado-e-tecnologias-escolhidas)  
-13. [Referências](#referências)
+5. [Pipelines de Dados](#Pipelines-de-dados)
+6. [Resiliência dos Pipelines de Dados](#Resiliência-dos-pipelines-de-dados)
+7. [Cadastro de Tabelas e Modelagem de Dados](#cadastro-de-tabelas-e-modelagem-de-dados)  
+8. [Motor de Qualidade de Dados](#motor-de-qualidade-de-dados)  
+9. [Expurgo de Dados](#expurgo-de-dados)  
+10. [Plano de Recuperação e Local de Armazenamento](#plano-de-recuperação-e-local-de-armazenamento)  
+11. [Visualização de Dados](#visualização-de-dados)
+12. [Solução Técnica](#solução-técnica)
+13. [Análise das Tecnologias Escolhidas](#análise-de-mercado-e-tecnologias-escolhidas)  
+14. [Referências](#referências)
 ---
 
 ## 1. Objetivo
@@ -77,11 +78,13 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 ## 5. Pipelines de Dados
 *Em desenvolvimento...*
 
-## 6. Cadastro de Tabelas e Modelagem de Dados
+## 6. Resiliência dos Pipelines de Dados
+
+## 7. Cadastro de Tabelas e Modelagem de Dados
 
 Enriquecimento das tabelas delta na camada GOLD com metadados personalizados para aplicação das regras de qualidade.
 
-## 7. Motor de Qualidade de Dados na Camada Gold
+## 8. Motor de Qualidade de Dados na Camada Gold
 
 ### Regras 
 
@@ -95,21 +98,21 @@ Enriquecimento das tabelas delta na camada GOLD com metadados personalizados par
 | 6  | Atualização   | Validar se a data da última atualização está dentro do prazo esperado| Alta        |
 
 
-## 8. Expurgo de Dados
+## 9. Expurgo de Dados
 *Em desenvolvimento...*
 
-## 9. Plano de Recuperação e Local de Armazenamento
+## 10. Plano de Recuperação e Local de Armazenamento
 *Em desenvolvimento...*
 
-## 10. Visualização de Dados
+## 11. Visualização de Dados
 *Em desenvolvimento...*
 
-## 11. Solução Técnica
+## 12. Solução Técnica
 *Em desenvolvimento...*
 
-## 12. Análise das Tecnologias Escolhidas
+## 13. Análise das Tecnologias Escolhidas
 
-### 12.0.1 Microsoft - Plataforma de Integração como Serviço 
+### 13.0.1 Microsoft - Plataforma de Integração como Serviço 
 
 A Microsoft foi nomeada líder no Quadrante Mágico™ da Gartner® de 2024 para Plataforma de Integração como Serviço 
 O Azure Integration Services — Inclui o Azure API Management, o Azure Logic Apps, o Azure Service Bus, o Azure Event Grid, o Azure Functions e o **Azure Data Factory**
@@ -117,14 +120,14 @@ O Azure Integration Services — Inclui o Azure API Management, o Azure Logic Ap
 <img width="656" height="739" alt="image" src="https://github.com/user-attachments/assets/bfad38f6-5e0c-4823-89f2-8a52aca3e82c" />
 
 
-### 12.0.2 Databricks 
+### 13.0.2 Databricks 
 
 Databricks como Líder no Quadrante Mágico™ da Gartner® de 2025 para Plataformas de Ciência de Dados e Aprendizado de Máquina.
 <img width="730" height="748" alt="image" src="https://github.com/user-attachments/assets/3b941f6b-ce65-412c-aebb-3e526e39595a" />
 
 
 
-## 13. Referências
+## 14. Referências
 
 https://www.gartner.com/reviews/market/cloud-database-management-systems/compare/product/amazon-simple-storage-service-amazon-s3-vs-azure-data-lake
 https://www.databricks.com/blog/databricks-named-leader-2025-gartner-magic-quadrant-data-science-and-machine-learning
