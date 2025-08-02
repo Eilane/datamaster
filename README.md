@@ -28,7 +28,7 @@ A solução será focada na disponibilização de dados com **alta qualidade**, 
 
 ### **2.0.1 - Integração de Dados Clientes PJ**
 
-Coletar, analisar e disponibilizar dados cadastrais de clientes pessoa física e dados públicos de empresas, com foco em qualidade, governança e integração ao ecossistema analítico corporativo.
+Coletar, analisar e disponibilizar dados cadastrais de clientes pessoa juridica e dados públicos de empresas, com foco em qualidade, governança e integração ao ecossistema analítico corporativo.
 
 ### **2.0.2 - Escopo do Caso de Uso**
 
