@@ -79,7 +79,13 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 
 
 ## 5. Pipelines de Dados
-*Em desenvolvimento...*
+
+Pipeline responsável por capturar e armazenar dados públicos de empresas no Data Lake.
+
+**Nome:** `pipeline_ingest_dados_pj`
+**Periodicidade:** Mensal
+**Dia:** Último dia do mês
+**Horário:** 09:00
 
 ## 6. Resiliência dos Pipelines de Dados
 *Em desenvolvimento...*
