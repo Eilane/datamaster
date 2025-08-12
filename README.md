@@ -52,8 +52,8 @@ Publicar os dados da camada Gold em um banco de dados transacional, por meio de 
 
 <img width="788" height="588" alt="image" src="https://github.com/user-attachments/assets/c61f2c98-5fc6-41f0-87f3-aea69a1ee47c" />
 
-**Premissas:**
-SLA de retorno para que as informações voltem para o banco transacional **5** a **15** minutos após cadastro realizado na base. 
+**Premissa de SLA:**
+Após a gravação do cadastro na base de origem, o processo de integração deverá garantir que as informações estejam sincronizadas e disponíveis no banco transacional em um intervalo de 5 a 15 minutos. Este tempo compreende todo o fluxo de ingestão, processamento, enriquecimento e carga final, considerando condições normais de operação.
 
 ## 3. Arquitetura da Solução
 
