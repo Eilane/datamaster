@@ -82,9 +82,9 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 ### **5.0.1 - Azure Function** – `funcaoreceita`
 
 **Descrição:**  
-Função responsável por extrair, a partir do HTML do site  
+Função responsável por extrair todas as URLs válidas dos arquivos disponíveis para download, a partir do HTML do site:  
 `https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_month}/`,  
-todas as URLs válidas dos arquivos disponíveis para download.
+
 
 **Trigger:** HTTP  
 
