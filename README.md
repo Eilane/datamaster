@@ -57,15 +57,13 @@ Após a gravação do cadastro na base de origem, o processo de integração dev
 
 ## 3. Arquitetura da Solução
 
+### **3.0.1 Desenho de Arquitetura
 Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos diretamente de suas fontes de origem e integrados a uma arquitetura de dados Lakehouse na nuvem pública Microsoft Azure.
 
 <img width="1113" height="677" alt="image" src="https://github.com/user-attachments/assets/0bbeee58-61f0-4137-b51c-419693a669fe" />
 
 
-
-
-
-### **3.0.1 - Estrutura lógica das camadas do Data Lake**
+### **3.0.2 - Estrutura lógica das camadas do Data Lake**
 
 Os dados estão organizados no Data Lake conforme o padrão de design da arquitetura Medallion, que estrutura a informação em camadas lógicas (Bronze, Silver e Gold), foi adicionado a camada adicional "raw" que mantém os dados em seu formato original (csv,parquet,json). 
 
@@ -81,7 +79,7 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 
 ## 5. Funções e Pipelines de Dados
 
-**Azure Function** – `funcaoreceita`
+### **5.0.1 - Azure Function** – `funcaoreceita`
 
 **Descrição:**  
 Função responsável por extrair, a partir do HTML do site  
@@ -101,10 +99,9 @@ todas as URLs válidas dos arquivos disponíveis para download.
 <img width="1919" height="393" alt="image" src="https://github.com/user-attachments/assets/bb733d53-59b5-4b2b-8d13-8210a262e413" />
 
 
-
-**Extração de Dados públicos Empresa** – Pipeline responsável por capturar e armazenar dados públicos de empresas no Data Lake.
-
-**Nome:** `pipeline_ingest_dados_pj`
+### **5.0.2 - Pipeline de Dados** – `pipeline_ingest_dados_pj`
+**Descrição:**
+Pipeline responsável por capturar e armazenar dados públicos de empresas no Data Lake.
 
 **Periodicidade:** Mensal
 
@@ -119,11 +116,15 @@ todas as URLs válidas dos arquivos disponíveis para download.
 
 ## 6. Resiliência dos Pipelines de Dados
 
-**Pipeline: pipeline_ingest_dados_pj**
+### 6.0.1 - Pipeline: `pipeline_ingest_dados_pj`
 
-**Reprocessamento:**
-Informar de ano e mês a ser reprocessado. Caso não seja informado o pipeline irá considerar ano e mês atual.
+**Reprocessamento:**  
+O pipeline permite informar o ano e mês a serem reprocessados no formato `YYYY-MM`.  
+Caso nenhum valor seja fornecido, o pipeline utiliza automaticamente o ano e mês atuais.
 
+**Configuração de retomada (Retry):**  
+- Até 3 tentativas em caso de falha  
+- Intervalo de 60 segundos entre cada tentativa
 
 
 ## 7. Cadastro de Tabelas e Modelagem de Dados
