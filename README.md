@@ -120,9 +120,10 @@ todas as URLs válidas dos arquivos disponíveis para download.
 ## 6. Resiliência dos Pipelines de Dados
 
 **Pipeline: pipeline_ingest_dados_pj**
+
 **Reprocessamento:**
 Informar de ano e mês a ser reprocessado. Caso não seja informado o pipeline irá considerar ano e mês atual.
-<img width="1218" height="726" alt="image" src="https://github.com/user-attachments/assets/142a85db-610d-4922-b255-4c61833d5808" />
+
 
 
 ## 7. Cadastro de Tabelas e Modelagem de Dados
