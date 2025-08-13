@@ -57,7 +57,7 @@ Após a gravação do cadastro na base de origem, o processo de integração dev
 
 ## 3. Arquitetura da Solução
 
-### **3.0.1 Desenho de Arquitetura
+### **3.0.1 Desenho de Arquitetura**
 Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos diretamente de suas fontes de origem e integrados a uma arquitetura de dados Lakehouse na nuvem pública Microsoft Azure.
 
 <img width="1113" height="677" alt="image" src="https://github.com/user-attachments/assets/0bbeee58-61f0-4137-b51c-419693a669fe" />
