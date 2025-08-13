@@ -59,7 +59,8 @@ Após a gravação do cadastro na base de origem, o processo de integração dev
 
 Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos diretamente de suas fontes de origem e integrados a uma arquitetura de dados Lakehouse na nuvem pública Microsoft Azure.
 
-<img width="969" height="570" alt="image" src="https://github.com/user-attachments/assets/f09dcb16-bc17-44ef-96f8-b5a002492221" />
+<img width="1113" height="677" alt="image" src="https://github.com/user-attachments/assets/0bbeee58-61f0-4137-b51c-419693a669fe" />
+
 
 
 
@@ -78,7 +79,28 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 
 
 
-## 5. Pipelines de Dados
+## 5. Funções e Pipelines de Dados
+
+**Azure Function** – `funcaoreceita`
+
+**Descrição:**  
+Função responsável por extrair, a partir do HTML do site  
+`https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_month}/`,  
+todas as URLs válidas dos arquivos disponíveis para download.
+
+**Trigger:** HTTP  
+
+**Parâmetro de entrada:**  
+- `year_month` (formato `YYYY-MM`)  
+
+**Saída:**  
+- JSON contendo uma lista de URLs válidas para download dos arquivos.
+
+<img width="158" height="46" alt="image" src="https://github.com/user-attachments/assets/8b8165a0-706e-4112-97dd-341f49f27dac" />
+
+<img width="1919" height="393" alt="image" src="https://github.com/user-attachments/assets/bb733d53-59b5-4b2b-8d13-8210a262e413" />
+
+
 
 Pipeline responsável por capturar e armazenar dados públicos de empresas no Data Lake.
 
