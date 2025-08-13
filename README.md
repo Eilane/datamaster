@@ -92,6 +92,9 @@ Pipeline responsável por capturar e armazenar dados públicos de empresas no Da
 
 *OBS: Reprocessamento do Pipeline*
 
+<img width="1293" height="541" alt="image" src="https://github.com/user-attachments/assets/323366ff-233a-43cc-be49-2d1cb73b1dd2" />
+
+
 ## 6. Resiliência dos Pipelines de Dados
 *Em desenvolvimento...*
 
