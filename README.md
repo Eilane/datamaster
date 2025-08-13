@@ -102,7 +102,7 @@ todas as URLs válidas dos arquivos disponíveis para download.
 
 
 
-Pipeline responsável por capturar e armazenar dados públicos de empresas no Data Lake.
+**Extração de Dados públicos Empresa** – Pipeline responsável por capturar e armazenar dados públicos de empresas no Data Lake.
 
 **Nome:** `pipeline_ingest_dados_pj`
 
@@ -112,13 +112,18 @@ Pipeline responsável por capturar e armazenar dados públicos de empresas no Da
 
 **Horário:** 09:00
 
-*OBS: Reprocessamento do Pipeline*
+<img width="1186" height="600" alt="image" src="https://github.com/user-attachments/assets/c8b5e0aa-2154-4dc9-bce6-a80702ae8dff" />
 
-<img width="1293" height="541" alt="image" src="https://github.com/user-attachments/assets/323366ff-233a-43cc-be49-2d1cb73b1dd2" />
+
 
 
 ## 6. Resiliência dos Pipelines de Dados
-*Em desenvolvimento...*
+
+**Pipeline: pipeline_ingest_dados_pj**
+**Reprocessamento:**
+Informar de ano e mês a ser reprocessado. Caso não seja informado o pipeline irá considerar ano e mês atual.
+<img width="1218" height="726" alt="image" src="https://github.com/user-attachments/assets/142a85db-610d-4922-b255-4c61833d5808" />
+
 
 ## 7. Cadastro de Tabelas e Modelagem de Dados
 
