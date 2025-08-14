@@ -109,7 +109,8 @@ Pipeline responsável por capturar e armazenar dados públicos de empresas no Da
 
 **Horário:** 09:00
 
-<img width="1186" height="600" alt="image" src="https://github.com/user-attachments/assets/c8b5e0aa-2154-4dc9-bce6-a80702ae8dff" />
+<img width="1519" height="687" alt="image" src="https://github.com/user-attachments/assets/b6c55abc-7ebe-4626-ab37-cfc1ac6cfd30" />
+
 
 
 
