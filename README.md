@@ -32,28 +32,41 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 
 ### **2.0.2 - Escopo do Caso de Uso**
 
-**Obtenção de dados fictícios de clientes (PF):**
-Simular a ingestão de cadastros de clientes pessoa juridica pertencentes a uma empresa fictícia do setor de empréstimos.
+- **Obtenção de dados fictícios de clientes (PF):**  
+  Simular a ingestão de cadastros de clientes pessoa jurídica pertencentes a uma empresa fictícia do setor de empréstimos.
 
-**Integração com dados públicos de empresas (CNPJ):**
-Realizar a extração de dados públicos junto ao Ministério da Fazenda
+- **Integração com dados públicos de empresas (CNPJ):**  
+  Realizar a extração de dados públicos junto ao Ministério da Fazenda.
 
-**Armazenamento no Data Lake corporativo:**
-Persistir todos os dados obtidos nas no Data Lake.
+- **Armazenamento no Data Lake corporativo:**  
+  Persistir todos os dados obtidos no Data Lake.
 
-**Verificação da situação cadastral da empresa:**
-Validar se a empresa encontra-se em situação ativa, inativa, inapta ou baixada.
+- **Verificação da situação cadastral da empresa:**  
+  Validar se a empresa encontra-se em situação ativa, inativa, inapta ou baixada.
 
-**Análise de possíveis irregularidades:**
-Executar regras e validações para identificar possíveis inconsistências ou comportamentos suspeitos nos dados de CNPJ.
+- **Análise de possíveis irregularidades:**  
+  Executar regras e validações para identificar possíveis inconsistências ou comportamentos suspeitos nos dados de CNPJ.
 
-**Disponibilização via Banco de Dados Transacional (ELT reverso):**
-Publicar os dados da camada Gold em um banco de dados transacional, por meio de ELT reverso, otimizando o consumo por aplicações analíticas.
+- **Disponibilização via Banco de Dados Transacional (ELT reverso):**  
+  Publicar os dados da camada Gold em um banco de dados transacional, por meio de ELT reverso, otimizando o consumo por aplicações analíticas.
+
+### **2.0.3 - Diagrama do Caso de Uso**
 
 <img width="788" height="588" alt="image" src="https://github.com/user-attachments/assets/c61f2c98-5fc6-41f0-87f3-aea69a1ee47c" />
 
-**Premissa de SLA:**
+### **2.0.4 - Premissas do Projeto**
+
+**SLA:**
 Após a gravação do cadastro na base de origem, o processo de integração deverá garantir que as informações estejam sincronizadas e disponíveis no banco transacional em um intervalo de 5 a 15 minutos. Este tempo compreende todo o fluxo de ingestão, processamento, enriquecimento e carga final, considerando condições normais de operação.
+
+### 2.0.5 - Riscos Operacionais Mapeados na Utilização de Dados Públicos
+
+| Risco                                                        | Impacto Potencial                                                                 | Estratégia de Mitigação                                                                                  |
+|--------------------------------------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| Alteração no layout da página sem comunicação prévia         | Interrupção na extração automática dos dados, causando falhas no pipeline         | Implementar validação de estrutura HTML antes do processamento e configurar alertas para mudanças         |
+| Modificações na estrutura dos datasets sem aviso prévio      | Erros na transformação e carga dos dados, podendo gerar inconsistências           | Criar camada de mapeamento dinâmico e rotinas de verificação de schema                                    |
+| Presença de dados duplicados nos arquivos disponibilizados   | Aumento de volume armazenado e risco de análises incorretas                        | Aplicar deduplicação durante o processamento e criar relatórios de controle                              |
+
 
 ## 3. Arquitetura da Solução
 
