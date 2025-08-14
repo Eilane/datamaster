@@ -1,0 +1,38 @@
+{
+    "name": "trigger_mensal",
+    "properties": {
+        "annotations": [],
+        "runtimeState": "Stopped",
+        "pipelines": [
+            {
+                "pipelineReference": {
+                    "referenceName": "pipeline_ingest_dados_pj",
+                    "type": "PipelineReference"
+                },
+                "parameters": {
+                    "year_month": "0"
+                }
+            }
+        ],
+        "type": "ScheduleTrigger",
+        "typeProperties": {
+            "recurrence": {
+                "frequency": "Month",
+                "interval": 1,
+                "startTime": "2025-08-13T21:16:00Z",
+                "timeZone": "UTC",
+                "schedule": {
+                    "minutes": [
+                        0
+                    ],
+                    "hours": [
+                        9
+                    ],
+                    "monthDays": [
+                        -1
+                    ]
+                }
+            }
+        }
+    }
+}

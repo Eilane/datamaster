@@ -1,0 +1,31 @@
+{
+    "name": "ds_binary_gen2",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "linked_gen2",
+            "type": "LinkedServiceReference"
+        },
+        "parameters": {
+            "folder_raw": {
+                "type": "string"
+            }
+        },
+        "annotations": [],
+        "type": "Binary",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "folderPath": {
+                    "value": "@dataset().folder_raw",
+                    "type": "Expression"
+                },
+                "fileSystem": "raw"
+            },
+            "compression": {
+                "type": "ZipDeflate",
+                "level": "Optimal"
+            }
+        }
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}

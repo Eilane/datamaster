@@ -1,0 +1,32 @@
+{
+    "name": "ds_binary_http",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "link_http",
+            "type": "LinkedServiceReference",
+            "parameters": {
+                "base_url": {
+                    "value": "@dataset().base_url",
+                    "type": "Expression"
+                }
+            }
+        },
+        "parameters": {
+            "base_url": {
+                "type": "string"
+            }
+        },
+        "annotations": [],
+        "type": "Binary",
+        "typeProperties": {
+            "location": {
+                "type": "HttpServerLocation"
+            },
+            "compression": {
+                "type": "ZipDeflate",
+                "level": "Fastest"
+            }
+        }
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}
