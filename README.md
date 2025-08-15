@@ -108,10 +108,6 @@ Função responsável por extrair todas as URLs válidas dos arquivos disponíve
 **Saída:**  
 - JSON contendo uma lista de URLs válidas para download dos arquivos.
 
-<img width="158" height="46" alt="image" src="https://github.com/user-attachments/assets/8b8165a0-706e-4112-97dd-341f49f27dac" />
-
-<img width="1919" height="393" alt="image" src="https://github.com/user-attachments/assets/bb733d53-59b5-4b2b-8d13-8210a262e413" />
-
 
 ### **5.0.2 - Pipeline de Dados** – `pipeline_ingest_dados_pj`
 **Descrição:**
@@ -123,7 +119,8 @@ Pipeline responsável por capturar e armazenar dados públicos de empresas no Da
 
 **Horário:** 09:00
 
-<img width="1519" height="687" alt="image" src="https://github.com/user-attachments/assets/b6c55abc-7ebe-4626-ab37-cfc1ac6cfd30" />
+<img width="1109" height="397" alt="image" src="https://github.com/user-attachments/assets/52831e40-df37-4d4c-9333-34a8f0b6e100" />
+
 
 
 
