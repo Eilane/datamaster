@@ -80,7 +80,7 @@ Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos dir
 
 Os dados estão organizados no Data Lake conforme o padrão de design da arquitetura Medallion, que estrutura a informação em camadas lógicas (Bronze, Silver e Gold), foi adicionado a camada adicional "raw" que mantém os dados em seu formato original (csv,parquet,json). 
 
-<img width="688" height="661" alt="image" src="https://github.com/user-attachments/assets/6dbc4699-b20c-4b0e-93f5-2ec324ed0401" />
+<img width="655" height="554" alt="image" src="https://github.com/user-attachments/assets/089b3c73-b7e7-4bde-8b69-5833d2c3c55d" />
 
 
 ### 3.0.3 – Comunicação e Integração dos Recursos
