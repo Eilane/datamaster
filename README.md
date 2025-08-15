@@ -85,7 +85,8 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 
 ## 4. Monitoramento e Observabilidade
 
-<img width="803" height="568" alt="image" src="https://github.com/user-attachments/assets/e8cd5087-21fb-45d6-864c-21e12cbc5ed0" />
+<img width="880" height="574" alt="image" src="https://github.com/user-attachments/assets/ace1b207-fd1f-40b9-ba84-48a967acab0a" />
+
 
 
 
