@@ -1,4 +1,4 @@
-# Data Master - Integração de Dados Clientes PJ
+# Integração de Dados Clientes PJ
 
 ## Sumário
 
@@ -70,17 +70,20 @@ Após a gravação do cadastro na base de origem, o processo de integração dev
 
 ## 3. Arquitetura da Solução
 
-### **3.0.1 Desenho de Arquitetura**
+### 3.0.1 Desenho de Arquitetura
 Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos diretamente de suas fontes de origem e integrados a uma arquitetura de dados Lakehouse na nuvem pública Microsoft Azure.
 
 <img width="1113" height="677" alt="image" src="https://github.com/user-attachments/assets/0bbeee58-61f0-4137-b51c-419693a669fe" />
 
 
-### **3.0.2 - Estrutura lógica das camadas do Data Lake**
+### 3.0.2 - Estrutura lógica das camadas do Data Lake
 
 Os dados estão organizados no Data Lake conforme o padrão de design da arquitetura Medallion, que estrutura a informação em camadas lógicas (Bronze, Silver e Gold), foi adicionado a camada adicional "raw" que mantém os dados em seu formato original (csv,parquet,json). 
 
 <img width="575" height="487" alt="image" src="https://github.com/user-attachments/assets/f96555a8-8d81-4688-846c-e88f119a6362" />
+
+### 3.0.3 – Comunicação e Integração dos Recursos
+<img width="1010" height="576" alt="image" src="https://github.com/user-attachments/assets/2aed2158-040d-4306-8ca9-75a1a505fb5e" />
 
 
 ## 4. Monitoramento e Observabilidade
