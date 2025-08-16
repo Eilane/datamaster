@@ -26,10 +26,10 @@ A solução será focada na disponibilização de dados com **alta qualidade**, 
 
 ## 2. Caso de Uso
 
-**Empresa:** CrediFácil Brasil *(fictícia)*
-
 ### **2.0.1 - Integração de Dados Clientes PJ**
 
+**Empresa:** CrediFácil Brasil *(fictícia)*
+**Projeto: ** Integração de Dados clientes PJ
 Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públicos de empresas com uma base da receita federal, com foco em qualidade, governança e integração ao ecossistema analítico corporativo.
 
 ### **2.0.2 - Escopo do Caso de Uso**
