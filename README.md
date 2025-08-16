@@ -60,7 +60,7 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 ### **2.0.4 - Premissas do Projeto**
 
 **SLA:**
-Após a gravação do cadastro na base de origem, o processo de integração deverá garantir que as informações estejam sincronizadas e disponíveis no banco transacional em um intervalo de 5 a 15 minutos. Este tempo compreende todo o fluxo de ingestão, processamento, enriquecimento e carga final, considerando condições normais de operação.
+Após a criação do cadastro cliente PJ no sistema de crédito, o processo de integração deverá garantir que as informações públicas coletadas sejam sincronizadas e disponibilizadas no banco transacional em um intervalo de **5** a **15 minutos**. Este tempo compreende todo o fluxo de ingestão, processamento, enriquecimento e carga final, considerando condições normais de operação.
 
 ### 2.0.5 - Riscos Operacionais Mapeados na Utilização de Dados Públicos
 
