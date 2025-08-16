@@ -1,5 +1,5 @@
 {
-    "name": "ds_binary_gen2",
+    "name": "ds_binario_datalake",
     "properties": {
         "linkedServiceName": {
             "referenceName": "linked_gen2",
@@ -20,12 +20,7 @@
                     "type": "Expression"
                 },
                 "fileSystem": "raw"
-            },
-            "compression": {
-                "type": "ZipDeflate",
-                "level": "Optimal"
             }
         }
-    },
-    "type": "Microsoft.DataFactory/factories/datasets"
+    }
 }

@@ -72,7 +72,7 @@
                                         "type": "BinaryReadSettings",
                                         "compressionProperties": {
                                             "type": "ZipDeflateReadSettings",
-                                            "preserveZipFileNameAsFolder": true
+                                            "preserveZipFileNameAsFolder": false
                                         }
                                     }
                                 },
@@ -102,11 +102,11 @@
                             ],
                             "outputs": [
                                 {
-                                    "referenceName": "ds_binary_gen2",
+                                    "referenceName": "ds_binario_datalake",
                                     "type": "DatasetReference",
                                     "parameters": {
                                         "folder_raw": {
-                                            "value": "@concat(variables('path'),'/',variables('year_month'),'/')",
+                                            "value": "@concat(variables('path'),variables('year_month'))",
                                             "type": "Expression"
                                         }
                                     }
@@ -154,11 +154,11 @@
                 "userProperties": [],
                 "typeProperties": {
                     "dataset": {
-                        "referenceName": "ds_binary_gen2",
+                        "referenceName": "ds_binario_datalake",
                         "type": "DatasetReference",
                         "parameters": {
                             "folder_raw": {
-                                "value": "@concat(variables('path'),'/',variables('year_month'))",
+                                "value": "@concat(variables('path'),variables('year_month'))",
                                 "type": "Expression"
                             }
                         }
@@ -184,15 +184,11 @@
             },
             "path": {
                 "type": "String",
-                "defaultValue": "pj"
-            },
-            "url_base": {
-                "type": "String",
-                "defaultValue": "https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/"
+                "defaultValue": "receitafederal/pj/"
             }
         },
         "annotations": [],
-        "lastPublishTime": "2025-08-12T22:37:04Z"
+        "lastPublishTime": "2025-08-15T21:59:11Z"
     },
     "type": "Microsoft.DataFactory/factories/pipelines"
 }
