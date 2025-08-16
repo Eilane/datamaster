@@ -84,9 +84,7 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 
 
 ### 3.0.3 – Comunicação e Integração dos Recursos
-<img width="1076" height="668" alt="image" src="https://github.com/user-attachments/assets/7a19c33b-6ec9-4705-a1db-3a3d8c933118" />
-
-
+<img width="1073" height="660" alt="image" src="https://github.com/user-attachments/assets/18ee2f7c-c7e0-411e-93ff-a1b0d3d989fd" />
 
 
 ## 4. Monitoramento e Observabilidade
