@@ -27,7 +27,7 @@ module "storage_account" {
 }
 
 # Criação do Data Lake Gen 2
-module "functions" {
+module "functions_app" {
   source = "./modules/functions"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
