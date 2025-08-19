@@ -197,6 +197,8 @@ https://azure.microsoft.com/en-us/blog/microsoft-named-a-leader-in-2024-gartner-
 
 terraform -> 
 https://www.youtube.com/watch?v=YlY9WMURc50&t=661s  
+
+Azure Provider  
 https://registry.terraform.io/providers/hashicorp/azurerm/4.39.0/docs  
 
 https://www.youtube.com/watch?v=YwloG_qq5aA  -> Módulos no terraform
