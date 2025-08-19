@@ -194,7 +194,10 @@ https://www.gartner.com/reviews/market/cloud-database-management-systems/compare
 https://www.databricks.com/blog/databricks-named-leader-2025-gartner-magic-quadrant-data-science-and-machine-learning
 https://azure.microsoft.com/en-us/blog/microsoft-named-a-leader-in-2024-gartner-magic-quadrant-for-integration-platform-as-a-service/
 
-https://learn.microsoft.com/pt-br/azure/databricks/delta/custom-metadata
+
+terraform -> 
+https://www.youtube.com/watch?v=YlY9WMURc50&t=661s
+https://registry.terraform.io/providers/hashicorp/azurerm/4.39.0/docs  
 
 
 
