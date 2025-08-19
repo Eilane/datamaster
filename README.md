@@ -199,5 +199,8 @@ terraform ->
 https://www.youtube.com/watch?v=YlY9WMURc50&t=661s  
 https://registry.terraform.io/providers/hashicorp/azurerm/4.39.0/docs  
 
+https://www.youtube.com/watch?v=YwloG_qq5aA  -> Módulos no terraform
+https://registry.terraform.io/modules/Azure/naming/azurerm/latest#output_data_factory
+
 
 
