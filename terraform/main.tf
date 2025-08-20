@@ -36,8 +36,40 @@ module "functions_app" {
 }
 
 # Criação do Data Factory
-module "storage_account" {
+module "data_factory" {
   source = "./modules/data_factory"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
 }
+
+# Criação do AKS
+module "aks" {
+  source = "./modules/aks"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+}
+
+# Criação do container registry
+module "container_registry" {
+  source = "./modules/container_registry"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+}
+
+# Criação do event hub
+module "event_hub" {
+  source = "./modules/event_hub"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+}
+
+# Criação do postgresql
+module "postgresql" {
+  source = "./modules/postgresql"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+}
+
+# Criação do SPN
+
+# Criação de roles
