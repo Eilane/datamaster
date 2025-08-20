@@ -169,7 +169,30 @@ Caso nenhum valor seja fornecido, o pipeline utiliza automaticamente o ano e mê
 *Em desenvolvimento...*
 
 ## 11. Solução Técnica
-*Em desenvolvimento...*
+
+### 11.0.1 Pré-requisitos
+
+- **Assinatura do Azure** com permissões administrativas  
+- **Azure CLI**: [Instalar](https://aka.ms/installazurecliwindows) → depois faça a autenticação com `az login`  
+- **Terraform**: [Download](https://www.terraform.io/downloads.html)  
+- **Visual Studio Code**: [Download](https://code.visualstudio.com/download)  
+  - Extensões recomendadas:  
+    - **Azure Resources**  
+    - **Microsoft Terraform**  
+    - **HashiCorp Terraform**  
+
+---
+
+### 11.0.2 Passo a passo
+
+1. **Instalar o Terraform** e configurar a variável de ambiente apontando para o executável.  
+2. **Executar os comandos abaixo na raiz do projeto Terraform**:
+
+   ```bash
+   terraform init       # Inicializa os providers e módulos
+   az login             # Autentica na conta Azure
+   terraform plan       # Mostra o que será criado/alterado
+   terraform apply      # Aplica as mudanças na Azure
 
 ## 12. Análise das Tecnologias Escolhidas
 
