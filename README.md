@@ -173,7 +173,7 @@ Caso nenhum valor seja fornecido, o pipeline utiliza automaticamente o ano e mê
 ### 11.0.1 Pré-requisitos
 
 - **Assinatura do Azure** com permissões administrativas  
-- **Azure CLI**: [Instalar](https://aka.ms/installazurecliwindows) → depois faça a autenticação com `az login`  
+- **Azure CLI**: [Instalar](https://aka.ms/installazurecliwindows) 
 - **Terraform**: [Download](https://www.terraform.io/downloads.html)  
 - **Visual Studio Code**: [Download](https://code.visualstudio.com/download)  
   - Extensões recomendadas:  
