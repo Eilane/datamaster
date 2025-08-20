@@ -76,7 +76,7 @@ Após a criação do cadastro cliente PJ no sistema de crédito, o processo de i
 ### 3.0.1 Desenho de Arquitetura
 Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos diretamente de suas fontes de origem e integrados a uma arquitetura de dados Lakehouse na nuvem pública Microsoft Azure.
 
-<img width="1113" height="677" alt="image" src="https://github.com/user-attachments/assets/0bbeee58-61f0-4137-b51c-419693a669fe" />
+<img width="740" height="419" alt="image" src="https://github.com/user-attachments/assets/c926d01d-fdd1-4a43-9016-1abdfb6d3e6e" />
 
 
 ### 3.0.2 - Estrutura lógica das camadas do Data Lake
