@@ -22,5 +22,6 @@
                 "fileSystem": "raw"
             }
         }
-    }
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
 }

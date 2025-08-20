@@ -1,5 +1,6 @@
 {
     "name": "link_http",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
     "properties": {
         "parameters": {
             "base_url": {
@@ -13,6 +14,5 @@
             "enableServerCertificateValidation": true,
             "authenticationType": "Anonymous"
         }
-    },
-    "type": "Microsoft.DataFactory/factories/linkedservices"
+    }
 }

@@ -2,7 +2,7 @@
     "name": "trigger_mensal",
     "properties": {
         "annotations": [],
-        "runtimeState": "Stopped",
+        "runtimeState": "Started",
         "pipelines": [
             {
                 "pipelineReference": {

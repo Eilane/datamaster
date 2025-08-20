@@ -10,7 +10,7 @@ resource "azurerm_service_plan" "asprcemp" {
 
 # Function App
 resource "azurerm_linux_function_app" "funcrcemp" {
-  name                       = "func-rcemp"
+  name                       = "funcreceitaemp"
   location                   = var.location
   resource_group_name        = var.resource_group_name
   service_plan_id            = azurerm_service_plan.asprcemp.id
@@ -19,7 +19,7 @@ resource "azurerm_linux_function_app" "funcrcemp" {
 
   site_config {
     application_stack {
-      python_version = "3.11"
+      python_version = "3.9"
     }
   }
 
