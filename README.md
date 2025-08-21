@@ -71,7 +71,7 @@ Após a criação do cadastro cliente PJ no sistema de crédito, o processo de i
 | Presença de dados duplicados nos arquivos disponibilizados   | Aumento de volume armazenado e risco de análises incorretas                        | Aplicar deduplicação durante o processamento e criar relatórios de controle                              |
 
 
-## 3. Arquitetura da Solução
+## 3. Arquitetura
 
 ### 3.0.1 Desenho de Arquitetura
 Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos diretamente de suas fontes de origem e integrados a uma arquitetura de dados Lakehouse na nuvem pública Microsoft Azure.
@@ -88,9 +88,11 @@ As informações de auditoria, monitoramento e qualidade foram separadas dos dad
 <img width="655" height="554" alt="image" src="https://github.com/user-attachments/assets/089b3c73-b7e7-4bde-8b69-5833d2c3c55d" />
 
 
-### 3.0.3 – Comunicação dos Recursos
+### 3.0.3 – Integração dos Recursos com o Data Lake Gen2
 <img width="1073" height="660" alt="image" src="https://github.com/user-attachments/assets/18ee2f7c-c7e0-411e-93ff-a1b0d3d989fd" />
 
+
+### 3.0.4 – Estrutura Lógica de Pastas Terraform
 
 ## 4. Monitoramento e Observabilidade
 
