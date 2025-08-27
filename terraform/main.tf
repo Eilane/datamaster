@@ -2,24 +2,29 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.0.0"
+      version = ">= 3.100.0"
     }
   }
 }
 
 # Configuração do Provider Microsoft Azure 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+}
+  }
+  subscription_id = "afa062dd-7f7d-4b41-8507-740ae10005ef"
 }
 
-# Criação do Grupo de Recurso 
+# Criação do Grupo de Recurso  
 resource "azurerm_resource_group" "rg" {
   name     = "rgprdcfacilbr"
-  location = "West US 2"
+  location = "westus2"
 }
 
 
-# Criação do Data Lake Gen 2
+#Criação do Data Lake Gen 2
 module "storage_account" {
   source = "./modules/storage_account"
   resource_group_name      = azurerm_resource_group.rg.name
@@ -27,20 +32,23 @@ module "storage_account" {
 }
 
 # Criação do Data Lake Gen 2
-module "functions_app" {
-  source = "./modules/functions_app"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-  storage_account_name     = module.storage_account.storage_account_name
-  primary_access_key       = module.storage_account.primary_access_key
-}
+# module "functions_app" {
+#   source = "./modules/functions_app"
+#   resource_group_name      = azurerm_resource_group.rg.name
+#   location                 = azurerm_resource_group.rg.location
+#   storage_account_name     = module.storage_account.storage_account_name
+#   primary_access_key       = module.storage_account.primary_access_key
+# }
 
 # Criação do Data Factory
-module "data_factory" {
-  source = "./modules/data_factory"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-}
+# module "data_factory" {
+#   source = "./modules/data_factory"
+#   resource_group_name      = azurerm_resource_group.rg.name
+#   location                 = azurerm_resource_group.rg.location
+# }
+
+
+################ EVENTOS ################
 
 # Criação do AKS
 module "aks" {
@@ -56,14 +64,15 @@ module "container_registry" {
   location                 = azurerm_resource_group.rg.location
 }
 
-# Criação do event hub
+# # Criação do event hub
 module "event_hub" {
   source = "./modules/event_hub"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
+  storage_account_id       = module.storage_account.storage_account_id
 }
 
-# Criação do postgresql
+# # Criação do postgresql
 module "postgresql" {
   source = "./modules/postgresql"
   resource_group_name      = azurerm_resource_group.rg.name

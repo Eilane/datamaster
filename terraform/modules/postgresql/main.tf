@@ -18,13 +18,27 @@ resource "azurerm_postgresql_flexible_server" "postgres" {
 }
 
 resource "azurerm_postgresql_flexible_server_database" "postgresdb" {
-  name      = "db_clientes_pj"
+  name      = "clientes"
   server_id = azurerm_postgresql_flexible_server.postgres.id
   collation = "en_US.utf8"
   charset   = "UTF8"
+}
 
-  # prevent the possibility of accidental data loss
-  lifecycle {
-    prevent_destroy = true
-  }
+
+resource "azurerm_postgresql_flexible_server_configuration" "wal_level" {
+  name                = "wal_level"
+  server_id = azurerm_postgresql_flexible_server.postgres.id
+  value               = "logical"
+}
+
+resource "azurerm_postgresql_flexible_server_configuration" "max_replication_slots" {
+  name                = "max_replication_slots"
+  server_id = azurerm_postgresql_flexible_server.postgres.id
+  value               = "10"
+}
+
+resource "azurerm_postgresql_flexible_server_configuration" "max_wal_senders" {
+  name                = "max_wal_senders"
+  server_id = azurerm_postgresql_flexible_server.postgres.id
+  value               = "10"
 }
