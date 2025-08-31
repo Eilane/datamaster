@@ -7,3 +7,8 @@ variable "location" {
   description = "Localização do recurso"
   type        = string
 }
+
+variable "storage_account_name" {
+  description = "Nome Storage Account"
+  type        = string
+}
