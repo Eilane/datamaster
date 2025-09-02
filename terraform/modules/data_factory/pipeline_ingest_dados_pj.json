@@ -1,0 +1,194 @@
+{
+    "name": "pipeline_ingest_dados_pj",
+    "properties": {
+        "activities": [
+            {
+                "name": "GetZipUrls",
+                "type": "WebActivity",
+                "dependsOn": [
+                    {
+                        "activity": "clear year and month folder",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 3,
+                    "retryIntervalInSeconds": 60,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "method": "GET",
+                    "url": {
+                        "value": "@concat(\n    'https://funcaoreceita-gnhjdvb3bfcsbve6.westus2-01.azurewebsites.net/api/receitadadospj?year_month=',\n    variables('year_month')\n)",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "ForEach",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "GetZipUrls",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@json(activity('GetZipUrls').output.Response)",
+                        "type": "Expression"
+                    },
+                    "batchCount": 10,
+                    "activities": [
+                        {
+                            "name": "copy",
+                            "description": "Extração de dados públicos de empresas da receita federal ",
+                            "type": "Copy",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 3,
+                                "retryIntervalInSeconds": 60,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "BinarySource",
+                                    "storeSettings": {
+                                        "type": "HttpReadSettings",
+                                        "requestMethod": "GET"
+                                    },
+                                    "formatSettings": {
+                                        "type": "BinaryReadSettings",
+                                        "compressionProperties": {
+                                            "type": "ZipDeflateReadSettings",
+                                            "preserveZipFileNameAsFolder": false
+                                        }
+                                    }
+                                },
+                                "sink": {
+                                    "type": "BinarySink",
+                                    "storeSettings": {
+                                        "type": "AzureBlobFSWriteSettings",
+                                        "copyBehavior": {
+                                            "value": "None",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                },
+                                "enableStaging": false
+                            },
+                            "inputs": [
+                                {
+                                    "referenceName": "ds_binary_http",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "base_url": {
+                                            "value": "@item()",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                }
+                            ],
+                            "outputs": [
+                                {
+                                    "referenceName": "ds_binario_datalake",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "folder_raw": {
+                                            "value": "@concat(variables('path'),variables('year_month'))",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Set variable year_month",
+                "type": "SetVariable",
+                "dependsOn": [],
+                "policy": {
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "year_month",
+                    "value": {
+                        "value": "@if(\n        equals(pipeline().parameters.year_month, 'YYYY-MM'),\n        formatDateTime(utcNow(), 'yyyy-MM'),\n        pipeline().parameters.year_month\n    )",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "clear year and month folder",
+                "type": "Delete",
+                "dependsOn": [
+                    {
+                        "activity": "Set variable year_month",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "dataset": {
+                        "referenceName": "ds_binario_datalake",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "folder_raw": {
+                                "value": "@concat(variables('path'),variables('year_month'))",
+                                "type": "Expression"
+                            }
+                        }
+                    },
+                    "enableLogging": false,
+                    "storeSettings": {
+                        "type": "AzureBlobFSReadSettings",
+                        "recursive": true,
+                        "enablePartitionDiscovery": false
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "year_month": {
+                "type": "String",
+                "defaultValue": "YYYY-MM"
+            }
+        },
+        "variables": {
+            "year_month": {
+                "type": "String"
+            },
+            "path": {
+                "type": "String",
+                "defaultValue": "receitafederal/pj/"
+            }
+        },
+        "annotations": [],
+        "lastPublishTime": "2025-08-16T20:08:21Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

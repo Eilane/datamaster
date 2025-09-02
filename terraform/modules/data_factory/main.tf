@@ -78,3 +78,29 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
 
   activities_json = file("${path.module}/pipeline_ingest_dados_pj.json")
 }
+
+
+resource "azurerm_data_factory_trigger_schedule" "trigger_mensal" {
+  name            = "trigger_mensal"
+  data_factory_id = azurerm_data_factory.adf.id
+
+  frequency = "Month"
+  interval  = 1
+
+  start_time = "2025-08-13T21:16:00Z"
+  time_zone  = "UTC"
+
+  schedule {
+    minutes    = [0]
+    hours      = [9]
+    days_of_month = [-1] # -1 = último dia do mês
+  }
+
+  pipeline {
+    name = azurerm_data_factory_pipeline.pipeline_ingest_dados_pj.name
+
+    parameters = {
+      year_month = "0"
+    }
+  }
+}

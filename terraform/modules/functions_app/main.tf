@@ -10,17 +10,24 @@ resource "azurerm_service_plan" "asprcemp" {
 
 # Function App
 resource "azurerm_linux_function_app" "funcrcemp" {
-  name                       = "funcreceitaemp"
-  location                   = var.location
-  resource_group_name        = var.resource_group_name
-  service_plan_id            = azurerm_service_plan.asprcemp.id
-  storage_account_name       = var.storage_account_name
-  storage_account_access_key = var.primary_access_key
+  name                = "funcreceitaemp"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  service_plan_id     = azurerm_service_plan.asprcemp.id
+
+  identity {
+    type = "SystemAssigned"
+  }
 
   site_config {
     application_stack {
       python_version = "3.9"
     }
   }
+}
 
+resource "azurerm_role_assignment" "funcrcemp_storage" {
+  scope                = azurerm_storage_account.example.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_linux_function_app.funcrcemp.identity[0].principal_id
 }
