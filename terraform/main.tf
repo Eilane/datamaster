@@ -32,53 +32,63 @@ module "storage_account" {
 }
 
 # Criação do Data Lake Gen 2
-# module "functions_app" {
-#   source = "./modules/functions_app"
-#   resource_group_name      = azurerm_resource_group.rg.name
-#   location                 = azurerm_resource_group.rg.location
-#   storage_account_name     = module.storage_account.storage_account_name
-#   primary_access_key       = module.storage_account.primary_access_key
-# }
-
-# Criação do Data Factory
-# module "data_factory" {
-#   source = "./modules/data_factory"
-#   resource_group_name      = azurerm_resource_group.rg.name
-#   location                 = azurerm_resource_group.rg.location
-# }
-
-
-################ EVENTOS ################
-
-# Criação do AKS
-module "aks" {
-  source = "./modules/aks"
+module "functions_app" {
+  source = "./modules/functions_app"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
+  storage_account_name     = module.storage_account.storage_account_name
+  storage_account_id =   module.storage_account.storage_account_id
 }
 
-# Criação do container registry
-module "container_registry" {
-  source = "./modules/container_registry"
+#Criação do Data Factory
+module "data_factory" {
+  source = "./modules/data_factory"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
-}
-
-# # Criação do event hub
-module "event_hub" {
-  source = "./modules/event_hub"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
+  storage_account_name     = module.storage_account.storage_account_name
   storage_account_id       = module.storage_account.storage_account_id
 }
 
-# # Criação do postgresql
-module "postgresql" {
-  source = "./modules/postgresql"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
+
+#Criação do Databricks
+module "databricks" {
+  source = "./modules/databricks"
+  resource_group_name = azurerm_resource_group.rg.name
+  location =  azurerm_resource_group.rg.location
+  storage_account_name     = module.storage_account.storage_account_name
+  storage_account_id       = module.storage_account.storage_account_id
 }
 
-# Criação do SPN
+################ EVENTOS ################
 
-# Criação de roles
+# # Criação do AKS
+# module "aks" {
+#   source = "./modules/aks"
+#   resource_group_name      = azurerm_resource_group.rg.name
+#   location                 = azurerm_resource_group.rg.location
+# }
+
+# # Criação do container registry
+# module "container_registry" {
+#   source = "./modules/container_registry"
+#   resource_group_name      = azurerm_resource_group.rg.name
+#   location                 = azurerm_resource_group.rg.location
+# }
+
+# # # Criação do event hub
+# module "event_hub" {
+#   source = "./modules/event_hub"
+#   resource_group_name      = azurerm_resource_group.rg.name
+#   location                 = azurerm_resource_group.rg.location
+#   storage_account_id       = module.storage_account.storage_account_id
+# }
+
+
+# # SQL
+# module "azure_sql" {
+#   source = "./modules/azure_sql"
+#   resource_group_name      = azurerm_resource_group.rg.name
+#   location                 = azurerm_resource_group.rg.location
+# }
+
+

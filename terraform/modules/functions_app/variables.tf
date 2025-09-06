@@ -13,7 +13,8 @@ variable "storage_account_name" {
   type        = string
 }
 
-variable "primary_access_key" {
-  description = "Chave de acesso"
+
+variable "storage_account_id" {
+  description = "Id Storage Account"
   type        = string
 }

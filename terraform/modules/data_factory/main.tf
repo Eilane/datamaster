@@ -2,6 +2,17 @@ resource "azurerm_data_factory" "adf" {
   name                = "adfcfacilbr"
   location            = var.location
   resource_group_name = var.resource_group_name
+
+  identity {
+    type = "SystemAssigned"
+  }
+}
+
+# Role Assignment: dá permissão de Blob Data Contributor 
+resource "azurerm_role_assignment" "dbw_storage_contributor" {
+  scope                =  var.storage_account_id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_data_factory.adf.identity[0].principal_id
 }
 
 # Linked Service HTTP
@@ -57,7 +68,7 @@ resource "azurerm_data_factory_dataset_binary" "ds_binary_http" {
   name            = "ds_binary_http"
   data_factory_id = azurerm_data_factory.adf.id
 
-  linked_service_name = azurerm_data_factory_linked_service.link_http.name
+  linked_service_name = azurerm_data_factory_linked_service_web.http_link.name
 
   # parâmetros do dataset
   parameters = {

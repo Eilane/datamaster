@@ -1,19 +1,27 @@
-# Databricks Workspace Standard + System-assigned MI
+# Databricks Workspace Standard
 resource "azurerm_databricks_workspace" "adb" {
   name                = "adb-cfacilbr"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
+  resource_group_name = var.resource_group_name
+  location            = var.location
   sku                 = "trial"
-
-  # Managed Identity:
-  customer_managed_key_enabled  = true
 }
 
-# Role Assignment: dá permissão de Blob Data Contributor ao Databricks
+# Databricks Access Connector com Managed Identity
+resource "azurerm_databricks_access_connector" "adb_connector" {
+  name                = "adb-connector"
+  resource_group_name = var.resource_group_name
+  location            = var.location
+
+  identity {
+    type = "SystemAssigned"
+  }
+}
+
+# Role Assignment: Blob Data Contributor
 resource "azurerm_role_assignment" "dbw_storage_contributor" {
-  scope                =  var.storage_account_id
+  scope                = var.storage_account_id
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azurerm_databricks_workspace.adb.identity[0].principal_id
+  principal_id         = azurerm_databricks_access_connector.adb_connector.identity[0].principal_id
 }
 
 # -------------------------------------------------
@@ -41,6 +49,23 @@ resource "databricks_metastore_assignment" "assign_uc" {
   metastore_id = databricks_metastore.uc_metastore.id
 }
 
+
+
+# -------------------------------------------------
+# Catálogo "credito"
+# -------------------------------------------------
+resource "databricks_catalog" "credito" {
+  name        = "credito"
+  comment     = "Catálogo para área de concessão de crédito"
+  properties = {
+  purpose    = "credit-operations"   # finalidades do catálogo
+  owner_team = "squad-credito"       # equipe responsável
+  sensitivity = "high"               # nível de sensibilidade dos dados
+}
+  metastore_id = databricks_metastore.uc_metastore.id
+}
+
+
 # -------------------------------------------------
 # Cluster Single-Node
 # -------------------------------------------------
@@ -54,4 +79,49 @@ resource "databricks_cluster" "single_node" {
     min_workers = 1
     max_workers = 1
   }
+}
+
+
+# -------------------------------------------------
+# Criação dos schemas
+# -------------------------------------------------
+
+
+# -------------------------------------------------
+# Schemas Bronze
+# -------------------------------------------------
+resource "databricks_schema" "b_rf_empresas" {
+  name         = "b_rf_empresas"
+  catalog_name = databricks_catalog.credito.name
+  comment      = "[Bronze] Dados brutos da Receita Federal sobre empresas registradas"
+}
+
+resource "databricks_schema" "b_cfacil_credito" {
+  name         = "b_cfacil_credito"
+  catalog_name = databricks_catalog.credito.name
+  comment      = "[Bronze] Dados brutos de clientes PJ do sistema de crédito da Crédito Fácil"
+}
+
+# -------------------------------------------------
+# Schemas Silver
+# -------------------------------------------------
+resource "databricks_schema" "s_rf_empresas" {
+  name         = "s_rf_empresas"
+  catalog_name = databricks_catalog.credito.name
+  comment      = "[Silver] Dados tratados e padronizados da Receita Federal sobre empresas registradas"
+}
+
+resource "databricks_schema" "s_cfacil_credito" {
+  name         = "s_cfacil_credito"
+  catalog_name = databricks_catalog.credito.name
+  comment      = "[Silver] Dados tratados de clientes PJ da Crédito Fácil, com qualidade e consistência garantidas"
+}
+
+# -------------------------------------------------
+# Schema Gold
+# -------------------------------------------------
+resource "databricks_schema" "g_cfacil_credito" {
+  name         = "g_cfacil_credito"
+  catalog_name = databricks_catalog.credito.name
+  comment      = "[Gold] Camada de consumo consolidada com indicadores e métricas de crédito da Crédito Fácil"
 }
