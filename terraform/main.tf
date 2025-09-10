@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 3.100.0"
+      version = "~>4.0"
     }
   }
 }
@@ -32,13 +32,13 @@ module "storage_account" {
 }
 
 # Criação do Data Lake Gen 2
-module "functions_app" {
-  source = "./modules/functions_app"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-  storage_account_name     = module.storage_account.storage_account_name
-  storage_account_id =   module.storage_account.storage_account_id
-}
+# module "functions_app" {
+#   source = "./modules/functions_app"
+#   resource_group_name      = azurerm_resource_group.rg.name
+#   location                 = azurerm_resource_group.rg.location
+#   storage_account_name     = module.storage_account.storage_account_name
+#   storage_account_id =   module.storage_account.storage_account_id
+# }
 
 #Criação do Data Factory
 module "data_factory" {
@@ -51,13 +51,13 @@ module "data_factory" {
 
 
 #Criação do Databricks
-module "databricks" {
-  source = "./modules/databricks"
-  resource_group_name = azurerm_resource_group.rg.name
-  location =  azurerm_resource_group.rg.location
-  storage_account_name     = module.storage_account.storage_account_name
-  storage_account_id       = module.storage_account.storage_account_id
-}
+# module "databricks" {
+#   source = "./modules/databricks"
+#   resource_group_name = azurerm_resource_group.rg.name
+#   location =  azurerm_resource_group.rg.location
+#   storage_account_name     = module.storage_account.storage_account_name
+#   storage_account_id       = module.storage_account.storage_account_id
+# }
 
 ################ EVENTOS ################
 

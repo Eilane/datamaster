@@ -1,0 +1,36 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnect
+metadata:
+  name: debezium-cluster
+  annotations:
+    strimzi.io/use-connector-resources: "true"
+spec:
+  # Imagem com Debezium SQL Server Connector
+  image: demodbzacr.azurecr.io/debezium/sqlserver-plugin:latest
+  replicas: 1
+  authentication:
+    type: plain
+    username: $ConnectionString
+    passwordSecret:
+      secretName: demodebezium-secrets
+      password: eh-connection-string
+  bootstrapServers: demodebezium-ns.servicebus.windows.net:9093
+  tls:
+    trustedCertificates: []
+  config:
+    group.id: debezium-cluster
+    security.protocol: SASL_SSL
+    offset.storage.topic: debezium-cluster-offsets
+    config.storage.topic: debezium-cluster-configs
+    status.storage.topic: debezium-cluster-status
+    config.storage.replication.factor: 1
+    offset.storage.replication.factor: 1
+    status.storage.replication.factor: 1
+    key.converter: org.apache.kafka.connect.json.JsonConverter
+    value.converter: org.apache.kafka.connect.json.JsonConverter
+    internal.key.converter: org.apache.kafka.connect.json.JsonConverter
+    internal.value.converter: org.apache.kafka.connect.json.JsonConverter
+    internal.key.converter.schemas.enable: false
+    internal.value.converter.schemas.enable: false
+    config.providers: secrets
+    config.providers.secrets.class: io.strimzi.kafka.KubernetesSecretConfigProvider

@@ -102,7 +102,7 @@
                             ],
                             "outputs": [
                                 {
-                                    "referenceName": "ds_binario_datalake",
+                                    "referenceName": "ds_binary_datalake",
                                     "type": "DatasetReference",
                                     "parameters": {
                                         "folder_raw": {
@@ -154,7 +154,7 @@
                 "userProperties": [],
                 "typeProperties": {
                     "dataset": {
-                        "referenceName": "ds_binario_datalake",
+                        "referenceName": "ds_binary_datalake",
                         "type": "DatasetReference",
                         "parameters": {
                             "folder_raw": {

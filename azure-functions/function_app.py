@@ -23,7 +23,9 @@ def receitadadospj(req: func.HttpRequest) -> func.HttpResponse:
         lista_url = [
             base_url + link.get("href")
             for link in soup.find_all("a")
-            if link.get("href") and ".zip" in link.get("href") and "Estabelecimentos" in link.get("href") 
+            if link.get("href") and ".zip" in link.get("href") and (
+                "Estabelecimentos" in link.get("href") or "Motivos" in link.get("href")
+            )
         ]
 
         

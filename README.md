@@ -184,13 +184,13 @@ Caso nenhum valor seja fornecido, o pipeline utiliza automaticamente o ano e mê
     - **Azure Resources**  
     - **Microsoft Terraform**  
     - **HashiCorp Terraform**  
-
+- **psql**: [Download](https://www.postgresql.org/download/windows/)  
+- **Meu Ip**: [Download](https://meuip.com.br/)    # Para liberacao da regra de firewall
 ---
 
 ### 11.0.2 Passo a passo
 
-1. **Instalar o Terraform** e configurar a variável de ambiente apontando para o executável.  
-2. **Executar os comandos abaixo na raiz do projeto Terraform**:
+1. **Executar os comandos abaixo na raiz do projeto Terraform**:
 
    ```bash
    terraform init       # Inicializa os providers e módulos
@@ -217,19 +217,21 @@ Databricks como Líder no Quadrante Mágico™ da Gartner® de 2025 para Platafo
 
 ## 13. Referências
 
+TERRAFORM -> 
+https://www.youtube.com/watch?v=YlY9WMURc50&t=661s    
+https://registry.terraform.io/providers/hashicorp/azurerm/4.39.0/docs  
+https://www.youtube.com/watch?v=YwloG_qq5aA 
+https://registry.terraform.io/modules/Azure/naming/azurerm/latest#output_data_factory
+
+UNITY CATALOG
+https://learn.microsoft.com/pt-br/azure/databricks/data-governance/unity-catalog/
+
+OUTROS
 https://www.gartner.com/reviews/market/cloud-database-management-systems/compare/product/amazon-simple-storage-service-amazon-s3-vs-azure-data-lake
 https://www.databricks.com/blog/databricks-named-leader-2025-gartner-magic-quadrant-data-science-and-machine-learning
 https://azure.microsoft.com/en-us/blog/microsoft-named-a-leader-in-2024-gartner-magic-quadrant-for-integration-platform-as-a-service/
 
+DEBEZIUM
+https://debezium.io/documentation/reference/stable/connectors/postgresql.html (Debezium connector for PostgreSQL)
 
-terraform -> 
-https://www.youtube.com/watch?v=YlY9WMURc50&t=661s  
-
-Azure Provider  
-https://registry.terraform.io/providers/hashicorp/azurerm/4.39.0/docs  
-
-https://www.youtube.com/watch?v=YwloG_qq5aA  -> Módulos no terraform
-https://registry.terraform.io/modules/Azure/naming/azurerm/latest#output_data_factory
-
-
-
+https://github.com/ycamargo/debezium-on-aks
