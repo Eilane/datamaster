@@ -91,7 +91,8 @@ As informações de auditoria, monitoramento e qualidade foram separadas dos dad
 ### 3.0.3 – Integração dos Recursos com o Data Lake Gen2
 
 Recursos com acesso direto ao Data Lake Corporativo
-<img width="1104" height="657" alt="image" src="https://github.com/user-attachments/assets/309890eb-d761-48da-a0cf-ebf1ff265c01" />
+<img width="999" height="652" alt="image" src="https://github.com/user-attachments/assets/e88b8b16-0c31-48c2-83e2-50c208288858" />
+
 
 
 ### 3.0.4 – Estrutura Lógica de Pastas Terraform
