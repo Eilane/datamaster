@@ -62,7 +62,7 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 **SLA:**
 Após a criação do cadastro cliente PJ no sistema de crédito, o processo de integração deverá garantir que as informações públicas coletadas sejam sincronizadas e disponibilizadas no banco transacional em um intervalo de **5** a **15 minutos**. Este tempo compreende todo o fluxo de ingestão, processamento, enriquecimento e carga final, considerando condições normais de operação.
 
-### 2.0.5 - Riscos Operacionais Mapeados na Utilização de Dados Públicos
+### 2.0.5 - Riscos Operacionais Mapeados na utilização de Dados Públicos
 
 | Risco                                                        | Impacto Potencial                                                                 | Estratégia de Mitigação                                                                                  |
 |--------------------------------------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
@@ -91,7 +91,7 @@ As informações de auditoria, monitoramento e qualidade foram separadas dos dad
 ### 3.0.3 – Integração dos Recursos com o Data Lake Gen2
 
 Recursos com acesso direto ao Data Lake Corporativo
-<img width="999" height="652" alt="image" src="https://github.com/user-attachments/assets/e88b8b16-0c31-48c2-83e2-50c208288858" />
+<img width="1037" height="662" alt="image" src="https://github.com/user-attachments/assets/ee252012-8838-4110-ba16-cc8998209848" />
 
 
 
