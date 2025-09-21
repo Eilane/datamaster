@@ -91,7 +91,8 @@ As informações de auditoria, monitoramento e qualidade foram separadas dos dad
 ### 3.0.3 – Integração dos Recursos com o Data Lake Gen2
 
 Recursos com acesso direto ao Data Lake Corporativo
-<img width="961" height="600" alt="image" src="https://github.com/user-attachments/assets/5fc41ca4-0e05-48db-b89c-f40963e4b7e7" />
+<img width="969" height="612" alt="image" src="https://github.com/user-attachments/assets/314c2638-0b1f-4482-81fe-07b24b0351fc" />
+
 
 
 
