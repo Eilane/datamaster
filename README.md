@@ -50,8 +50,8 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 - **Análise de possíveis irregularidades:**  
   Executar regras e validações para identificar possíveis inconsistências ou comportamentos suspeitos nos dados de CNPJ.
 
-- **Disponibilização via Banco de Dados Transacional (ELT reverso):**  
-  Publicar os dados da camada Gold em um banco de dados transacional, por meio de ELT reverso, otimizando o consumo por aplicações analíticas.
+- **Disponibilização via Banco de Dados Transacional (ETL reverso):**  
+  Publicar os dados da camada Gold em um banco de dados transacional, por meio de ETL reverso, otimizando o consumo por aplicações analíticas.
 
 ### **2.0.3 - Diagrama do Caso de Uso**
 
