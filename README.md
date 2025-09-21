@@ -189,7 +189,6 @@ Caso nenhum valor seja fornecido, o pipeline utiliza automaticamente o ano e mê
     - **Azure Resources**  
     - **Microsoft Terraform**  
     - **HashiCorp Terraform**  
-- **psql**: [Download](https://www.postgresql.org/download/windows/)  
 - **Meu Ip**: [Download](https://meuip.com.br/)    # Para liberacao da regra de firewall
 ---
 
