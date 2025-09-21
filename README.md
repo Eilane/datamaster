@@ -85,7 +85,8 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 
 As informações de auditoria, monitoramento e qualidade foram separadas dos dados de negócio e serão armazenadas na camada Governance, garantindo maior organização e controle sobre os metadados e processos de governança.
 
-<img width="655" height="554" alt="image" src="https://github.com/user-attachments/assets/089b3c73-b7e7-4bde-8b69-5833d2c3c55d" />
+<img width="575" height="493" alt="image" src="https://github.com/user-attachments/assets/5741328e-1c23-478b-84f2-7f8f5b0fb715" />
+
 
 
 ### 3.0.3 – Integração dos Recursos com o Data Lake Gen2
