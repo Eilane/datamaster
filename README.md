@@ -98,7 +98,8 @@ Recursos com acesso direto ao Data Lake Corporativo
 
 
 
-### 3.0.4 – Estrutura Lógica de Pastas Terraform
+### 3.0.4 – Estrutura de Pastas Terraform
+<img width="575" height="671" alt="image" src="https://github.com/user-attachments/assets/912a5985-91df-4c25-9011-a7a191f0d260" />
 
 ## 4. Monitoramento e Observabilidade
 
