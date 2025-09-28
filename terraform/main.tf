@@ -4,7 +4,11 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~>4.0"
     }
+  
+  databricks = {
+    source = "databricks/databricks"
   }
+}
 }
 
 # Configuração do Provider Microsoft Azure 
@@ -14,7 +18,7 @@ provider "azurerm" {
       prevent_deletion_if_contains_resources = false
 }
   }
-  subscription_id = "afa062dd-7f7d-4b41-8507-740ae10005ef"
+  subscription_id = "035f79b4-e335-4a2c-8b45-b0f0a2f9ca0a"
 }
 
 # Criação do Grupo de Recurso  
@@ -31,7 +35,7 @@ module "storage_account" {
   location                 = azurerm_resource_group.rg.location
 }
 
-# Criação do Data Lake Gen 2
+# Criação da função
 # module "functions_app" {
 #   source = "./modules/functions_app"
 #   resource_group_name      = azurerm_resource_group.rg.name
@@ -40,7 +44,7 @@ module "storage_account" {
 #   storage_account_id =   module.storage_account.storage_account_id
 # }
 
-#Criação do Data Factory
+# #Criação do Data Factory
 module "data_factory" {
   source = "./modules/data_factory"
   resource_group_name      = azurerm_resource_group.rg.name
@@ -51,13 +55,13 @@ module "data_factory" {
 
 
 #Criação do Databricks
-# module "databricks" {
-#   source = "./modules/databricks"
-#   resource_group_name = azurerm_resource_group.rg.name
-#   location =  azurerm_resource_group.rg.location
-#   storage_account_name     = module.storage_account.storage_account_name
-#   storage_account_id       = module.storage_account.storage_account_id
-# }
+module "databricks" {
+  source = "./modules/databricks"
+  resource_group_name = azurerm_resource_group.rg.name
+  location =  azurerm_resource_group.rg.location
+  storage_account_name     = module.storage_account.storage_account_name
+  storage_account_id       = module.storage_account.storage_account_id
+}
 
 ################ EVENTOS ################
 

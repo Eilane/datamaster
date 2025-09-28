@@ -16,17 +16,6 @@ resource "azurerm_role_assignment" "dbw_storage_contributor" {
 }
 
 
-# Linked Service Data Lake Gen2 no Data Factory
-resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "linked_gen2" {
-  name            = "linked_gen2"
-  data_factory_id = azurerm_data_factory.adf.id  
-
-  url = "https://${var.storage_account_name}.dfs.core.windows.net/"
-
-  # Managed Identity:
-  use_managed_identity = true
-}
-
 
 #Necessidade de subida via Arm template devido a falta de um recurso Nativo para link Http 
 resource "azurerm_resource_group_template_deployment" "http_link" {
@@ -65,6 +54,17 @@ TEMPLATE
 }
 
 
+# Linked Service Data Lake Gen2 no Data Factory
+resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "linked_gen2" {
+  name            = "linked_gen2"
+  data_factory_id = azurerm_data_factory.adf.id  
+
+  url = "https://${var.storage_account_name}.dfs.core.windows.net/"
+
+  # Managed Identity:
+  use_managed_identity = true
+}
+
 
 #####################DATASETS##############
 
@@ -93,7 +93,7 @@ resource "azurerm_data_factory_dataset_binary" "ds_binary_http" {
 
   linked_service_name = "link_http"
   http_server_location {
-    relative_url = "@dataset().base_url"
+    relative_url = "empresas"
     path = "dadoscnpj"
     filename = "estabelecimentos" 
     }
@@ -106,6 +106,10 @@ resource "azurerm_data_factory_dataset_binary" "ds_binary_http" {
     type  = "ZipDeflate"
     level = "Fastest"
   }
+
+depends_on = [
+    azurerm_resource_group_template_deployment.http_link
+  ]
 }
 
 #####################PIPELINE##############
@@ -119,7 +123,7 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
             "year_month" = "YYYY-MM"
             }
   variables = { "year_month"= "YYYY-MM"
-               "path" = "receitafederal/pj/"
+               "path" = "unity/receitafederal/pj/"
             }
       
   activities_json = <<JSON
@@ -146,7 +150,7 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
                 "typeProperties": {
                     "method": "GET",
                     "url": {
-                        "value": "@concat(\n    'https://funcaoreceita-gnhjdvb3bfcsbve6.westus2-01.azurewebsites.net/api/receitadadospj?year_month=',\n    variables('year_month')\n)",
+                        "value": "@concat(\n    'https://funcreceitaemp.azurewebsites.net/api/receitadadospj?year_month=',\n    variables('year_month')\n)",
                         "type": "Expression"
                     }
                 }

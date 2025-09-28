@@ -218,6 +218,9 @@ Databricks como Líder no Quadrante Mágico™ da Gartner® de 2025 para Platafo
 
 ## 13. Referências
 
+Use Azure managed identities in Unity Catalog to access storage
+https://learn.microsoft.com/en-us/azure/databricks/connect/unity-catalog/cloud-storage/azure-managed-identities
+
 TERRAFORM -> 
 https://www.youtube.com/watch?v=YlY9WMURc50&t=661s    
 https://registry.terraform.io/providers/hashicorp/azurerm/4.39.0/docs  
