@@ -50,8 +50,8 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 - **Análise de possíveis irregularidades:**  
   Executar regras e validações para identificar possíveis inconsistências ou comportamentos suspeitos nos dados de CNPJ.
 
-- **Disponibilização via Banco de Dados Transacional (ELT reverso):**  
-  Publicar os dados da camada Gold em um banco de dados transacional, por meio de ELT reverso, otimizando o consumo por aplicações analíticas.
+- **Disponibilização via Banco de Dados Transacional (ETL reverso):**  
+  Publicar os dados da camada Gold em um banco de dados transacional, por meio de ETL reverso, otimizando o consumo por aplicações analíticas.
 
 ### **2.0.3 - Diagrama do Caso de Uso**
 
@@ -62,7 +62,7 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 **SLA:**
 Após a criação do cadastro cliente PJ no sistema de crédito, o processo de integração deverá garantir que as informações públicas coletadas sejam sincronizadas e disponibilizadas no banco transacional em um intervalo de **5** a **15 minutos**. Este tempo compreende todo o fluxo de ingestão, processamento, enriquecimento e carga final, considerando condições normais de operação.
 
-### 2.0.5 - Riscos Operacionais Mapeados na Utilização de Dados Públicos
+### 2.0.5 - Riscos Operacionais Mapeados na utilização de Dados Públicos
 
 | Risco                                                        | Impacto Potencial                                                                 | Estratégia de Mitigação                                                                                  |
 |--------------------------------------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
@@ -85,17 +85,21 @@ Os dados estão organizados no Data Lake conforme o padrão de design da arquite
 
 As informações de auditoria, monitoramento e qualidade foram separadas dos dados de negócio e serão armazenadas na camada Governance, garantindo maior organização e controle sobre os metadados e processos de governança.
 
-<img width="655" height="554" alt="image" src="https://github.com/user-attachments/assets/089b3c73-b7e7-4bde-8b69-5833d2c3c55d" />
+<img width="575" height="493" alt="image" src="https://github.com/user-attachments/assets/5741328e-1c23-478b-84f2-7f8f5b0fb715" />
+
 
 
 ### 3.0.3 – Integração dos Recursos com o Data Lake Gen2
 
 Recursos com acesso direto ao Data Lake Corporativo
-<img width="999" height="652" alt="image" src="https://github.com/user-attachments/assets/e88b8b16-0c31-48c2-83e2-50c208288858" />
+<img width="969" height="612" alt="image" src="https://github.com/user-attachments/assets/314c2638-0b1f-4482-81fe-07b24b0351fc" />
 
 
 
-### 3.0.4 – Estrutura Lógica de Pastas Terraform
+
+
+### 3.0.4 – Estrutura de Pastas Terraform
+<img width="575" height="671" alt="image" src="https://github.com/user-attachments/assets/912a5985-91df-4c25-9011-a7a191f0d260" />
 
 ## 4. Monitoramento e Observabilidade
 
@@ -185,7 +189,6 @@ Caso nenhum valor seja fornecido, o pipeline utiliza automaticamente o ano e mê
     - **Azure Resources**  
     - **Microsoft Terraform**  
     - **HashiCorp Terraform**  
-- **psql**: [Download](https://www.postgresql.org/download/windows/)  
 - **Meu Ip**: [Download](https://meuip.com.br/)    # Para liberacao da regra de firewall
 ---
 
