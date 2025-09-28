@@ -156,16 +156,23 @@ Caso nenhum valor seja fornecido, o pipeline utiliza automaticamente o ano e mê
 
 ## 7. Data Quality
 
-### Regras 
+Tabela de Qualidade de Dados
 
-| Nº  | Dimensão      | Regra de Qualidade                                                  | Criticidade |
-|-----|---------------|-----------------------------------------------------------------------|-------------|
-| 1   | Completude    | Campos obrigatórios como CNPJ não podem estar nulos              | Alta        | 
-| 2   | Unicidade     | CNPJ não pode se repetir entre registros                             | Alta        | 
-| 3   | Completude    | Nome da empresa não pode estar em branco                             | Alta        |
-| 4   | Validade      | E-mail deve conter “@” e domínio válido                              | Média       | 
-| 5   | Atualização   | Status cadastral da empresa deve ser atualizado mensalmente          | Alta        | 
-| 6  | Atualização   | Validar se a data da última atualização está dentro do prazo esperado| Alta        |
+**Objetivo:**  
+Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silver** e **Gold** para garantir a integridade e consistência dos dados.
+
+**Tabela:** `prd.governance.regras_qualidade`
+
+**Descrição:**  
+- Centraliza todas as regras de validação de dados.  
+- Permite auditoria e monitoramento da conformidade dos dados.  
+
+**Exemplo de uso:**  
+- Validar campos obrigatórios (`NOT NULL`)  
+- Calcular scores de qualidade por tabela e coluna
+
+<img width="1064" height="326" alt="image" src="https://github.com/user-attachments/assets/8fa4e213-029f-41e9-a0e1-56bf5e80ed39" />
+
 
 
 ## 8. Expurgo de Dados
