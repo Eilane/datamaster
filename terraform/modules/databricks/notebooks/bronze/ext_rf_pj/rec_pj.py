@@ -48,9 +48,9 @@ class ReceitaPJ:
 
         for file in dbutils.fs.ls(location):
             for key, folder in patterns.items():
-                if key in file.name.upper():
+                if (key in file.name.upper()) and file.size >0:
                     destino = f"{location}{folder}/{file.name}"
-                    dbutils.fs.mv(file.path, destino)
+                    dbutils.fs.mv(file.path, destino,recurse=True)
                     print(f"Movido {file.name} → {destino}")
 
     
@@ -127,8 +127,8 @@ class ReceitaPJ:
         Método write_files
         Escreve os arquivos lidos nas tabelas motivos e estabelecimentos
         """
-        self.df_raw_moti.write.mode("append").saveAsTable("b_ext_rf_empresas.motivo")
-        self.df_estabelecimentos.write.mode("append").partitionBy("ano_mes_carga").saveAsTable("b_ext_rf_empresas.estabelecimentos")
+        self.df_raw_moti.write.mode("append").saveAsTable("prd.b_ext_rf_empresas.motivo")
+        self.df_estabelecimentos.write.mode("append").partitionBy("ano_mes_carga").saveAsTable("prd.b_ext_rf_empresas.estabelecimentos")
 
 
  

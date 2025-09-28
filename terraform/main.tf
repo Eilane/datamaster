@@ -44,15 +44,6 @@ module "storage_account" {
 #   storage_account_id =   module.storage_account.storage_account_id
 # }
 
-# #Criação do Data Factory
-module "data_factory" {
-  source = "./modules/data_factory"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-  storage_account_name     = module.storage_account.storage_account_name
-  storage_account_id       = module.storage_account.storage_account_id
-}
-
 
 #Criação do Databricks
 module "databricks" {
@@ -62,6 +53,21 @@ module "databricks" {
   storage_account_name     = module.storage_account.storage_account_name
   storage_account_id       = module.storage_account.storage_account_id
 }
+
+
+
+# #Criação do Data Factory
+module "data_factory" {
+  source = "./modules/data_factory"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  storage_account_name     = module.storage_account.storage_account_name
+  storage_account_id       = module.storage_account.storage_account_id
+  databricks_workspace_url = module.databricks.workspace_url
+  databricks_workspace_id  = module.databricks.workspace_id
+  databricks_cluster_id    = module.databricks.cluster_id
+}
+
 
 ################ EVENTOS ################
 

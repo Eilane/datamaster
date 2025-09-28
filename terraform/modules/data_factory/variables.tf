@@ -17,3 +17,19 @@ variable "storage_account_id" {
   description = "ID Storage Account"
   type        = string
 }
+
+
+variable "databricks_workspace_url" {
+  description = "Url do databricks"
+  type        = string
+}
+
+variable "databricks_workspace_id" {
+  description = "Id do databricks"
+  type        = string
+}
+
+variable "databricks_cluster_id" {
+  description = "Id do  cluster databricks"
+  type        = string
+}

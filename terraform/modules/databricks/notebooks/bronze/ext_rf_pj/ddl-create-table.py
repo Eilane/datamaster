@@ -65,4 +65,5 @@
 # MAGIC     ano_mes_carga STRING COMMENT 'Ano e mês de referencia da carga'
 # MAGIC )
 # MAGIC USING DELTA
+# MAGIC PARTITIONED BY (ano_mes_carga)
 # MAGIC COMMENT 'Tabela de estabelecimentos da Receita Federal (CNPJs ativos e inativos)';

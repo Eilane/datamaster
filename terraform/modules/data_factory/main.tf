@@ -112,7 +112,64 @@ depends_on = [
   ]
 }
 
-#####################PIPELINE##############
+
+
+# ---------------------------------------------
+# Linked Service Databricks no Azure Data Factory
+# ---------------------------------------------
+resource "azurerm_data_factory_linked_service_azure_databricks" "linked_adb" {
+  name                = "linked_adb"
+  data_factory_id     = azurerm_data_factory.adf.id
+  description     = "ADB Linked Service via MSI"
+  adb_domain      = var.databricks_workspace_url
+
+  existing_cluster_id = var.databricks_cluster_id
+  msi_work_space_resource_id = var.databricks_workspace_id
+
+}
+
+
+#####################PIPELINEs##############
+resource "azurerm_data_factory_pipeline" "pipeline_b_ext_pj" {
+  name            = "pipeline_b_ext_pj"
+  data_factory_id = azurerm_data_factory.adf.id
+
+
+  parameters = {
+            "year_month" = "YYYY-MM"
+            }
+
+  activities_json =<<JSON
+[
+           {
+                "name": "ext_rf_pj",
+                "type": "DatabricksNotebook",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Workspace/sistemas/credfacil/bronze/ext_rf_pj/main.py",
+                    "baseParameters": {
+                        "year_month": {
+                            "value": "@pipeline().parameters.year_month",
+                            "type": "Expression"
+                        }
+                    }
+                },
+                "linkedServiceName": {
+                    "referenceName": "linked_adb",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        ]
+  JSON
+}           
 
 resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
   name            = "pipeline_ingest_dados_pj"
@@ -296,6 +353,35 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
                         "enablePartitionDiscovery": false
                     }
                 }
+            },
+            {
+                "name": "bronze_databricks",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "ForEach",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "pipeline_b_ext_pj",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true,
+                    "parameters": {
+                        "year_month": {
+                            "value": "@variables('year_month')",
+                            "type": "Expression"
+                        }
+                    }
+                }
             }
         ]
   JSON
@@ -304,27 +390,27 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
 
 
 
-# resource "azurerm_data_factory_trigger_schedule" "trigger_mensal" {
-#   name            = "trigger_mensal"
-#   data_factory_id = azurerm_data_factory.adf.id
+resource "azurerm_data_factory_trigger_schedule" "trigger_mensal" {
+  name            = "trigger_mensal"
+  data_factory_id = azurerm_data_factory.adf.id
 
-#   frequency = "Month"
-#   interval  = 1
+  frequency = "Month"
+  interval  = 1
 
-#   start_time = "2025-08-13T21:16:00Z"
-#   time_zone  = "UTC"
+  start_time = "2025-08-13T21:16:00Z"
+  time_zone  = "UTC"
 
-#   schedule {
-#     minutes    = [0]
-#     hours      = [9]
-#     days_of_month = [-1] # -1 = último dia do mês
-#   }
+  schedule {
+    minutes    = [0]
+    hours      = [9]
+    days_of_month = [-1] # -1 = último dia do mês
+  }
 
-#   pipeline {
-#     name = azurerm_data_factory_pipeline.pipeline_ingest_dados_pj.name
+  pipeline {
+    name = azurerm_data_factory_pipeline.pipeline_ingest_dados_pj.name
 
-#     parameters = {
-#       year_month = "0"
-#     }
-#   }
-# }
+    parameters = {
+      year_month = "0"
+    }
+  }
+}

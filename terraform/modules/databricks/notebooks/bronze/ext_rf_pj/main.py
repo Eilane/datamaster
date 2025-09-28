@@ -34,7 +34,7 @@ year_month = dbutils.widgets.get("year_month")
 
 # COMMAND ----------
 
-# MAGIC %run ./rec_pj
+# MAGIC %run ./rec_pj.py
 
 # COMMAND ----------
 
