@@ -203,11 +203,22 @@ resource "databricks_schema" "governance" {
 
 
 # -------------------------------------------------
-# Criação dos notebooks
+# Criação dos notebooks  - Bronze dados Externos
 # -------------------------------------------------
-# resource "databricks_notebook" "from_file" {
-#   path     = "/Workspace/sistemas/credfacil/bronze/"
-#   language = "PYTHON"
-#   source   = "LOCAL"
-#   content_base64 = filebase64("${path.module}/notebooks/ingestao_ext_rf_empresas.py")
-# }
+resource "databricks_notebook" "create_table" {
+  source   = "${path.module}/notebooks/bronze/ext_rf_pj/ddl-create-table.py"
+  path     = "/Workspace/sistemas/credfacil/bronze/ext_rf_pj/ddl-create-table.py"
+  language = "PYTHON"
+}
+
+resource "databricks_notebook" "main" {
+  source   = "${path.module}/notebooks/bronze/ext_rf_pj/main.py"
+  path     = "/Workspace/sistemas/credfacil/bronze/ext_rf_pj/main.py"
+  language = "PYTHON"
+}
+
+resource "databricks_notebook" "rec_pj" {
+  source   = "${path.module}/notebooks/bronze/ext_rf_pj/rec_pj.py"
+  path     = "/Workspace/sistemas/credfacil/bronze/ext_rf_pj/rec_pj.py"
+  language = "PYTHON"
+}
