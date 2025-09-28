@@ -92,6 +92,14 @@ resource "databricks_external_location" "ext_location_gold" {
   comment         = "External location para a camada gold"
 }
 
+
+resource "databricks_external_location" "ext_location_governance" {
+  name            = "ext_governance_location_unity"
+  url             = "abfss://governance@datalakecfacilbr.dfs.core.windows.net/unity"
+  credential_name = databricks_storage_credential.storage_cred.name
+  comment         = "External location para a camada governance"
+}
+
 # # # -------------------------------------------------
 # # # Associar Workspace ao Metastore
 # # # -------------------------------------------------
@@ -199,6 +207,7 @@ resource "databricks_schema" "governance" {
   name         = "governance"
   catalog_name = databricks_catalog.prd.name
   comment      = "Camada de governança"
+  storage_root = "abfss://governance@datalakecfacilbr.dfs.core.windows.net/unity/governance"
 }
 
 
