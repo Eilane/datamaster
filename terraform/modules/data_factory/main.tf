@@ -171,10 +171,74 @@ resource "azurerm_data_factory_pipeline" "pipeline_b_ext_pj" {
   JSON
 }           
 
+
+resource "azurerm_data_factory_pipeline" "pipeline_s_ext_pj" {
+  name            = "pipeline_s_ext_pj"
+  data_factory_id = azurerm_data_factory.adf.id
+
+  activities_json =<<JSON
+[
+            {
+                "name": "motivo",
+                "type": "DatabricksNotebook",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Workspace/sistemas/credfacil/silver/ext_rf_pj/motivo.py"
+                },
+                "linkedServiceName": {
+                    "referenceName": "linked_adb",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "estabelecimentos",
+                "type": "DatabricksNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "motivo",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Workspace/sistemas/credfacil/silver/ext_rf_pj/estabelecimentos.py"
+                },
+                "linkedServiceName": {
+                    "referenceName": "linked_adb",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        ]
+  JSON
+}      
+
+
 resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
   name            = "pipeline_ingest_dados_pj"
   data_factory_id = azurerm_data_factory.adf.id
+  
+  depends_on = [
+    azurerm_data_factory_pipeline.pipeline_b_ext_pj,
+    azurerm_data_factory_pipeline.pipeline_s_ext_pj
 
+  ]
 
   parameters = {
             "year_month" = "YYYY-MM"
@@ -381,6 +445,29 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
                             "type": "Expression"
                         }
                     }
+                }
+            },
+            {
+                "name": "silver_databricks",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "bronze_databricks",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "pipeline_s_ext_pj",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true
                 }
             }
         ]

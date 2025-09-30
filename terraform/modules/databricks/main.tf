@@ -231,3 +231,41 @@ resource "databricks_notebook" "rec_pj" {
   path     = "/Workspace/sistemas/credfacil/bronze/ext_rf_pj/rec_pj.py"
   language = "PYTHON"
 }
+
+# -------------------------------------------------
+# Criação dos notebooks  - Silvers dados Externos
+# -------------------------------------------------
+
+resource "databricks_notebook" "create_table_silver" {
+  source   = "${path.module}/notebooks/silver/ext_rf_pj/ddl-create-table-silver.py"
+  path     = "/Workspace/sistemas/credfacil/silver/ext_rf_pj/ddl-create-table-silver.py"
+  language = "PYTHON"
+}
+
+resource "databricks_notebook" "estabelecimentos" {
+  source   = "${path.module}/notebooks/silver/ext_rf_pj/estabelecimentos.py"
+  path     = "/Workspace/sistemas/credfacil/silver/ext_rf_pj/estabelecimentos.py"
+  language = "PYTHON"
+}
+
+resource "databricks_notebook" "motivo" {
+  source   = "${path.module}/notebooks/silver/ext_rf_pj/motivo.py"
+  path     = "/Workspace/sistemas/credfacil/silver/ext_rf_pj/motivo.py"
+  language = "PYTHON"
+}
+
+# -------------------------------------------------
+# Criação dos notebooks  - Data Quality
+# -------------------------------------------------
+resource "databricks_notebook" "dq" {
+  source   = "${path.module}/notebooks/governance/data_quality/data_quality.py"
+  path     = "/Workspace/sistemas/credfacil/governance/data_quality/data_quality.py"
+  language = "PYTHON"
+}
+
+
+resource "databricks_notebook" "rules" {
+  source   = "${path.module}/notebooks/governance/data_quality/regras_qualidade.py"
+  path     = "/Workspace/sistemas/credfacil/governance/data_quality/regras_qualidade.py"
+  language = "PYTHON"
+}

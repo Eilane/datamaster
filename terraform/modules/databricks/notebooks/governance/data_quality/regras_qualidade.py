@@ -52,7 +52,11 @@ df_rules = spark.createDataFrame([
     ("estabelecimentos", "cnpj_dv",                  "col IS NOT NULL", "Dígito do CNPJ não pode ser nulo",'2025-01-01', None, "ativo"),
     ("estabelecimentos", "motivo_situacao_cadastral","col IS NOT NULL", "Código do motivo não pode ser nulo",'2025-01-01', None, "ativo"),
     ("motivo",           "cod_moti",                 "col IS NOT NULL", "Código do motivo não pode ser nulo" ,'2025-01-01', None, "ativo"),
-    ("motivo",           "ds_moti",                  "col IS NOT NULL", "Situação cadastral não poder ser nulo" , '2025-01-01', None, "ativo" )
+    ("motivo",           "ds_moti",                  "col IS NOT NULL", "Situação cadastral não poder ser nulo" , '2025-01-01', None, "ativo" ), 
+    ("clientes_pj",      "cnpj",                     "col IS NOT NULL", "CNPJ não pode ser nulo", '2025-01-01', None, "ativo"),
+    ("clientes_pj",      "cnpj",                     "length(col) = 14", "CNPJ deve conter exatamente 14 dígitos", '2025-01-01', None, "ativo"),
+    ("clientes_pj",      "cnpj",                     "count_distinct(col) = count(col)", "CNPJ deve ser único na tabela", '2025-01-01', None, "ativo"),
+    ("clientes_pj",      "data_atualizacao",         "col = max(col)", "Selecionar apenas os registros da última data de atualização", '2025-01-01', None, "ativo")
 ], schema=schema)
 
 # COMMAND ----------

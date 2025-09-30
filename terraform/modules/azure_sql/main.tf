@@ -11,7 +11,7 @@ resource "azurerm_mssql_server" "sql_server" {
 }
 
 # -------------------------------------------------
-# Azure SQL Database (Basic para manter custo baixo)
+# Azure SQL Database 
 # -------------------------------------------------
 resource "azurerm_mssql_database" "sql_db" {
   name                = "sqlcfacilbr"
@@ -28,6 +28,6 @@ resource "azurerm_mssql_database" "sql_db" {
 resource "azurerm_mssql_server_firewall_rule" "allow_my_ip" {
   name             = "allow_my_ip"
   server_id        = azurerm_mssql_server.sql_server.id
-  start_ip_address = "187.57.158.92"
-  end_ip_address   = "187.57.158.92"
+  start_ip_address = "186.213.133.71"
+  end_ip_address   = "186.213.133.71"
 }
