@@ -151,8 +151,7 @@ Caso nenhum valor seja fornecido, o pipeline utiliza automaticamente o ano e mê
 
 
 ## 7. Data Quality
-
-Tabela de Qualidade de Dados
+### 7.0.1 - Tabela de Qualidade de Dados
 
 **Objetivo:**  
 Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silver** e **Gold** para garantir a integridade e consistência dos dados.
