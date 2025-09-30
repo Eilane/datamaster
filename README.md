@@ -134,11 +134,7 @@ Pipeline responsável por capturar e armazenar dados públicos de empresas no Da
 
 **Horário:** 09:00
 
-<img width="1109" height="397" alt="image" src="https://github.com/user-attachments/assets/52831e40-df37-4d4c-9333-34a8f0b6e100" />
-
-
-
-
+<img width="1147" height="297" alt="image" src="https://github.com/user-attachments/assets/4fcb6490-772b-4a47-a71d-b5031a84572a" />
 
 
 ## 6. Resiliência dos Pipelines de Dados
@@ -155,8 +151,7 @@ Caso nenhum valor seja fornecido, o pipeline utiliza automaticamente o ano e mê
 
 
 ## 7. Data Quality
-
-Tabela de Qualidade de Dados
+### 7.0.1 - Tabela de Qualidade de Dados
 
 **Objetivo:**  
 Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silver** e **Gold** para garantir a integridade e consistência dos dados.
