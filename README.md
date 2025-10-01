@@ -50,25 +50,22 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 - **Análise de possíveis irregularidades:**  
   Executar regras e validações para identificar possíveis inconsistências ou comportamentos suspeitos nos dados de CNPJ.
 
-- **Disponibilização via Banco de Dados Transacional (ETL reverso):**  
-  Publicar os dados da camada Gold em um banco de dados transacional, por meio de ETL reverso, otimizando o consumo por aplicações analíticas.
 
 ### **2.0.3 - Diagrama do Caso de Uso**
 
-<img width="788" height="588" alt="image" src="https://github.com/user-attachments/assets/c61f2c98-5fc6-41f0-87f3-aea69a1ee47c" />
+<img width="633" height="510" alt="image" src="https://github.com/user-attachments/assets/ede439d1-a986-4ec6-a647-0797b3f9d9b9" />
+
 
 ### **2.0.4 - Premissas do Projeto**
 
-**SLA:**
-Após a criação do cadastro cliente PJ no sistema de crédito, o processo de integração deverá garantir que as informações públicas coletadas sejam sincronizadas e disponibilizadas no banco transacional em um intervalo de **5** a **15 minutos**. Este tempo compreende todo o fluxo de ingestão, processamento, enriquecimento e carga final, considerando condições normais de operação.
-
 ### 2.0.5 - Riscos Operacionais Mapeados na utilização de Dados Públicos
 
-| Risco                                                        | Impacto Potencial                                                                 | Estratégia de Mitigação                                                                                  |
-|--------------------------------------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| Alteração no layout da página sem comunicação prévia         | Interrupção na extração automática dos dados, causando falhas no pipeline         | Implementar validação de estrutura HTML antes do processamento e configurar alertas para mudanças         |
-| Modificações na estrutura dos datasets sem aviso prévio      | Erros na transformação e carga dos dados, podendo gerar inconsistências           | Criar camada de mapeamento dinâmico e rotinas de verificação de schema                                    |
-| Presença de dados duplicados nos arquivos disponibilizados   | Aumento de volume armazenado e risco de análises incorretas                        | Aplicar deduplicação durante o processamento e criar relatórios de controle                              |
+# Matriz de Riscos
+
+| **Risco** | **Impacto Potencial** | **Estratégia de Mitigação** |
+|-----------|------------------------|-----------------------------|
+| Alteração no layout da página ou modificações na estrutura dos datasets sem comunicação prévia | Interrupção na extração automática dos dados, ocasionando falhas no pipeline | Utilizar os dados apenas para fins analíticos, reduzindo o impacto de interrupções temporárias para o cliente final e sistema transacional |
+| Presença de dados duplicados nos arquivos disponibilizados | Aumento no volume de armazenamento e risco de análises incorretas | Aplicar deduplicação no processamento e gerar relatórios de controle para acompanhamento contínuo |
 
 
 ## 3. Arquitetura
@@ -76,7 +73,7 @@ Após a criação do cadastro cliente PJ no sistema de crédito, o processo de i
 ### 3.0.1 Desenho de Arquitetura
 Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos diretamente de suas fontes de origem e integrados a uma arquitetura de dados Lakehouse na nuvem pública Microsoft Azure.
 
-
+<img width="1049" height="588" alt="image" src="https://github.com/user-attachments/assets/2dbc4a3b-fdf3-423b-a6e7-a591abe2a031" />
 
 
 ### 3.0.2 - Estrutura lógica das camadas do Data Lake
