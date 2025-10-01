@@ -95,10 +95,10 @@ module "data_factory" {
 
 
 # # SQL
-# module "azure_sql" {
-#   source = "./modules/azure_sql"
-#   resource_group_name      = azurerm_resource_group.rg.name
-#   location                 = azurerm_resource_group.rg.location
-# }
+module "azure_sql" {
+  source = "./modules/azure_sql"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+}
 
 
