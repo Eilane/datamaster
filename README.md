@@ -143,8 +143,7 @@ Este repositório organiza a infraestrutura como código (IaC) utilizando **Terr
 
 ## 4. Monitoramento e Observabilidade
 
-<img width="841" height="542" alt="image" src="https://github.com/user-attachments/assets/7444b63c-91d4-421d-9595-3e28a359fe03" />
-
+![alt text](image.png)
 
 ## 5. Funções e Pipelines de Dados
 
@@ -180,6 +179,15 @@ Caso nenhum valor seja fornecido, o pipeline utiliza automaticamente o ano e mê
 - Intervalo de 60 segundos entre cada tentativa
 
 ## 7. Tabelas
+
+### SCD - Slowly Changing Dimensions  
+
+Técnica de gerenciamento de dados que define como as tabelas lidam com informações que mudam ao longo do tempo.  
+
+#### Aplicado Tipo 1 nas Tabelas *Silver* e *Gold*  
+
+- **Tipo 1**: Sem histórico — apenas os dados atuais são mantidos.  
+  - **Forma de escrita**: *Overwrite*  
 
 
 
