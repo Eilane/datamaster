@@ -269,3 +269,26 @@ resource "databricks_notebook" "rules" {
   path     = "/Workspace/sistemas/credfacil/governance/data_quality/regras_qualidade.py"
   language = "PYTHON"
 }
+
+
+# -------------------------------------------------
+# Criação dos notebooks  - Silvers dados Internos
+# -------------------------------------------------
+
+resource "databricks_notebook" "rules" {
+  source   = "${path.module}/notebooks/silver/syscredito/clientes_pj.py"
+  path     = "/Workspace/sistemas/credfacil/silver/syscredito/clientes_pj.py"
+  language = "PYTHON"
+}
+
+resource "databricks_notebook" "rules" {
+  source   = "${path.module}/notebooks/silver/syscredito/ddl-create-tbl-clientes.py"
+  path     = "/Workspace/sistemas/credfacil/silver/syscredito/ddl-create-tbl-clientes.py"
+  language = "PYTHON"
+}
+
+resource "databricks_notebook" "rules" {
+  source   = "${path.module}/notebooks/silver/syscredito/ddl-create-tbl-silver-clientes.py"
+  path     = "/Workspace/sistemas/credfacil/silver/syscredito/ddl-create-tbl-silver-clientes.py"
+  language = "PYTHON"
+}
