@@ -60,7 +60,7 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 
 ### 2.0.5 - Riscos Operacionais Mapeados na utilização de Dados Públicos
 
-# Matriz de Riscos
+### Matriz de Riscos Mapeados
 
 | **Risco** | **Impacto Potencial** | **Estratégia de Mitigação** |
 |-----------|------------------------|-----------------------------|
