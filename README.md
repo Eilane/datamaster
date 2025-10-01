@@ -150,28 +150,18 @@ Este repositório organiza a infraestrutura como código (IaC) utilizando **Terr
 
 ### **5.0.1 - Azure Function** – `funcaoreceita`
 
-**Descrição:**  
-Função responsável por extrair todas as URLs válidas dos arquivos disponíveis para download, a partir do HTML do site:  
+**Descrição:** Função responsável por extrair todas as URLs válidas dos arquivos disponíveis para download, a partir do HTML do site:  
 `https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_month}/`,  
-
-
-**Trigger:** HTTP  
-
-**Parâmetro de entrada:**  
+**Entrada:**  
 - `year_month` (formato `YYYY-MM`)  
-
 **Saída:**  
 - JSON contendo uma lista de URLs válidas para download dos arquivos.
 
 
 ### **5.0.2 - Pipeline de Dados** – `pipeline_ingest_dados_pj`
-**Descrição:**
-Pipeline responsável por capturar e armazenar dados públicos de empresas no Data Lake.
-
+**Descrição:** Pipeline responsável por capturar e armazenar dados públicos de empresas no Data Lake.
 **Periodicidade:** Mensal
-
 **Dia:** Último dia do mês
-
 **Horário:** 09:00
 
 <img width="1147" height="297" alt="image" src="https://github.com/user-attachments/assets/4fcb6490-772b-4a47-a71d-b5031a84572a" />
