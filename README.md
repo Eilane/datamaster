@@ -8,11 +8,7 @@
 4. [Monitoramento e Observabilidade](#monitoramento-e-observabilidade)  
 5. [Funções e Pipelines de Dados](#Pipelines-de-dados)
 6. [Resiliência dos Pipelines de Dados](#Resiliência-dos-pipelines-de-dados)
-<<<<<<< HEAD
 7. [Tabelas](#cadastro-de-tabelas-e-modelagem-de-dados)  
-=======
-7. [Cadastro de Tabelas e Modelagem de Dados](#cadastro-de-tabelas-e-modelagem-de-dados)  
->>>>>>> aeec64f82108b67c2fb734aff1692ce1e3db2230
 8. [Qualidade de Dados](#motor-de-qualidade-de-dados)  
 9. [Expurgo de Dados](#expurgo-de-dados)  
 10. [Plano de Recuperação e Local de Armazenamento](#plano-de-recuperação-e-local-de-armazenamento)  
