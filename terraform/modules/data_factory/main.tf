@@ -501,3 +501,185 @@ resource "azurerm_data_factory_trigger_schedule" "trigger_mensal" {
     }
   }
 }
+
+
+resource "azurerm_data_factory_linked_service_azure_sql_database" "sqlcfacilbr" {
+  name            = "linked_sql"
+  data_factory_id = azurerm_data_factory.adf.id
+
+  # Autenticação via Managed Identity
+  connection_string = "Server=tcp:sqlcfacilbr.database.windows.net,1433;Initial Catalog=sqlcfacilbr;Persist Security Info=False;User ID=sqladmin;Password=!CfacilBr489@demo;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30"
+
+}
+
+
+
+
+# # Deployment do ARM template (pipeline CDC)
+resource "azurerm_resource_group_template_deployment" "cdc" {
+  name                = "cdc_sql"
+  resource_group_name = var.resource_group_name
+  deployment_mode     = "Incremental"
+
+  depends_on = [
+    azurerm_data_factory_linked_service_azure_sql_database.sqlcfacilbr
+  ]
+  template_content  = <<TEMPLATE
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "resources": [
+{
+    "type": "Microsoft.DataFactory/factories/adfcdcs",
+    "apiVersion": "2018-06-01",
+    "name": "[concat('${azurerm_data_factory.adf.name}', '/cfacil_cdc_credito')]",
+    "properties": {
+        "SourceConnectionsInfo": [
+            {
+                "SourceEntities": [
+                    {
+                        "name": "credito.clientes_pj",
+                        "properties": {
+                            "schema": [],
+                            "dslConnectorProperties": [
+                                {
+                                    "name": "schemaName",
+                                    "value": "credito"
+                                },
+                                {
+                                    "name": "tableName",
+                                    "value": "clientes_pj"
+                                },
+                                {
+                                    "name": "enableCdc",
+                                    "value": true
+                                },
+                                {
+                                    "name": "waterMarkColumn",
+                                    "value": "data_inclusao"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "Connection": {
+                    "linkedService": {
+                        "referenceName": "linked_sql",
+                        "type": "LinkedServiceReference"
+                    },
+                    "linkedServiceType": "AzureSqlDatabase",
+                    "type": "linkedservicetype",
+                    "isInlineDataset": true,
+                    "commonDslConnectorProperties": [
+                        {
+                            "name": "allowSchemaDrift",
+                            "value": true
+                        },
+                        {
+                            "name": "inferDriftedColumnTypes",
+                            "value": true
+                        },
+                        {
+                            "name": "format",
+                            "value": "table"
+                        },
+                        {
+                            "name": "store",
+                            "value": "sqlserver"
+                        },
+                        {
+                            "name": "databaseType",
+                            "value": "databaseType"
+                        },
+                        {
+                            "name": "database",
+                            "value": "database"
+                        },
+                        {
+                            "name": "skipInitialLoad",
+                            "value": true
+                        }
+                    ]
+                }
+            }
+        ],
+        "TargetConnectionsInfo": [
+            {
+                "TargetEntities": [
+                    {
+                        "name": "unity/cdc/parquet",
+                        "properties": {
+                            "schema": [],
+                            "dslConnectorProperties": [
+                                {
+                                    "name": "container",
+                                    "value": "unity"
+                                },
+                                {
+                                    "name": "fileSystem",
+                                    "value": "unity"
+                                },
+                                {
+                                    "name": "folderPath",
+                                    "value": "cdc/parquet"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "Connection": {
+                    "linkedService": {
+                        "referenceName": "linked_gen2",
+                        "type": "LinkedServiceReference"
+                    },
+                    "linkedServiceType": "AzureBlobFS",
+                    "type": "linkedservicetype",
+                    "isInlineDataset": true,
+                    "commonDslConnectorProperties": [
+                        {
+                            "name": "allowSchemaDrift",
+                            "value": true
+                        },
+                        {
+                            "name": "inferDriftedColumnTypes",
+                            "value": true
+                        },
+                        {
+                            "name": "format",
+                            "value": "parquet"
+                        }
+                    ]
+                },
+                "DataMapperMappings": [
+                    {
+                        "targetEntityName": "unity/cdc/parquet",
+                        "sourceEntityName": "credito.clientes_pj",
+                        "sourceConnectionReference": {
+                            "connectionName": "linked_sql",
+                            "type": "linkedservicetype"
+                        },
+                        "attributeMappingInfo": {
+                            "attributeMappings": []
+                        }
+                    }
+                ],
+                "Relationships": []
+            }
+        ],
+        "Policy": {
+            "recurrence": {
+                "frequency": "Minute",
+                "interval": 15
+            },
+            "mode": "Microbatch"
+        },
+        "status": "Started",
+        "allowVNetOverride": false
+    }
+}
+
+  ]
+}
+TEMPLATE
+
+}

@@ -223,13 +223,12 @@ Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silve
 - **Assinatura do Azure** com permissões administrativas  
 - **Azure CLI**: [Instalar](https://aka.ms/installazurecliwindows) 
 - **Terraform**: [Download](https://www.terraform.io/downloads.html)
-- **SQLCMD**:[Download] https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-download-install?view=sql-server-ver17&tabs=windows
+- **SQLCMD**:[Download] (https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-download-install?view=sql-server-ver17&tabs=windows)
 - **Visual Studio Code**: [Download](https://code.visualstudio.com/download)  
   - Extensões recomendadas:  
     - **Azure Resources**  
     - **Microsoft Terraform**  
     - **HashiCorp Terraform**  
-- **Meu Ip**: [Download](https://meuip.com.br/)    # Para liberacao da regra de firewall
 ---
 
 ### 12.0.2 Passo a passo
@@ -241,6 +240,10 @@ Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silve
    az login             # Autentica na conta Azure
    terraform plan       # Mostra o que será criado
    terraform apply      # Aplica as mudanças na Azure
+
+2. **Executar oo comando abaixo para criar a tabela no Banco de Dados e habilitar o CDC. Obs: O script init_credito.sql está na pasta terraform/modules/azure_sql**:
+   ```bash
+   sqlcmd -S tcp:sqlcfacilbr.database.windows.net -d sqlcfacilbr -U sqladmin -P "InformarSenhaBanco" -i init_credito.sql
 
 ## 13. Análise das Tecnologias Escolhidas
 
@@ -260,6 +263,10 @@ Databricks como Líder no Quadrante Mágico™ da Gartner® de 2025 para Platafo
 
 
 ## 14. Referências
+
+Microsoft.DataFactory factories/adfcdcs
+https://learn.microsoft.com/en-us/azure/templates/microsoft.datafactory/factories/adfcdcs?pivots=deployment-language-bicep
+
 
 SQLCMD
 https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-download-install?view=sql-server-ver17&tabs=windows

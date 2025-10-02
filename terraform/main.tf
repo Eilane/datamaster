@@ -55,6 +55,13 @@ module "databricks" {
 }
 
 
+# # SQL
+module "azure_sql" {
+  source = "./modules/azure_sql"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+}
+
 
 # #Criação do Data Factory
 module "data_factory" {
@@ -66,6 +73,7 @@ module "data_factory" {
   databricks_workspace_url = module.databricks.workspace_url
   databricks_workspace_id  = module.databricks.workspace_id
   databricks_cluster_id    = module.databricks.cluster_id
+  sql_server_id = module.azure_sql.sql_server_id
 }
 
 
@@ -94,11 +102,5 @@ module "data_factory" {
 # }
 
 
-# # SQL
-module "azure_sql" {
-  source = "./modules/azure_sql"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-}
 
 
