@@ -503,26 +503,24 @@ resource "azurerm_data_factory_trigger_schedule" "trigger_mensal" {
 }
 
 
-resource "azurerm_data_factory_linked_service_azure_sql_database" "sqlcfacilbr" {
-  name            = "linked_sql"
-  data_factory_id = azurerm_data_factory.adf.id
 
-  # Autenticação via Managed Identity
-  connection_string = "Server=tcp:sqlcfacilbr.database.windows.net,1433;Initial Catalog=sqlcfacilbr;Persist Security Info=False;User ID=sqladmin;Password=!CfacilBr489@demo;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30"
+resource "azurerm_data_factory_linked_service_azure_sql_database" "sqldatabase" {
+  name                = "linked_sqldatabase"
+  data_factory_id     = azurerm_data_factory.adf.id
+  connection_string = "Server=tcp:sqlcfacilbr.database.windows.net,1433;Initial Catalog=sqlcfacilbr;User ID=sqladmin;Password=!CfacilBr489@demo;Encrypt=true;TrustServerCertificate=false;Connection Timeout=30;"
 
 }
 
 
 
-
 # # Deployment do ARM template (pipeline CDC)
-resource "azurerm_resource_group_template_deployment" "cdc" {
-  name                = "cdc_sql"
+resource "azurerm_resource_group_template_deployment" "cdc2" {
+  name                = "cdcsql"
   resource_group_name = var.resource_group_name
   deployment_mode     = "Incremental"
 
   depends_on = [
-    azurerm_data_factory_linked_service_azure_sql_database.sqlcfacilbr
+    azurerm_data_factory_linked_service_azure_sql_database.sqldatabase
   ]
   template_content  = <<TEMPLATE
 {
@@ -532,7 +530,7 @@ resource "azurerm_resource_group_template_deployment" "cdc" {
 {
     "type": "Microsoft.DataFactory/factories/adfcdcs",
     "apiVersion": "2018-06-01",
-    "name": "[concat('${azurerm_data_factory.adf.name}', '/cfacil_cdc_credito')]",
+    "name": "[concat('${azurerm_data_factory.adf.name}', '/cfacilcdccredito')]",
     "properties": {
         "SourceConnectionsInfo": [
             {
@@ -551,12 +549,12 @@ resource "azurerm_resource_group_template_deployment" "cdc" {
                                     "value": "clientes_pj"
                                 },
                                 {
-                                    "name": "enableCdc",
+                                    "name": "enableNativeCdc",
                                     "value": true
                                 },
                                 {
-                                    "name": "waterMarkColumn",
-                                    "value": "data_inclusao"
+                                    "name": "netChanges",
+                                    "value": true
                                 }
                             ]
                         }
@@ -564,7 +562,7 @@ resource "azurerm_resource_group_template_deployment" "cdc" {
                 ],
                 "Connection": {
                     "linkedService": {
-                        "referenceName": "linked_sql",
+                        "referenceName": "linked_sqldatabase",
                         "type": "LinkedServiceReference"
                     },
                     "linkedServiceType": "AzureSqlDatabase",
@@ -607,21 +605,21 @@ resource "azurerm_resource_group_template_deployment" "cdc" {
             {
                 "TargetEntities": [
                     {
-                        "name": "unity/cdc/parquet",
+                        "name": "raw/unity/cdc/credito.clientes_pj",
                         "properties": {
                             "schema": [],
                             "dslConnectorProperties": [
                                 {
                                     "name": "container",
-                                    "value": "unity"
+                                    "value": "raw"
                                 },
                                 {
                                     "name": "fileSystem",
-                                    "value": "unity"
+                                    "value": "raw"
                                 },
                                 {
                                     "name": "folderPath",
-                                    "value": "cdc/parquet"
+                                    "value": "unity/cdc/credito.clientes_pj"
                                 }
                             ]
                         }
@@ -652,10 +650,10 @@ resource "azurerm_resource_group_template_deployment" "cdc" {
                 },
                 "DataMapperMappings": [
                     {
-                        "targetEntityName": "unity/cdc/parquet",
+                        "targetEntityName": "raw/unity/cdc/credito.clientes_pj",
                         "sourceEntityName": "credito.clientes_pj",
                         "sourceConnectionReference": {
-                            "connectionName": "linked_sql",
+                            "connectionName": "linked_sqldatabase",
                             "type": "linkedservicetype"
                         },
                         "attributeMappingInfo": {
@@ -669,11 +667,10 @@ resource "azurerm_resource_group_template_deployment" "cdc" {
         "Policy": {
             "recurrence": {
                 "frequency": "Minute",
-                "interval": 15
+                "interval": 1
             },
             "mode": "Microbatch"
         },
-        "status": "Started",
         "allowVNetOverride": false
     }
 }

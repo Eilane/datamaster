@@ -264,6 +264,10 @@ Databricks como Líder no Quadrante Mágico™ da Gartner® de 2025 para Platafo
 
 ## 14. Referências
 
+Captura de dados alterados (CDC) com o Banco de Dados SQL do Azure
+https://learn.microsoft.com/en-us/azure/azure-sql/database/change-data-capture-overview?view=azuresql
+
+
 Microsoft.DataFactory factories/adfcdcs
 https://learn.microsoft.com/en-us/azure/templates/microsoft.datafactory/factories/adfcdcs?pivots=deployment-language-bicep
 
