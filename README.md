@@ -222,7 +222,8 @@ Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silve
 
 - **Assinatura do Azure** com permissões administrativas  
 - **Azure CLI**: [Instalar](https://aka.ms/installazurecliwindows) 
-- **Terraform**: [Download](https://www.terraform.io/downloads.html)  
+- **Terraform**: [Download](https://www.terraform.io/downloads.html)
+- **SQLCMD**:[Download] https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-download-install?view=sql-server-ver17&tabs=windows
 - **Visual Studio Code**: [Download](https://code.visualstudio.com/download)  
   - Extensões recomendadas:  
     - **Azure Resources**  
@@ -259,6 +260,9 @@ Databricks como Líder no Quadrante Mágico™ da Gartner® de 2025 para Platafo
 
 
 ## 14. Referências
+
+SQLCMD
+https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-download-install?view=sql-server-ver17&tabs=windows
 
 Use Azure managed identities in Unity Catalog to access storage
 https://learn.microsoft.com/en-us/azure/databricks/connect/unity-catalog/cloud-storage/azure-managed-identities
