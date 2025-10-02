@@ -204,8 +204,7 @@ Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silve
 - Validar campos obrigatórios (`NOT NULL`)  
 - Calcular scores de qualidade por tabela e coluna
 
-<img width="1064" height="326" alt="image" src="https://github.com/user-attachments/assets/8fa4e213-029f-41e9-a0e1-56bf5e80ed39" />
-
+<img width="988" height="430" alt="image" src="https://github.com/user-attachments/assets/5c066b05-2a8c-45d8-bce8-6d90a0f697a6" />
 
 
 ## 9. Expurgo de Dados
