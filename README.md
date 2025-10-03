@@ -51,14 +51,16 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
   Executar regras e validações para identificar possíveis inconsistências ou comportamentos suspeitos nos dados de CNPJ.
 
 
+- **Análise de potenciais clientes:**  
+  Analisar potenciais clientes para promover campanhas de crédito
+
+
 ### **2.0.3 - Diagrama do Caso de Uso**
 
-<img width="633" height="510" alt="image" src="https://github.com/user-attachments/assets/ede439d1-a986-4ec6-a647-0797b3f9d9b9" />
+![alt text](image-1.png)
 
 
-### **2.0.4 - Premissas do Projeto**
-
-### 2.0.5 - Riscos Operacionais Mapeados na utilização de Dados Públicos
+### 2.0.4 - Riscos Operacionais Mapeados na utilização de Dados Públicos
 
 ### Matriz de Riscos Mapeados
 
@@ -66,6 +68,13 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 |-----------|------------------------|-----------------------------|
 | Alteração no layout da página ou modificações na estrutura dos datasets sem comunicação prévia | Interrupção na extração automática dos dados, ocasionando falhas no pipeline | Utilizar os dados apenas para fins analíticos, reduzindo o impacto de interrupções temporárias para o cliente final nos sistemas transacionais |
 | Presença de dados duplicados nos arquivos disponibilizados | Aumento no volume de armazenamento e risco de análises incorretas | Aplicar deduplicação no processamento e gerar relatórios de controle para acompanhamento contínuo |
+
+
+### 2.0.5 Premissas
+
+- Atualização dos **dados de clientes** do sistema de crédito no Data Lake.  
+- Latência máxima de **15 minutos** para refletir as alterações.  
+- Objetivo: **evitar o envio de campanhas de crédito** para clientes já cadastrados na base de dados.
 
 
 ## 3. Arquitetura
@@ -223,28 +232,46 @@ Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silve
 - **Assinatura do Azure** com permissões administrativas  
 - **Azure CLI**: [Instalar](https://aka.ms/installazurecliwindows) 
 - **Terraform**: [Download](https://www.terraform.io/downloads.html)
-- **SQLCMD**:[Download] (https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-download-install?view=sql-server-ver17&tabs=windows)
+- **SQLCMD**:[Download](https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-download-install?view=sql-server-ver17&tabs=windows)
 - **Visual Studio Code**: [Download](https://code.visualstudio.com/download)  
   - Extensões recomendadas:  
     - **Azure Resources**  
     - **Microsoft Terraform**  
     - **HashiCorp Terraform**  
+- **Meu Ip** [Link](https://meuip.com.br/) Liberar o firewall no banco de dados 
 ---
 
 ### 12.0.2 Passo a passo
 
-1. **Executar os comandos abaixo na raiz do projeto Terraform**:
 
-   ```bash
-   terraform init       # Inicializa os providers e módulos
-   az login             # Autentica na conta Azure
-   terraform plan       # Mostra o que será criado
-   terraform apply      # Aplica as mudanças na Azure
+1. **Criar o arquivo de variáveis**:
 
-2. **Executar oo comando abaixo para criar a tabela no Banco de Dados e habilitar o CDC. Obs: O script init_credito.sql está na pasta terraform/modules/azure_sql**:
-   ```bash
-   sqlcmd -S tcp:sqlcfacilbr.database.windows.net -d sqlcfacilbr -U sqladmin -P "InformarSenhaBanco" -i init_credito.sql
+Dentro da pasta `terraform`, crie o arquivo `terraform.tfvars`:
 
+**Nome do arquivo:** `terraform.tfvars`
+
+**Conteúdo:**
+```bash
+senha_db        = ""  # Exemplo de senha válida:!CfacilBr489@demo  A senha deve conter letras maiúsculasminúsculas, números e caracteres especiais
+tenant_id       = ""  # ID do Tenant
+subscription_id = ""  # ID da Subscription
+account_id      = ""  # ID da Account
+```
+ 
+
+2. **Executar os comandos abaixo na raiz do projeto Terraform**:
+
+```bash
+terraform init       # Inicializa os providers e módulos
+az login             # Autentica na conta Azure
+terraform plan       # Mostra o que será criado
+terraform apply      # Aplica as mudanças na Azure
+```
+
+3. **Executar oo comando abaixo para criar a tabela no Banco de Dados e habilitar o CDC. Obs: O script init_credito.sql está na pasta terraform/modules/azure_sql**:
+```bash
+sqlcmd -S tcp:sqlcfacilbr.database.windows.net -d sqlcfacilbr -U sqladmin -P "InformarSenhaBanco" -i init_credito.sql
+```
 ## 13. Análise das Tecnologias Escolhidas
 
 ### 13.0.1 Microsoft - Plataforma de Integração como Serviço 

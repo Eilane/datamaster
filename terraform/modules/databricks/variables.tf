@@ -17,3 +17,10 @@ variable "location" {
   description = "Localização do recurso"
   type        = string
 }
+
+
+variable "account_id" {
+  description = "ID da sua conta Databricks"
+  type        = string
+  sensitive   = true
+}

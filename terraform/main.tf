@@ -18,7 +18,7 @@ provider "azurerm" {
       prevent_deletion_if_contains_resources = false
 }
   }
-  subscription_id = "035f79b4-e335-4a2c-8b45-b0f0a2f9ca0a"
+  subscription_id = var.subscription_id
 }
 
 # Criação do Grupo de Recurso  
@@ -52,6 +52,7 @@ module "databricks" {
   location =  azurerm_resource_group.rg.location
   storage_account_name     = module.storage_account.storage_account_name
   storage_account_id       = module.storage_account.storage_account_id
+  account_id = var.account_id
 }
 
 
@@ -60,6 +61,7 @@ module "azure_sql" {
   source = "./modules/azure_sql"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
+  senha_db = var.senha_db
 }
 
 
@@ -73,9 +75,18 @@ module "data_factory" {
   databricks_workspace_url = module.databricks.workspace_url
   databricks_workspace_id  = module.databricks.workspace_id
   databricks_cluster_id    = module.databricks.cluster_id
-  sql_server_id = module.azure_sql.sql_server_id
+  
 }
 
+
+module "keyvault" {
+  source = "./modules/keyvault"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  tenant_id = var.tenant_id
+  senha_db = var.senha_db
+  azurerm_data_factory_id = module.data_factory.azurerm_data_factory_id
+}
 
 ################ EVENTOS ################
 

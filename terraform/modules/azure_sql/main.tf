@@ -7,7 +7,7 @@ resource "azurerm_mssql_server" "sql_server" {
   location                     = var.location
   version                      = "12.0"
   administrator_login          = "sqladmin"
-  administrator_login_password = "!CfacilBr489@demo"
+  administrator_login_password = var.senha_db
 }
 
 # -------------------------------------------------
@@ -23,11 +23,22 @@ resource "azurerm_mssql_database" "sql_db" {
 }
 
 # -------------------------------------------------
-# Cria uma regra de firewall para permitir o acesso ao banco por todos os recursos
+# Cria uma regra de firewall para permitir conexões de todos os serviços do Azure
 # -------------------------------------------------
 resource "azurerm_mssql_firewall_rule" "allow" {
   name             = "allow_ip"
   server_id        = azurerm_mssql_server.sql_server.id
   start_ip_address = "0.0.0.0"
   end_ip_address   = "0.0.0.0"
+}
+
+
+# -------------------------------------------------
+# Meu Ip
+# -------------------------------------------------
+resource "azurerm_mssql_firewall_rule" "meuIp" {
+  name             = "meuIp"
+  server_id        = azurerm_mssql_server.sql_server.id
+  start_ip_address = "186.213.133.71"
+  end_ip_address   = "186.213.133.71"
 }

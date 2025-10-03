@@ -21,7 +21,7 @@ provider "databricks" {
 provider "databricks" {
   alias = "accounts"
   host  = "https://accounts.azuredatabricks.net"
-  account_id =  "535c8024-0a16-4f95-8e81-345e9746d96a"
+  account_id =  var.account_id
 }
 
 

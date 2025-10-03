@@ -33,9 +33,3 @@ variable "databricks_cluster_id" {
   description = "Id do  cluster databricks"
   type        = string
 }
-
-
-variable "sql_server_id" {
-  description = "Id do  cluster databricks"
-  type        = string
-}

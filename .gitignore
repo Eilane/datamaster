@@ -2,3 +2,6 @@ terraform/.terraform/
 terraform/.terraform.lock.hcl
 terraform/terraform.tfstate.backup
 terraform/terraform.tfstate
+
+# Ignorar terraform.tfvars dentro da pasta terraform
+datamaster/terraform/terraform.tfvars
