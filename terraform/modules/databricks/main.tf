@@ -334,3 +334,39 @@ resource "databricks_notebook" "create_cli_silver" {
   path     = "/Workspace/sistemas/credfacil/silver/syscredito/ddl-create-tbl-silver-clientes.py"
   language = "PYTHON"
 }
+
+
+resource "databricks_notebook" "vacuum" {
+  source   = "${path.module}/notebooks/governance/vaccum/vaccum_notebook.py"
+  path     = "/Workspace/sistemas/credfacil/governance/vaccum/vaccum_notebook.py"
+  language = "PYTHON"
+}
+
+
+resource "databricks_job" "job_vacuum" {
+  name = "job-vacuum-semanal"
+
+  existing_cluster_id = databricks_cluster.personal_cluster.id
+
+  task {
+    task_key = "vacuum_task"
+
+    notebook_task {
+      notebook_path = "/Workspace/sistemas/credfacil/governance/vaccum/vaccum_notebook.py"
+    }
+  }
+
+  schedule {
+    quartz_cron_expression = "0 0 6 ? * SAT" # sábado 06:00
+    timezone_id            = "America/Sao_Paulo"
+  }
+
+  max_concurrent_runs = 1
+}
+
+
+
+
+
+
+
