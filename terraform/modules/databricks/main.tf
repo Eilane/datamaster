@@ -342,11 +342,22 @@ resource "databricks_notebook" "vacuum" {
   language = "PYTHON"
 }
 
+resource "databricks_notebook" "ddl_b_syscre" {
+  source   = "${path.module}/notebooks/bronze/syscredito/ddl-create-tbl-clientes.py"
+  path     = "/Workspace/sistemas/credfacil/bronze/syscredito/ddl-create-tbl-clientes.py"
+  language = "PYTHON"
+}
+
+resource "databricks_notebook" "clientes_pj_stream" {
+  source   = "${path.module}/notebooks/bronze/syscredito/clientes_pj_stream.py"
+  path     = "/Workspace/sistemas/credfacil/bronze/syscredito/clientes_pj_stream.py"
+  language = "PYTHON"
+}
+
+
 #jobs
 resource "databricks_job" "job_vacuum" {
   name = "job-vacuum-semanal"
-
-  
 
   task {
     task_key = "vacuum_task"

@@ -14,6 +14,7 @@
 # MAGIC     data_baixa DATE COMMENT "Data de baixa da empresa, se aplicável",
 # MAGIC     data_inclusao TIMESTAMP  COMMENT "Data de inclusão do registro no sistema",
 # MAGIC     data_atualizacao TIMESTAMP COMMENT "Data da última atualização do registro"
+# MAGIC     _rescued_data    string    COMMENT "Dados inesperados que não correspondem ao schema"
 # MAGIC )
 # MAGIC USING DELTA
 # MAGIC COMMENT "Tabela de clientes pessoa jurídica da CrediFácil Brasil. Contém dados cadastrais integrados da Receita Federal e outras fontes públicas.";
