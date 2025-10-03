@@ -245,19 +245,20 @@ Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silve
 
 
 ## 9. Expurgo de Dados
-*Em desenvolvimento...*
+- Lifecycle de 6 meses na camada raw -> Configuração realizada no storage account
+- Rotina semanal de Vaccum para remoção de arquivos obsoletos 
+  - Periodicidade: Semanal (Sábado)
+  - Horário: 06:00
 
-## 10. Plano de Recuperação e Local de Armazenamento
-*Em desenvolvimento...*
-
-## 11. Visualização de Dados
+## 10. Visualização de Dados
 *Em desenvolvimento...*
 
 ## 12. Solução Técnica
 
 ### 12.0.1 Pré-requisitos
 
-- **Assinatura do Azure** com permissões administrativas  
+- **Assinatura do Azure** com permissões administrativas 
+- **Conta no Azure Databricks Enterprise** [Identificar o Account ID](https://accounts.azuredatabricks.net) 
 - **Azure CLI**: [Instalar](https://aka.ms/installazurecliwindows) 
 - **Terraform**: [Download](https://www.terraform.io/downloads.html)
 - **SQLCMD**:[Download](https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-download-install?view=sql-server-ver17&tabs=windows)
