@@ -176,8 +176,8 @@ terraform
 - Os dados das demais camadas serão movidos para uma **camada cold storage** após **5 anos**, permitindo retenção de longo prazo com custo reduzido.
 
 ## 4. Monitoramento e Observabilidade
+<img width="673" height="415" alt="image" src="https://github.com/user-attachments/assets/19773a54-2a82-417d-9737-63e506cb32c1" />
 
-![alt text](image.png)
 
 ## 5. Funções e Pipelines de Dados
 
@@ -214,16 +214,20 @@ Caso nenhum valor seja fornecido, o pipeline utiliza automaticamente o ano e mê
 
 ## 7. Tabelas
 
-### SCD - Slowly Changing Dimensions  
+###  7.0.1 - SCD - Slowly Changing Dimensions  
 
 Técnica de gerenciamento de dados que define como as tabelas lidam com informações que mudam ao longo do tempo.  
 
+#### Aplicado Tipo 0 nas Tabelas *Bronze* 
+  - Sem alterações, apenas append
 #### Aplicado Tipo 1 nas Tabelas *Silver* e *Gold*  
 
 - **Tipo 1**: Sem histórico — apenas os dados atuais são mantidos.  
   - **Forma de escrita**: *Overwrite*  
 
+###  7.0.2 - Organização das tabelas
 
+<img width="886" height="613" alt="image" src="https://github.com/user-attachments/assets/dacadf5e-77ad-400e-b57a-34d4c424254e" />
 
 ## 8. Qualidade de Dados
 ### 8.0.1 - Tabela com regras de qualidade
