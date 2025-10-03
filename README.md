@@ -147,6 +147,65 @@ Este repositório organiza a infraestrutura como código (IaC) utilizando **Terr
                           # - governance
 ```
 
+
+
+## 1. Estrutura de pastas
+
+```bash
+terraform
+├── main.tf              # Arquivo principal com recursos globais e providers
+├── variables.tf         # Declaração de variáveis
+├── terraform.tfvars     # Valores sensíveis | Não está no git
+├── provider.tf          # Configuração do provider
+├── modules
+│   ├── resource_group
+│   │   # Módulo cria o Resource Group principal do projeto
+│   │   # - Nome do RG
+│   │   # - Localização
+│   │  
+│   ├── azure_sql        # Módulo cria o SQL DATABASE
+│   │   └── scripts      # Scripts SQL, como init_credito.sql para tabelas e CDC
+│   │
+│   ├── databricks
+│   │   # Módulo cria os recursos abaixo:
+│   │   # - workspace
+│   │   # - managed_identity
+│   │   # - metastore
+│   │   # - storage_credential
+│   │   # - external_locations
+│   │   # - catalog
+│   │   # - schemas
+│   │   # - notebooks (bronze, silver, gold, governance)
+│   │   # - cluster
+│   │   # - roles
+│   │
+│   ├── data_factory
+│   │   # Módulo cria:
+│   │   # - linked_services
+│   │   # - datasets
+│   │   # - pipelines
+│   │   # - triggers
+│   │   # - roles
+│   │
+│   ├── functions_app
+│   │   # Módulo cria função Python
+│   │
+│   ├── keyvault
+│   │   # Módulo cria Key Vault e secrets
+│   │   # - senha_db
+│   │   # - role de permissão de acesso para Data Factory (get)
+│   │
+│   └── storage_account
+│       # Módulo cria os containers:
+│       # - raw
+│       # - bronze
+│       # - silver
+│       # - gold
+│       # - governance
+│       # - Politicas 
+
+```
+
 ## 4. Monitoramento e Observabilidade
 
 ![alt text](image.png)
