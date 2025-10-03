@@ -337,19 +337,20 @@ resource "databricks_notebook" "create_cli_silver" {
 
 
 resource "databricks_notebook" "vacuum" {
-  source   = "${path.module}/notebooks/governance/vaccum/vaccum_notebook.py"
+  source   = "${path.module}/notebooks/governance/vaccum/vacuum_notebook.py"
   path     = "/Workspace/sistemas/credfacil/governance/vaccum/vaccum_notebook.py"
   language = "PYTHON"
 }
 
-
+#jobs
 resource "databricks_job" "job_vacuum" {
   name = "job-vacuum-semanal"
 
-  existing_cluster_id = databricks_cluster.personal_cluster.id
+  
 
   task {
     task_key = "vacuum_task"
+    existing_cluster_id = databricks_cluster.personal_cluster.id
 
     notebook_task {
       notebook_path = "/Workspace/sistemas/credfacil/governance/vaccum/vaccum_notebook.py"
