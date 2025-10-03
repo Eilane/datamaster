@@ -40,15 +40,4 @@ query = (
 query.awaitTermination()
 
 
-# COMMAND ----------
 
-query = (
-    df_stream.writeStream
-        .format("delta")
-        .option("checkpointLocation", f"{location}/_checkpoint")
-        .outputMode("append")
-        .trigger(processingTime="1 minute") 
-        .toTable(tabela)
-)
-
-query.awaitTermination()

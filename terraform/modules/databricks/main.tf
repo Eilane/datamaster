@@ -323,11 +323,6 @@ resource "databricks_notebook" "cli" {
   language = "PYTHON"
 }
 
-resource "databricks_notebook" "create_cli" {
-  source   = "${path.module}/notebooks/silver/syscredito/ddl-create-tbl-clientes.py"
-  path     = "/Workspace/sistemas/credfacil/silver/syscredito/ddl-create-tbl-clientes.py"
-  language = "PYTHON"
-}
 
 resource "databricks_notebook" "create_cli_silver" {
   source   = "${path.module}/notebooks/silver/syscredito/ddl-create-tbl-silver-clientes.py"
@@ -352,6 +347,22 @@ resource "databricks_notebook" "clientes_pj_stream" {
   source   = "${path.module}/notebooks/bronze/syscredito/clientes_pj_stream.py"
   path     = "/Workspace/sistemas/credfacil/bronze/syscredito/clientes_pj_stream.py"
   language = "PYTHON"
+}
+
+
+
+resource "databricks_job" "clientes_pj_stream" {
+  name = "job-clientes-pj-stream"
+  depends_on = [ databricks_notebook.clientes_pj_stream ]
+  task {
+    task_key = "clientes_pj_task"
+    existing_cluster_id = databricks_cluster.personal_cluster.id
+
+    notebook_task {
+      notebook_path = "/Workspace/sistemas/credfacil/bronze/syscredito/clientes_pj_stream.py"
+    }
+  }
+  max_concurrent_runs = 5
 }
 
 
