@@ -541,8 +541,8 @@ CONN
 
 
 #Deployment do ARM template (pipeline CDC)
-resource "azurerm_resource_group_template_deployment" "cdc2" {
-  name                = "cdcsql"
+resource "azurerm_resource_group_template_deployment" "cdc" {
+  name                = "cdcsql2"
   resource_group_name = var.resource_group_name
   deployment_mode     = "Incremental"
 
@@ -694,7 +694,7 @@ resource "azurerm_resource_group_template_deployment" "cdc2" {
         "Policy": {
             "recurrence": {
                 "frequency": "Minute",
-                "interval": 1
+                "interval": 15
             },
             "mode": "Microbatch"
         },
