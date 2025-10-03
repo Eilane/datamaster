@@ -82,7 +82,7 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 ### 3.0.1 Desenho de Arquitetura
 Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos diretamente de suas fontes de origem e integrados a uma arquitetura de dados Lakehouse na nuvem pública Microsoft Azure.
 
-<img width="1049" height="588" alt="image" src="https://github.com/user-attachments/assets/2dbc4a3b-fdf3-423b-a6e7-a591abe2a031" />
+![alt text](image-2.png)
 
 
 ### 3.0.2 - Estrutura lógica das camadas do Data Lake
