@@ -1,3 +1,5 @@
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_data_factory" "adf" {
   name                = "adfcfacilbr"
   location            = var.location
@@ -48,7 +50,6 @@ resource "azurerm_resource_group_template_deployment" "http_link" {
         }
       }
     }
-}
   ]
 }
 TEMPLATE
@@ -513,7 +514,7 @@ resource "azurerm_data_factory_linked_service_key_vault" "ls_kv" {
 # role de acesso
 resource "azurerm_key_vault_access_policy" "adf_policy" {
   key_vault_id = var.azurerm_key_vault_id
-  tenant_id    = var.tenant_id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = azurerm_data_factory.adf.identity[0].principal_id
 
   secret_permissions = [

@@ -34,12 +34,6 @@ variable "databricks_cluster_id" {
   type        = string
 }
 
-variable "tenant_id" {
-  description = "Tenant ID da conta Azure"
-  type        = string
-  sensitive   = true
-}
-
 variable "azurerm_key_vault_id" {
   description = "ID da Key Vault"
   type        = string

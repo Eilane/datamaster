@@ -163,6 +163,13 @@ resource "databricks_schema" "b_ext_rf_empresas" {
   catalog_name = databricks_catalog.prd.name
   comment      = "[Bronze] Dados brutos da Receita Federal sobre empresas registradas"
   storage_root = "abfss://bronze@datalakecfacilbr.dfs.core.windows.net/unity/b_ext_rf_empresas"
+  depends_on = [ 
+                  databricks_external_location.ext_location_bronze,
+                  databricks_external_location.ext_location_gold,
+                  databricks_external_location.ext_location_governance,
+                  databricks_external_location.ext_location_raw,
+                  databricks_external_location.ext_location_silver
+   ]
 }
 
 resource "databricks_schema" "b_cfacil_credito" {
@@ -170,6 +177,13 @@ resource "databricks_schema" "b_cfacil_credito" {
   catalog_name = databricks_catalog.prd.name
   comment      = "[Bronze] Dados brutos de clientes PJ do sistema de crédito da Crédito Fácil"
   storage_root = "abfss://bronze@datalakecfacilbr.dfs.core.windows.net/unity/b_cfacil_credito"
+  depends_on = [ 
+                  databricks_external_location.ext_location_bronze,
+                  databricks_external_location.ext_location_gold,
+                  databricks_external_location.ext_location_governance,
+                  databricks_external_location.ext_location_raw,
+                  databricks_external_location.ext_location_silver
+   ]
 }
 
 # -------------------------------------------------
@@ -180,6 +194,13 @@ resource "databricks_schema" "s_rf_empresas" {
   catalog_name = databricks_catalog.prd.name
   comment      = "[Silver] Dados tratados e padronizados da Receita Federal sobre empresas registradas"
   storage_root = "abfss://silver@datalakecfacilbr.dfs.core.windows.net/unity/s_rf_empresas"
+  depends_on = [ 
+                  databricks_external_location.ext_location_bronze,
+                  databricks_external_location.ext_location_gold,
+                  databricks_external_location.ext_location_governance,
+                  databricks_external_location.ext_location_raw,
+                  databricks_external_location.ext_location_silver
+   ]
 }
 
 resource "databricks_schema" "s_cfacil_credito" {
@@ -187,6 +208,13 @@ resource "databricks_schema" "s_cfacil_credito" {
   catalog_name = databricks_catalog.prd.name
   comment      = "[Silver] Dados tratados de clientes PJ da Crédito Fácil, com qualidade e consistência garantidas"
   storage_root = "abfss://silver@datalakecfacilbr.dfs.core.windows.net/unity/s_cfacil_credito"
+  depends_on = [ 
+                  databricks_external_location.ext_location_bronze,
+                  databricks_external_location.ext_location_gold,
+                  databricks_external_location.ext_location_governance,
+                  databricks_external_location.ext_location_raw,
+                  databricks_external_location.ext_location_silver
+   ]
 }
 
 # -------------------------------------------------
@@ -197,6 +225,13 @@ resource "databricks_schema" "g_cfacil_credito" {
   catalog_name = databricks_catalog.prd.name
   comment      = "[Gold] Camada de consumo consolidada com indicadores e métricas de crédito da Crédito Fácil"
   storage_root = "abfss://gold@datalakecfacilbr.dfs.core.windows.net/unity/g_cfacil_credito"
+  depends_on = [ 
+                  databricks_external_location.ext_location_bronze,
+                  databricks_external_location.ext_location_gold,
+                  databricks_external_location.ext_location_governance,
+                  databricks_external_location.ext_location_raw,
+                  databricks_external_location.ext_location_silver
+   ]
 }
 
 
@@ -208,6 +243,13 @@ resource "databricks_schema" "governance" {
   catalog_name = databricks_catalog.prd.name
   comment      = "Camada de governança"
   storage_root = "abfss://governance@datalakecfacilbr.dfs.core.windows.net/unity/governance"
+  depends_on = [ 
+                  databricks_external_location.ext_location_bronze,
+                  databricks_external_location.ext_location_gold,
+                  databricks_external_location.ext_location_governance,
+                  databricks_external_location.ext_location_raw,
+                  databricks_external_location.ext_location_silver
+   ]
 }
 
 

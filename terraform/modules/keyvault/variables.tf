@@ -13,9 +13,3 @@ variable "senha_db" {
   type        = string
   sensitive   = true
 }
-
-variable "tenant_id" {
-  description = "Tenant ID da conta Azure"
-  type        = string
-  sensitive   = true
-}

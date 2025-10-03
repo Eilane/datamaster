@@ -1,3 +1,6 @@
+
+
+
 #Criação do Resource Group
 module "resource_group" {
   source = "./modules/resource_group"
@@ -46,7 +49,6 @@ module "keyvault" {
   source = "./modules/keyvault"
   resource_group_name = module.resource_group.azurerm_resource_group_rg_name
   location = module.resource_group.azurerm_resource_group_rg_location
-  tenant_id = var.tenant_id
   senha_db = var.senha_db
   
 }
@@ -61,10 +63,8 @@ module "data_factory" {
   databricks_workspace_url = module.databricks.workspace_url
   databricks_workspace_id  = module.databricks.workspace_id
   databricks_cluster_id    = module.databricks.cluster_id
-  tenant_id = var.tenant_id
   azurerm_key_vault_id = module.keyvault.azurerm_key_vault_id
-  azurerm_key_vault_secret_name = module.keyvault.azurerm_key_vault_secret_name
-  
+  azurerm_key_vault_secret_name = module.keyvault.azurerm_key_vault_secret_name  
 }  
 
 ################ EVENTOS ################
