@@ -253,6 +253,9 @@ Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silve
 ## 10. Visualização de Dados
 *Em desenvolvimento...*
 
+## 11 Acompanhamento de custos por recurso via portal
+![alt text](image-3.png)
+
 ## 12. Solução Técnica
 
 ### 12.0.1 Pré-requisitos
@@ -285,6 +288,7 @@ senha_db        = ""  # Exemplo de senha válida:!CfacilBr489@demo  A senha deve
 tenant_id       = ""  # ID do Tenant
 subscription_id = ""  # ID da Subscription
 account_id      = ""  # ID da Account
+meu_ip          = ""  # IP a ser Liberado no Firewall 
 ```
  
 

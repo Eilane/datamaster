@@ -19,9 +19,3 @@ variable "tenant_id" {
   type        = string
   sensitive   = true
 }
-
-variable "azurerm_data_factory_id" {
-  description = "Id do data factory"
-  type        = string
-  sensitive   = true
-}

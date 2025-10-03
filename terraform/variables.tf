@@ -21,3 +21,9 @@ variable "account_id" {
   type        = string
   sensitive   = true
 }
+
+variable "meu_ip" {
+  description = "Meu Ip para liberação de regras no banco"
+  type        = string
+  sensitive   = true
+}

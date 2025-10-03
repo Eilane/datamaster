@@ -39,6 +39,6 @@ resource "azurerm_mssql_firewall_rule" "allow" {
 resource "azurerm_mssql_firewall_rule" "meuIp" {
   name             = "meuIp"
   server_id        = azurerm_mssql_server.sql_server.id
-  start_ip_address = "186.213.133.71"
-  end_ip_address   = "186.213.133.71"
+  start_ip_address = var.meu_ip
+  end_ip_address   = var.meu_ip
 }

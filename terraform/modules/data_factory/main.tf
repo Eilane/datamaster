@@ -47,23 +47,6 @@ resource "azurerm_resource_group_template_deployment" "http_link" {
           "authenticationType": "Anonymous"
         }
       }
-    },
-    {
-    "type": "Microsoft.DataFactory/factories/linkedservices",
-    "apiVersion": "2018-06-01",
-    "name": "[concat('${azurerm_data_factory.adf.name}', '/linked_sqldatabase')]", 
-    "properties": {
-        "annotations": [],
-        "type": "AzureSqlDatabase",
-        "typeProperties": {
-            "server": "tcp:sqlcfacilbr.database.windows.net",
-            "database": "sqlcfacilbr",
-            "encrypt": "mandatory",
-            "trustServerCertificate": false,
-            "authenticationType": "SQL",
-            "userName": "sqladmin",
-            "encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQERCNEQxMDQ3LUE0MjEtNEQ1RC1BQUJELTE0NEExMThBQ0RFN180YjY0MWI0Mi0xYzgwLTRmNTItYWYyZS1lYzVhYzdkN2NjNzQiDQp9"
-        }
     }
 }
   ]
@@ -521,46 +504,40 @@ resource "azurerm_data_factory_trigger_schedule" "trigger_mensal" {
 }
 
 
+resource "azurerm_data_factory_linked_service_key_vault" "ls_kv" {
+  name                = "linked_kv"
+  data_factory_id     = azurerm_data_factory.adf.id
+  key_vault_id        = var.azurerm_key_vault_id
+}
 
-# resource "azurerm_data_factory_linked_service_azure_sql_database" "sqldatabase" {
-#   name                = "linked_sqldatabase"
-#   data_factory_id     = azurerm_data_factory.adf.id
-#   connection_string = "Server=tcp:sqlcfacilbr.database.windows.net,1433;Initial Catalog=sqlcfacilbr;User ID=sqladmin;Password=!CfacilBr489@demo;Encrypt=true;TrustServerCertificate=false;Connection Timeout=30;"
+# role de acesso
+resource "azurerm_key_vault_access_policy" "adf_policy" {
+  key_vault_id = var.azurerm_key_vault_id
+  tenant_id    = var.tenant_id
+  object_id    = azurerm_data_factory.adf.identity[0].principal_id
 
-# }
+  secret_permissions = [
+    "Get"
+  ]
+}
+
+resource "azurerm_data_factory_linked_service_azure_sql_database" "linked_sqldatabase" {
+  name                = "linked_sqldatabase"
+  data_factory_id     = azurerm_data_factory.adf.id
+
+  connection_string = <<CONN
+Server=tcp:sqlcfacilbr.database.windows.net,1433;
+Database=sqlcfacilbr;
+User ID=sqladmin;
+CONN
+
+  key_vault_password {
+    linked_service_name = azurerm_data_factory_linked_service_key_vault.ls_kv.name
+    secret_name         = var.azurerm_key_vault_secret_name
+  }
+}
 
 
-# resource "azurerm_resource_group_template_deployment" "linked_sqldatabase" {
-#   name                = "httpLinkedServiceDeployment"
-#   resource_group_name = var.resource_group_name
-#   deployment_mode     = "Incremental"
-
-#   template_content = <<TEMPLATE
-# {
-#   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-#   "contentVersion": "1.0.0.0",
-#   "resources": [
-# {
-#     "name": "linked_sqldatabase",
-#     "type": "Microsoft.DataFactory/factories/linkedservices",
-#     "properties": {
-#         "annotations": [],
-#         "type": "AzureSqlDatabase",
-#         "typeProperties": {
-#             "server": "tcp:sqlcfacilbr.database.windows.net",
-#             "database": "sqlcfacilbr",
-#             "encrypt": "mandatory",
-#             "trustServerCertificate": false,
-#             "authenticationType": "SQL",
-#             "userName": "sqladmin",
-#             "encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQERCNEQxMDQ3LUE0MjEtNEQ1RC1BQUJELTE0NEExMThBQ0RFN180YjY0MWI0Mi0xYzgwLTRmNTItYWYyZS1lYzVhYzdkN2NjNzQiDQp9"
-#         }
-#     }
-# }
-#   ]
-# }
-# TEMPLATE
-# }
 
 #Deployment do ARM template (pipeline CDC)
 resource "azurerm_resource_group_template_deployment" "cdc2" {
@@ -569,7 +546,7 @@ resource "azurerm_resource_group_template_deployment" "cdc2" {
   deployment_mode     = "Incremental"
 
   depends_on = [
-    azurerm_resource_group_template_deployment.http_link
+    azurerm_data_factory_linked_service_azure_sql_database.linked_sqldatabase
   ]
   template_content  = <<TEMPLATE
 {
@@ -728,23 +705,4 @@ resource "azurerm_resource_group_template_deployment" "cdc2" {
 }
 TEMPLATE
 
-}
-
-
-
-
-# Linked Service para Azure SQL Database
-resource "azurerm_data_factory_linked_service_azure_sql_database" "sqldb" {
-  name            = "linked_sqldatabase2"
-  data_factory_id = azurerm_data_factory.adf.id
-
-  connection_string = <<EOT
-Server=tcp:sqlcfacilbr.database.windows.net,1433;
-Database=sqlcfacilbr;
-User ID=sqladmin;
-Password=!CfacilBr489@demo;
-Encrypt=true;
-TrustServerCertificate=false;
-Connection Timeout=30;
-EOT
 }

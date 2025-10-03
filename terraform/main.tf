@@ -38,8 +38,18 @@ module "azure_sql" {
   resource_group_name      = module.resource_group.azurerm_resource_group_rg_name
   location                 = module.resource_group.azurerm_resource_group_rg_location
   senha_db = var.senha_db
+  meu_ip = var.meu_ip
 }
 
+
+module "keyvault" {
+  source = "./modules/keyvault"
+  resource_group_name = module.resource_group.azurerm_resource_group_rg_name
+  location = module.resource_group.azurerm_resource_group_rg_location
+  tenant_id = var.tenant_id
+  senha_db = var.senha_db
+  
+}
 
 # #Criação do Data Factory
 module "data_factory" {
@@ -51,18 +61,11 @@ module "data_factory" {
   databricks_workspace_url = module.databricks.workspace_url
   databricks_workspace_id  = module.databricks.workspace_id
   databricks_cluster_id    = module.databricks.cluster_id
-  
-}
-
-
-module "keyvault" {
-  source = "./modules/keyvault"
-  resource_group_name      = module.resource_group.azurerm_resource_group_rg_name
-  location                 = module.resource_group.azurerm_resource_group_rg_location
   tenant_id = var.tenant_id
-  senha_db = var.senha_db
-  azurerm_data_factory_id = module.data_factory.azurerm_data_factory_id
-}
+  azurerm_key_vault_id = module.keyvault.azurerm_key_vault_id
+  azurerm_key_vault_secret_name = module.keyvault.azurerm_key_vault_secret_name
+  
+}  
 
 ################ EVENTOS ################
 
