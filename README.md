@@ -105,51 +105,8 @@ Recursos com acesso direto ao Data Lake Corporativo
 
 
 ### 3.0.4 – Estrutura do Terraform
-# Estrutura de Diretórios - Terraform
 
 Este repositório organiza a infraestrutura como código (IaC) utilizando **Terraform**, com módulos separados por serviço para facilitar manutenção e reutilização.
-
----
-
-## 
-```bash
-.terraform
-├── main
-├── modules
-│   ├── azure_sql
-│   │
-│   ├── databricks        # Módulo cria os recursos abaixo:
-│   │                     # - workspace
-│   │                     # - managed_identity
-|   │                     # - metastore
-│   │                     # - storage_credential
-│   │                     # - external_locations
-│   │                     # - catalog
-│   │                     # - schemas
-│   │                     # - notebooks
-│   │                     # - cluster
-│   │                     # - roles
-│   │
-│   ├── data_factory      # Módulo cria:
-│   │                     # - linked_services
-│   │                     # - datasets
-│   │                     # - pipelines
-│   │                     # - triggers
-│   │                     # - roles
-│   │
-│   ├── functions_app     # Módulo cria uma função python
-│   │
-│   └── storage_account   # Módulo cria os containers:
-                          # - raw
-                          # - bronze
-                          # - silver
-                          # - gold
-                          # - governance
-```
-
-
-
-## 1. Estrutura de pastas
 
 ```bash
 terraform
@@ -205,6 +162,18 @@ terraform
 │       # - Politicas 
 
 ```
+
+### 3.0.4 – Premissas e Políticas
+
+- O **Data Factory** será a principal fonte de comunicação com dados externos, garantindo integração controlada e monitorada.
+
+- O acesso aos recursos no **Data Lake** será restrito ao **Unity Catalog** e ao **Data Factory**, utilizando **Managed Identity** para autenticação segura.
+
+- As aplicações, **com exceção dos recursos mencionados acima**, não poderão acessar diretamente o Data Lake corporativo, garantindo isolamento e segurança dos dados.
+
+- Para **redução de custos**, os dados da camada **raw** terão um **lifecycle de 6 meses**; após esse período, serão expurgados automaticamente.
+
+- Os dados das demais camadas serão movidos para uma **camada cold storage** após **5 anos**, permitindo retenção de longo prazo com custo reduzido.
 
 ## 4. Monitoramento e Observabilidade
 
