@@ -39,7 +39,7 @@ resource "azurerm_resource_group_template_deployment" "http_link" {
         "parameters": {
           "base_url": {
             "type": "String",
-            "defaultValue": "@dataset().base_url"
+            "defaultValue": "https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj"
           }
         },
         "type": "HttpServer",
@@ -49,7 +49,36 @@ resource "azurerm_resource_group_template_deployment" "http_link" {
           "authenticationType": "Anonymous"
         }
       }
+    },
+    {
+    "type": "Microsoft.DataFactory/factories/datasets",
+    "apiVersion": "2018-06-01",
+	"name": "[concat('${azurerm_data_factory.adf.name}', '/ds_binary_http')]",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "link_http",
+            "type": "LinkedServiceReference",
+            "parameters": {
+                "base_url": {
+                    "value": "@dataset().base_url",
+                    "type": "Expression"
+                }
+            }
+        },
+        "parameters": {
+            "base_url": {
+                "type": "string"
+            }
+        },
+        "annotations": [],
+        "type": "Binary",
+        "typeProperties": {
+            "location": {
+                "type": "HttpServerLocation"
+            }
+        }
     }
+   }
   ]
 }
 TEMPLATE
@@ -86,34 +115,6 @@ resource "azurerm_data_factory_dataset_binary" "ds_binary_datalake" {
    path = "@dataset().folder_raw"
  }
 }
-
-
-
-resource "azurerm_data_factory_dataset_binary" "ds_binary_http" {
-  name            = "ds_binary_http"
-  data_factory_id = azurerm_data_factory.adf.id
-
-  linked_service_name = "link_http"
-  http_server_location {
-    relative_url = "empresas"
-    path = "dadoscnpj"
-    filename = "estabelecimentos" 
-    }
-  # parâmetros do dataset
-  parameters = {
-    base_url = "https://"
-  }
-
-  compression {
-    type  = "ZipDeflate"
-    level = "Fastest"
-  }
-
-depends_on = [
-    azurerm_resource_group_template_deployment.http_link
-  ]
-}
-
 
 
 # ---------------------------------------------
@@ -303,7 +304,6 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
   
   depends_on = [
     azurerm_data_factory_pipeline.pipeline_ingest_lake,
-    azurerm_data_factory_dataset_binary.ds_binary_http,
     azurerm_resource_group_template_deployment.http_link
 
   ]
