@@ -198,6 +198,9 @@ terraform
 
 ![alt text](image-4.png)
 
+### 6.0.3 - Pipeline: `pipeline_ingest_lake`
+**Descrição:** Pipeline responsável por atualizar as tabelas bronze, silvers, gold no Data Lake.  
+<img width="1034" height="316" alt="image" src="https://github.com/user-attachments/assets/8f2496dc-8948-4f37-b313-190adc6bfa70" />
 
 ## 6. Resiliência dos Pipelines de Dados
 
@@ -210,6 +213,7 @@ Caso nenhum valor seja fornecido, o pipeline utiliza automaticamente o ano e mê
 **Configuração de retomada (Retry):**  
 - Até 3 tentativas em caso de falha  
 - Intervalo de 60 segundos entre cada tentativa
+
 
 ## 7. Tabelas
 
