@@ -297,6 +297,36 @@ resource "databricks_notebook" "motivo" {
 }
 
 # -------------------------------------------------
+# Criação dos notebooks  - Gold dados Externos
+# -------------------------------------------------
+
+resource "databricks_notebook" "g_create_table_p" {
+  source   = "${path.module}/notebooks/gold/ext_rf_pj/ddl-create-tbl-prospectos.py"
+  path     = "/Workspace/sistemas/credfacil/gold/ext_rf_pj/ddl-create-tbl-prospectos.py"
+  language = "PYTHON"
+}
+
+resource "databricks_notebook" "g_create_table" {
+  source   = "${path.module}/notebooks/gold/ext_rf_pj/ddl-estabelecimentos.py"
+  path     = "/Workspace/sistemas/credfacil/gold/ext_rf_pj/ddl-estabelecimentos.py"
+  language = "PYTHON"
+}
+
+
+resource "databricks_notebook" "g_estabelecimentos" {
+  source   = "${path.module}/notebooks/gold/ext_rf_pj/g_estabelecimentos.py"
+  path     = "/Workspace/sistemas/credfacil/gold/ext_rf_pj/g_estabelecimentos.py"
+  language = "PYTHON"
+}
+
+resource "databricks_notebook" "g_prospectos_credito" {
+  source   = "${path.module}/notebooks/gold/ext_rf_pj/g_prospectos_credito.py"
+  path     = "/Workspace/sistemas/credfacil/gold/ext_rf_pj/g_prospectos_credito.py"
+  language = "PYTHON"
+}
+
+
+# -------------------------------------------------
 # Criação dos notebooks  - Data Quality
 # -------------------------------------------------
 resource "databricks_notebook" "dq" {
@@ -317,19 +347,29 @@ resource "databricks_notebook" "rules" {
 # Criação dos notebooks  - Silvers dados Internos
 # -------------------------------------------------
 
-resource "databricks_notebook" "cli" {
-  source   = "${path.module}/notebooks/silver/syscredito/clientes_pj.py"
-  path     = "/Workspace/sistemas/credfacil/silver/syscredito/clientes_pj.py"
-  language = "PYTHON"
-}
+# resource "databricks_notebook" "cli" {
+#   source   = "${path.module}/notebooks/silver/syscredito/clientes_pj.py"
+#   path     = "/Workspace/sistemas/credfacil/silver/syscredito/clientes_pj.py"
+#   language = "PYTHON"
+# }
 
 
-resource "databricks_notebook" "create_cli_silver" {
-  source   = "${path.module}/notebooks/silver/syscredito/ddl-create-tbl-silver-clientes.py"
-  path     = "/Workspace/sistemas/credfacil/silver/syscredito/ddl-create-tbl-silver-clientes.py"
-  language = "PYTHON"
-}
+# resource "databricks_notebook" "create_cli_silver" {
+#   source   = "${path.module}/notebooks/silver/syscredito/ddl-create-tbl-silver-clientes.py"
+#   path     = "/Workspace/sistemas/credfacil/silver/syscredito/ddl-create-tbl-silver-clientes.py"
+#   language = "PYTHON"
+# }
 
+
+# resource "databricks_notebook" "ddl_b_syscre" {
+#   source   = "${path.module}/notebooks/bronze/syscredito/ddl-create-tbl-clientes.py"
+#   path     = "/Workspace/sistemas/credfacil/bronze/syscredito/ddl-create-tbl-clientes.py"
+#   language = "PYTHON"
+# }
+
+# -------------------------------------------------
+# VACUUM  - ALL TABLES
+# -------------------------------------------------
 
 resource "databricks_notebook" "vacuum" {
   source   = "${path.module}/notebooks/governance/vaccum/vacuum_notebook.py"
@@ -337,33 +377,27 @@ resource "databricks_notebook" "vacuum" {
   language = "PYTHON"
 }
 
-resource "databricks_notebook" "ddl_b_syscre" {
-  source   = "${path.module}/notebooks/bronze/syscredito/ddl-create-tbl-clientes.py"
-  path     = "/Workspace/sistemas/credfacil/bronze/syscredito/ddl-create-tbl-clientes.py"
-  language = "PYTHON"
-}
 
-resource "databricks_notebook" "clientes_pj_stream" {
-  source   = "${path.module}/notebooks/bronze/syscredito/clientes_pj_stream.py"
-  path     = "/Workspace/sistemas/credfacil/bronze/syscredito/clientes_pj_stream.py"
-  language = "PYTHON"
-}
+# resource "databricks_notebook" "clientes_pj_stream" {
+#   source   = "${path.module}/notebooks/bronze/syscredito/clientes_pj_stream.py"
+#   path     = "/Workspace/sistemas/credfacil/bronze/syscredito/clientes_pj_stream.py"
+#   language = "PYTHON"
+# }
 
 
+# resource "databricks_job" "clientes_pj_stream" {
+#   name = "job-clientes-pj-stream"
+#   depends_on = [ databricks_notebook.clientes_pj_stream ]
+#   task {
+#     task_key = "clientes_pj_task"
+#     existing_cluster_id = databricks_cluster.personal_cluster.id
 
-resource "databricks_job" "clientes_pj_stream" {
-  name = "job-clientes-pj-stream"
-  depends_on = [ databricks_notebook.clientes_pj_stream ]
-  task {
-    task_key = "clientes_pj_task"
-    existing_cluster_id = databricks_cluster.personal_cluster.id
-
-    notebook_task {
-      notebook_path = "/Workspace/sistemas/credfacil/bronze/syscredito/clientes_pj_stream.py"
-    }
-  }
-  max_concurrent_runs = 5
-}
+#     notebook_task {
+#       notebook_path = "/Workspace/sistemas/credfacil/bronze/syscredito/clientes_pj_stream.py"
+#     }
+#   }
+#   max_concurrent_runs = 5
+# }
 
 
 #jobs

@@ -34,6 +34,10 @@ year_month = dbutils.widgets.get("year_month")
 
 # COMMAND ----------
 
+# MAGIC %run ./ddl-create-table.py
+
+# COMMAND ----------
+
 # MAGIC %run ./rec_pj.py
 
 # COMMAND ----------

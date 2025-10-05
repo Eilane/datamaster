@@ -14,7 +14,7 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC CREATE OR REPLACE TABLE prd.b_ext_rf_empresas.motivos(
+# MAGIC CREATE TABLE IF NOT EXISTS prd.b_ext_rf_empresas.motivos(
 # MAGIC     cod_moti STRING COMMENT 'Código do motivo',
 # MAGIC     ds_moti  STRING COMMENT 'Descrição do motivo',
 # MAGIC     ano_mes_carga STRING COMMENT 'Ano e mês de referencia da carga'
@@ -31,7 +31,7 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC CREATE OR REPLACE TABLE prd.b_ext_rf_empresas.estabelecimentos (
+# MAGIC CREATE TABLE IF NOT EXISTS prd.b_ext_rf_empresas.estabelecimentos (
 # MAGIC     cnpj_basico                STRING  COMMENT 'Raiz do CNPJ (8 primeiros dígitos)',
 # MAGIC     cnpj_ordem                 STRING  COMMENT 'Ordem do CNPJ (4 dígitos após a raiz)',
 # MAGIC     cnpj_dv                    STRING  COMMENT 'Dígito verificador do CNPJ',

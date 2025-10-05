@@ -16,3 +16,10 @@ variable "meu_ip" {
   type        = string
   sensitive   = true
 }
+
+
+variable "subscription_id" {
+  description = "Id subscription da Azure"
+  type        = string
+  sensitive   = true
+}

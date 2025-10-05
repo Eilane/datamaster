@@ -20,19 +20,11 @@ from pyspark.sql.functions import col
 
 # MAGIC %run /Workspace/sistemas/credfacil/governance/data_quality/data_quality.py
 
-# COMMAND ----------
-
-dq = DQ("motivo")
 
 # COMMAND ----------
 
-df_rules = (
-    spark.table("prd.governance.regras_qualidade")
-    .filter(
-        (col("tabela") == "motivo") &
-        (col("status") == "ativo")
-    )
-)
+# MAGIC %run ./ddl-create-table-silver.py
+
 
 # COMMAND ----------
 
@@ -42,9 +34,13 @@ silver_motivo = spark.sql("""select cod_moti,
                           where ano_mes_carga = (select max(ano_mes_carga) 
                                   from prd.b_ext_rf_empresas.motivo)""").dropDuplicates()
 
+
+# COMMAND ----------
+dq = DQ("motivo", silver_motivo)
+
 # COMMAND ----------
 
-df_final = dq.regra_is_not_null(df_rules,silver_motivo)
+df_final = dq.apply_rule()
 
 # COMMAND ----------
 

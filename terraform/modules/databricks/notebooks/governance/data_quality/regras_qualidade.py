@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # Criação da Tabela de Qualidade de Dados
+# MAGIC # Qualidade de Dados
 # MAGIC
 # MAGIC **Objetivo:**  
 # MAGIC Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silver** e **Gold** para garantir a integridade e consistência dos dados.
@@ -56,7 +56,19 @@ df_rules = spark.createDataFrame([
     ("clientes_pj",      "cnpj",                     "col IS NOT NULL", "CNPJ não pode ser nulo", '2025-01-01', None, "ativo"),
     ("clientes_pj",      "cnpj",                     "length(col) = 14", "CNPJ deve conter exatamente 14 dígitos", '2025-01-01', None, "ativo"),
     ("clientes_pj",      "cnpj",                     "count_distinct(col) = count(col)", "CNPJ deve ser único na tabela", '2025-01-01', None, "ativo"),
-    ("clientes_pj",      "data_atualizacao",         "col = max(col)", "Selecionar apenas os registros da última data de atualização", '2025-01-01', None, "ativo")
+    ("clientes_pj",      "data_atualizacao",         "col = max(col)", "Selecionar apenas os registros da última data de atualização", '2025-01-01', None, "ativo"),
+    ("g_prospectos_credito", "nr_cnpj",              "length(col) = 14", "CNPJ deve conter exatamente 14 dígitos", '2025-01-01', None, "ativo"),
+    ("g_prospectos_credito", "email", "col RLIKE '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'", "Email deve ser válido", '2025-01-01', None, "ativo"),
+    ("g_prospectos_credito", "nome_fantasia",   "col IS NOT NULL", "Nome Fantasia não pode ser nulo", '2025-01-01', None, "ativo"),
+    ("g_prospectos_credito", "email",   "col IS NOT NULL", "E-mail não pode ser nulo", '2025-01-01', None, "ativo"),
+    ("g_estabelecimentos",      "nr_cnpj",                     "col IS NOT NULL", "CNPJ não pode ser nulo", '2025-01-01', None, "ativo"),
+   
+    ("g_estabelecimentos", "nr_cnpj", "length(col) = 14", "CNPJ deve conter exatamente 14 dígitos", '2025-01-01', None, "ativo"),
+    ("g_estabelecimentos",      "nr_cnpj",                     "col IS NOT NULL", "CNPJ não pode ser nulo", '2025-01-01', None, "ativo"),
+
+    ("g_alerta_endereco_suspeito", "nr_cnpj", "length(col) = 14", "CNPJ deve conter exatamente 14 dígitos", '2025-01-01', None, "ativo"),
+    ("g_alerta_endereco_suspeito",      "nr_cnpj",                     "col IS NOT NULL", "CNPJ não pode ser nulo", '2025-01-01', None, "ativo"),
+    ("g_alerta_endereco_suspeito",      "endereco_completo",                     "col IS NOT NULL", "Endereço completo não pode ser nulo", '2025-01-01', None, "ativo"),
 ], schema=schema)
 
 # COMMAND ----------

@@ -132,19 +132,20 @@ resource "azurerm_data_factory_linked_service_azure_databricks" "linked_adb" {
 
 
 #####################PIPELINEs##############
-resource "azurerm_data_factory_pipeline" "pipeline_b_ext_pj" {
-  name            = "pipeline_b_ext_pj"
+
+resource "azurerm_data_factory_pipeline" "pipeline_ingest_lake" {
+  name            = "pipeline_ingest_lake"
   data_factory_id = azurerm_data_factory.adf.id
 
 
   parameters = {
             "year_month" = "YYYY-MM"
             }
-
+			
   activities_json =<<JSON
 [
-           {
-                "name": "ext_rf_pj",
+              {
+                "name": "ext_rf_pj_bronze",
                 "type": "DatabricksNotebook",
                 "dependsOn": [],
                 "policy": {
@@ -168,22 +169,18 @@ resource "azurerm_data_factory_pipeline" "pipeline_b_ext_pj" {
                     "referenceName": "linked_adb",
                     "type": "LinkedServiceReference"
                 }
-            }
-        ]
-  JSON
-}           
-
-
-resource "azurerm_data_factory_pipeline" "pipeline_s_ext_pj" {
-  name            = "pipeline_s_ext_pj"
-  data_factory_id = azurerm_data_factory.adf.id
-
-  activities_json =<<JSON
-[
+            },
             {
-                "name": "motivo",
+                "name": "ext_rf_pj_silver_motivo",
                 "type": "DatabricksNotebook",
-                "dependsOn": [],
+                "dependsOn": [
+                    {
+                        "activity": "ext_rf_pj_bronze",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
                 "policy": {
                     "timeout": "0.12:00:00",
                     "retry": 0,
@@ -201,11 +198,11 @@ resource "azurerm_data_factory_pipeline" "pipeline_s_ext_pj" {
                 }
             },
             {
-                "name": "estabelecimentos",
+                "name": "ext_rf_pj_silver_estabelecimentos",
                 "type": "DatabricksNotebook",
                 "dependsOn": [
                     {
-                        "activity": "motivo",
+                        "activity": "ext_rf_pj_bronze",
                         "dependencyConditions": [
                             "Succeeded"
                         ]
@@ -226,6 +223,66 @@ resource "azurerm_data_factory_pipeline" "pipeline_s_ext_pj" {
                     "referenceName": "linked_adb",
                     "type": "LinkedServiceReference"
                 }
+            },
+            {
+                "name": "ext_rf_pj_gold_g_prospectos_credito",
+                "type": "DatabricksNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "ext_rf_pj_silver_motivo",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "ext_rf_pj_silver_estabelecimentos",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Workspace/sistemas/credfacil/gold/ext_rf_pj/g_prospectos_credito.py"
+                },
+                "linkedServiceName": {
+                    "referenceName": "linked_adb",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "ext_rf_pj_gold_g_estabelecimentos",
+                "type": "DatabricksNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "ext_rf_pj_gold_g_prospectos_credito",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Workspace/sistemas/credfacil/gold/ext_rf_pj/g_estabelecimentos.py"
+                },
+                "linkedServiceName": {
+                    "referenceName": "linked_adb",
+                    "type": "LinkedServiceReference"
+                }
             }
         ]
   JSON
@@ -237,8 +294,7 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
   data_factory_id = azurerm_data_factory.adf.id
   
   depends_on = [
-    azurerm_data_factory_pipeline.pipeline_b_ext_pj,
-    azurerm_data_factory_pipeline.pipeline_s_ext_pj
+    azurerm_data_factory_pipeline.pipeline_ingest_lake
 
   ]
 
@@ -421,7 +477,7 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
                 }
             },
             {
-                "name": "bronze_databricks",
+                "name": "ingest_lake",
                 "type": "ExecutePipeline",
                 "dependsOn": [
                     {
@@ -437,7 +493,7 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
                 "userProperties": [],
                 "typeProperties": {
                     "pipeline": {
-                        "referenceName": "pipeline_b_ext_pj",
+                        "referenceName": "pipeline_ingest_lake",
                         "type": "PipelineReference"
                     },
                     "waitOnCompletion": true,
@@ -448,30 +504,8 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
                         }
                     }
                 }
-            },
-            {
-                "name": "silver_databricks",
-                "type": "ExecutePipeline",
-                "dependsOn": [
-                    {
-                        "activity": "bronze_databricks",
-                        "dependencyConditions": [
-                            "Succeeded"
-                        ]
-                    }
-                ],
-                "policy": {
-                    "secureInput": false
-                },
-                "userProperties": [],
-                "typeProperties": {
-                    "pipeline": {
-                        "referenceName": "pipeline_s_ext_pj",
-                        "type": "PipelineReference"
-                    },
-                    "waitOnCompletion": true
-                }
             }
+           
         ]
   JSON
 }
@@ -541,169 +575,169 @@ CONN
 
 
 #Deployment do ARM template (pipeline CDC)
-resource "azurerm_resource_group_template_deployment" "cdc" {
-  name                = "cdcsql2"
-  resource_group_name = var.resource_group_name
-  deployment_mode     = "Incremental"
+# resource "azurerm_resource_group_template_deployment" "cdc" {
+#   name                = "cdcsql2"
+#   resource_group_name = var.resource_group_name
+#   deployment_mode     = "Incremental"
 
-  depends_on = [
-    azurerm_data_factory_linked_service_azure_sql_database.linked_sqldatabase
-  ]
-  template_content  = <<TEMPLATE
-{
-  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "resources": [
-{
-    "type": "Microsoft.DataFactory/factories/adfcdcs",
-    "apiVersion": "2018-06-01",
-    "name": "[concat('${azurerm_data_factory.adf.name}', '/cfacilcdccredito')]",
-    "properties": {
-        "SourceConnectionsInfo": [
-            {
-                "SourceEntities": [
-                    {
-                        "name": "credito.clientes_pj",
-                        "properties": {
-                            "schema": [],
-                            "dslConnectorProperties": [
-                                {
-                                    "name": "schemaName",
-                                    "value": "credito"
-                                },
-                                {
-                                    "name": "tableName",
-                                    "value": "clientes_pj"
-                                },
-                                {
-                                    "name": "enableNativeCdc",
-                                    "value": true
-                                },
-                                {
-                                    "name": "netChanges",
-                                    "value": true
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "Connection": {
-                    "linkedService": {
-                        "referenceName": "linked_sqldatabase",
-                        "type": "LinkedServiceReference"
-                    },
-                    "linkedServiceType": "AzureSqlDatabase",
-                    "type": "linkedservicetype",
-                    "isInlineDataset": true,
-                    "commonDslConnectorProperties": [
-                        {
-                            "name": "allowSchemaDrift",
-                            "value": true
-                        },
-                        {
-                            "name": "inferDriftedColumnTypes",
-                            "value": true
-                        },
-                        {
-                            "name": "format",
-                            "value": "table"
-                        },
-                        {
-                            "name": "store",
-                            "value": "sqlserver"
-                        },
-                        {
-                            "name": "databaseType",
-                            "value": "databaseType"
-                        },
-                        {
-                            "name": "database",
-                            "value": "database"
-                        },
-                        {
-                            "name": "skipInitialLoad",
-                            "value": true
-                        }
-                    ]
-                }
-            }
-        ],
-        "TargetConnectionsInfo": [
-            {
-                "TargetEntities": [
-                    {
-                        "name": "raw/unity",
-                        "properties": {
-                            "schema": [],
-                            "dslConnectorProperties": [
-                                {
-                                    "name": "container",
-                                    "value": "raw"
-                                },
-                                {
-                                    "name": "fileSystem",
-                                    "value": "raw"
-                                },
-                                {
-                                    "name": "folderPath",
-                                    "value": "unity"
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "Connection": {
-                    "linkedService": {
-                        "referenceName": "linked_gen2",
-                        "type": "LinkedServiceReference"
-                    },
-                    "linkedServiceType": "AzureBlobFS",
-                    "type": "linkedservicetype",
-                    "isInlineDataset": true,
-                    "commonDslConnectorProperties": [
-                        {
-                            "name": "allowSchemaDrift",
-                            "value": true
-                        },
-                        {
-                            "name": "inferDriftedColumnTypes",
-                            "value": true
-                        },
-                        {
-                            "name": "format",
-                            "value": "parquet"
-                        }
-                    ]
-                },
-                "DataMapperMappings": [
-                    {
-                        "targetEntityName": "raw/unity",
-                        "sourceEntityName": "credito.clientes_pj",
-                        "sourceConnectionReference": {
-                            "connectionName": "linked_sqldatabase",
-                            "type": "linkedservicetype"
-                        },
-                        "attributeMappingInfo": {
-                            "attributeMappings": []
-                        }
-                    }
-                ],
-                "Relationships": []
-            }
-        ],
-        "Policy": {
-            "recurrence": {
-                "frequency": "Minute",
-                "interval": 15
-            },
-            "mode": "Microbatch"
-        },
-        "allowVNetOverride": false
-    }
-}
+#   depends_on = [
+#     azurerm_data_factory_linked_service_azure_sql_database.linked_sqldatabase
+#   ]
+#   template_content  = <<TEMPLATE
+# {
+#   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+#   "contentVersion": "1.0.0.0",
+#   "resources": [
+# {
+#     "type": "Microsoft.DataFactory/factories/adfcdcs",
+#     "apiVersion": "2018-06-01",
+#     "name": "[concat('${azurerm_data_factory.adf.name}', '/cfacilcdccredito')]",
+#     "properties": {
+#         "SourceConnectionsInfo": [
+#             {
+#                 "SourceEntities": [
+#                     {
+#                         "name": "credito.clientes_pj",
+#                         "properties": {
+#                             "schema": [],
+#                             "dslConnectorProperties": [
+#                                 {
+#                                     "name": "schemaName",
+#                                     "value": "credito"
+#                                 },
+#                                 {
+#                                     "name": "tableName",
+#                                     "value": "clientes_pj"
+#                                 },
+#                                 {
+#                                     "name": "enableNativeCdc",
+#                                     "value": true
+#                                 },
+#                                 {
+#                                     "name": "netChanges",
+#                                     "value": true
+#                                 }
+#                             ]
+#                         }
+#                     }
+#                 ],
+#                 "Connection": {
+#                     "linkedService": {
+#                         "referenceName": "linked_sqldatabase",
+#                         "type": "LinkedServiceReference"
+#                     },
+#                     "linkedServiceType": "AzureSqlDatabase",
+#                     "type": "linkedservicetype",
+#                     "isInlineDataset": true,
+#                     "commonDslConnectorProperties": [
+#                         {
+#                             "name": "allowSchemaDrift",
+#                             "value": true
+#                         },
+#                         {
+#                             "name": "inferDriftedColumnTypes",
+#                             "value": true
+#                         },
+#                         {
+#                             "name": "format",
+#                             "value": "table"
+#                         },
+#                         {
+#                             "name": "store",
+#                             "value": "sqlserver"
+#                         },
+#                         {
+#                             "name": "databaseType",
+#                             "value": "databaseType"
+#                         },
+#                         {
+#                             "name": "database",
+#                             "value": "database"
+#                         },
+#                         {
+#                             "name": "skipInitialLoad",
+#                             "value": true
+#                         }
+#                     ]
+#                 }
+#             }
+#         ],
+#         "TargetConnectionsInfo": [
+#             {
+#                 "TargetEntities": [
+#                     {
+#                         "name": "raw/unity",
+#                         "properties": {
+#                             "schema": [],
+#                             "dslConnectorProperties": [
+#                                 {
+#                                     "name": "container",
+#                                     "value": "raw"
+#                                 },
+#                                 {
+#                                     "name": "fileSystem",
+#                                     "value": "raw"
+#                                 },
+#                                 {
+#                                     "name": "folderPath",
+#                                     "value": "unity"
+#                                 }
+#                             ]
+#                         }
+#                     }
+#                 ],
+#                 "Connection": {
+#                     "linkedService": {
+#                         "referenceName": "linked_gen2",
+#                         "type": "LinkedServiceReference"
+#                     },
+#                     "linkedServiceType": "AzureBlobFS",
+#                     "type": "linkedservicetype",
+#                     "isInlineDataset": true,
+#                     "commonDslConnectorProperties": [
+#                         {
+#                             "name": "allowSchemaDrift",
+#                             "value": true
+#                         },
+#                         {
+#                             "name": "inferDriftedColumnTypes",
+#                             "value": true
+#                         },
+#                         {
+#                             "name": "format",
+#                             "value": "parquet"
+#                         }
+#                     ]
+#                 },
+#                 "DataMapperMappings": [
+#                     {
+#                         "targetEntityName": "raw/unity",
+#                         "sourceEntityName": "credito.clientes_pj",
+#                         "sourceConnectionReference": {
+#                             "connectionName": "linked_sqldatabase",
+#                             "type": "linkedservicetype"
+#                         },
+#                         "attributeMappingInfo": {
+#                             "attributeMappings": []
+#                         }
+#                     }
+#                 ],
+#                 "Relationships": []
+#             }
+#         ],
+#         "Policy": {
+#             "recurrence": {
+#                 "frequency": "Minute",
+#                 "interval": 15
+#             },
+#             "mode": "Microbatch"
+#         },
+#         "allowVNetOverride": false
+#     }
+# }
 
-  ]
-}
-TEMPLATE
+#   ]
+# }
+# TEMPLATE
 
-}
+# }

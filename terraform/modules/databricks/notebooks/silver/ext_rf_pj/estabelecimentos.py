@@ -16,23 +16,14 @@
 
 from pyspark.sql.functions import col
 
+
+# COMMAND ----------
+
+# MAGIC %run ./ddl-create-table-silver.py
+
 # COMMAND ----------
 
 # MAGIC %run /Workspace/sistemas/credfacil/governance/data_quality/data_quality.py
-
-# COMMAND ----------
-
-dq = DQ("estabelecimentos")
-
-# COMMAND ----------
-
-df_rules = (
-    spark.table("prd.governance.regras_qualidade")
-    .filter(
-        (col("tabela") == "estabelecimentos") &
-        (col("status") == "ativo")
-    )
-)
 
 # COMMAND ----------
 
@@ -43,8 +34,12 @@ silver_estabelecimentos = spark.sql("""select *
 
 # COMMAND ----------
 
-df_final = dq.regra_is_not_null(df_rules,silver_estabelecimentos)
+dq = DQ("estabelecimentos", silver_estabelecimentos)
 
 # COMMAND ----------
 
-df_final.write.format("delta").mode("overwrite").saveAsTable("prd.s_rf_empresas.silver_estabelecimentos")
+df_final = dq.apply_rule()
+
+# COMMAND ----------
+
+df_final.write.format("delta").mode("overwrite").saveAsTable("prd.s_rf_empresas.estabelecimentos")
