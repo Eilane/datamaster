@@ -289,18 +289,18 @@ Dentro da pasta `terraform`, crie o arquivo `terraform.tfvars`:
 **Conteúdo:**
 ```bash
 senha_db        = ""  # Exemplo de senha válida:!CfacilBr489@demo  A senha deve conter letras maiúsculasminúsculas, números e caracteres especiais
-tenant_id       = ""  # ID do Tenant
 subscription_id = ""  # ID da Subscription
 account_id      = ""  # ID da Account
 meu_ip          = ""  # IP a ser Liberado no Firewall 
 ```
  
 
-2. **Executar os comandos abaixo na raiz do projeto Terraform**:
+2. **Executar os comandos abaixo no terminal do visual code**:
 
 ```bash
-terraform init       # Inicializa os providers e módulos
+cd terraform         # Entrar na pasta terraform
 az login             # Autentica na conta Azure
+terraform init       # Inicializa os providers e módulos
 terraform plan       # Mostra o que será criado
 terraform apply      # Aplica as mudanças na Azure
 ```
