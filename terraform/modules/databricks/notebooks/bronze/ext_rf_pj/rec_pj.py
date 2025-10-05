@@ -115,6 +115,7 @@ class ReceitaPJ:
             spark.read
                 .option("header", "false")
                 .option("delimiter", ";")
+                .option("encoding", "ISO-8859-1")
                 .schema(self.schema_estabelecimentos)
                 .csv(self.location+"estabelecimentos")
                 .withColumn("ano_mes_carga", lit(self.year_month)))

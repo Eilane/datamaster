@@ -39,7 +39,7 @@ resource "azurerm_resource_group_template_deployment" "http_link" {
         "parameters": {
           "base_url": {
             "type": "String",
-            "defaultValue": "https://"
+            "defaultValue": "@dataset().base_url"
           }
         },
         "type": "HttpServer",
@@ -130,13 +130,19 @@ resource "azurerm_data_factory_linked_service_azure_databricks" "linked_adb" {
 
 }
 
+#####################Libera acesso no workspace##############
+resource "azurerm_role_assignment" "adf_databricks_access" {
+  scope                = var.databricks_workspace_id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_data_factory.adf.identity[0].principal_id
+}
 
 #####################PIPELINEs##############
 
 resource "azurerm_data_factory_pipeline" "pipeline_ingest_lake" {
   name            = "pipeline_ingest_lake"
   data_factory_id = azurerm_data_factory.adf.id
-
+  
 
   parameters = {
             "year_month" = "YYYY-MM"
@@ -286,6 +292,8 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_lake" {
             }
         ]
   JSON
+
+  depends_on = [ azurerm_data_factory_linked_service_azure_databricks.linked_adb ]
 }      
 
 
@@ -294,7 +302,9 @@ resource "azurerm_data_factory_pipeline" "pipeline_ingest_dados_pj" {
   data_factory_id = azurerm_data_factory.adf.id
   
   depends_on = [
-    azurerm_data_factory_pipeline.pipeline_ingest_lake
+    azurerm_data_factory_pipeline.pipeline_ingest_lake,
+    azurerm_data_factory_dataset_binary.ds_binary_http,
+    azurerm_resource_group_template_deployment.http_link
 
   ]
 

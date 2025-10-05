@@ -60,6 +60,7 @@ resource "databricks_storage_credential" "storage_cred" {
   azure_managed_identity {
     access_connector_id = azurerm_databricks_access_connector.adb_connector.id
   }
+  depends_on = [databricks_metastore.unity, azurerm_databricks_access_connector.adb_connector]
 }
 
 resource "databricks_external_location" "ext_location_raw" {

@@ -15,13 +15,13 @@ module "storage_account" {
 }
 
 # Criação da função
-# module "functions_app" {
-#   source = "./modules/functions_app"
-#   resource_group_name      = module.resource_group.azurerm_resource_group_rg_name
-#   location                 = module.resource_group.azurerm_resource_group_rg_location
-#   storage_account_name     = module.storage_account.storage_account_name
-#   storage_account_id =   module.storage_account.storage_account_id
-# }
+module "functions_app" {
+  source = "./modules/functions_app"
+  resource_group_name      = module.resource_group.azurerm_resource_group_rg_name
+  location                 = module.resource_group.azurerm_resource_group_rg_location
+  storage_account_name     = module.storage_account.storage_account_name
+  storage_account_id =   module.storage_account.storage_account_id
+}
 
 
 #Criação do Databricks
@@ -65,6 +65,7 @@ module "data_factory" {
   databricks_cluster_id    = module.databricks.cluster_id
   azurerm_key_vault_id = module.keyvault.azurerm_key_vault_id
   azurerm_key_vault_secret_name = module.keyvault.azurerm_key_vault_secret_name  
+  depends_on = [ module.databricks, module.keyvault ]
 }  
 
 ################ EVENTOS ################

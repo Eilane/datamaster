@@ -16,7 +16,7 @@ resource "azurerm_mssql_server" "sql_server" {
 resource "azurerm_mssql_database" "sql_db" {
   name                = "sqlcfacilbr"
   server_id           = azurerm_mssql_server.sql_server.id
-  sku_name            = "S3" 
+  sku_name            = "Basic" 
   max_size_gb         = 2
   collation           = "SQL_Latin1_General_CP1_CI_AS"
   zone_redundant      = false
