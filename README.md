@@ -306,7 +306,11 @@ terraform plan       # Mostra o que será criado
 terraform apply      # Aplica as mudanças na Azure
 ```
 
-3. **Deploy do código da Função na Azure**:
+3. **Aceite a criação dos recursos digitando "yes"**
+
+<img width="480" height="110" alt="image" src="https://github.com/user-attachments/assets/f5903a29-34ef-4000-8938-a2ded23457c6" />
+
+4. **Deploy do código da Função na Azure**:
 
 4. **Executar oo comando abaixo para criar a tabela no Banco de Dados e habilitar o CDC. Obs: O script init_credito.sql está na pasta terraform/modules/azure_sql**:
 ```bash
