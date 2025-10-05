@@ -35,7 +35,7 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 
 ### **2.0.2 - Escopo do Caso de Uso**
 
-- **Obtenção de dados fictícios de clientes (PF):**  
+- **Obtenção de dados fictícios de clientes (PJ):**  
   Simular a ingestão de cadastros de clientes pessoa jurídica pertencentes a uma empresa fictícia do setor de empréstimos.
 
 - **Integração com dados públicos de empresas (CNPJ):**  
