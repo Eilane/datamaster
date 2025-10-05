@@ -48,7 +48,7 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
   Validar se a empresa encontra-se em situação ativa, inativa, inapta ou baixada.
 
 - **Análise de possíveis irregularidades:**  
-  Executar regras e validações para identificar possíveis inconsistências ou comportamentos suspeitos nos dados de CNPJ.
+  Identificar possíveis inconsistências ou comportamentos suspeitos nos dados de CNPJ.
 
 
 - **Análise de potenciais clientes:**  
