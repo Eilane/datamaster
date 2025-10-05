@@ -191,10 +191,10 @@ terraform
 
 
 ### **5.0.2 - Pipeline de Dados** – `pipeline_ingest_dados_pj`
-**Descrição:** Pipeline responsável por capturar e armazenar dados públicos de empresas no Data Lake.
-**Periodicidade:** Mensal
-**Dia:** Último dia do mês
-**Horário:** 09:00
+**Descrição:** Pipeline responsável por capturar e armazenar dados públicos de empresas no Data Lake.  
+**Periodicidade:** Mensal  
+**Dia:** Último dia do mês  
+**Horário:** 09:00  
 
 ![alt text](image-4.png)
 
@@ -309,6 +309,10 @@ terraform apply      # Aplica as mudanças na Azure
 <img width="480" height="110" alt="image" src="https://github.com/user-attachments/assets/f5903a29-34ef-4000-8938-a2ded23457c6" />
 
 4. **Deploy do código da Função na Azure**:
+
+Click com o botão direito do mouse "Deploy to Function App" para subir o código da função python para Azure.
+<img width="471" height="511" alt="image" src="https://github.com/user-attachments/assets/c3a3cc23-0168-4b5a-bdca-07285ee03b80" />
+
 
 4. **Executar oo comando abaixo para criar a tabela no Banco de Dados e habilitar o CDC. Obs: O script init_credito.sql está na pasta terraform/modules/azure_sql**:
 ```bash
