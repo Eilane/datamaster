@@ -117,8 +117,6 @@ terraform
 ├── modules
 │   ├── resource_group
 │   │   # Módulo cria o Resource Group principal do projeto
-│   │   # - Nome do RG
-│   │   # - Localização
 │   │  
 │   ├── azure_sql        # Módulo cria o SQL DATABASE
 │   │   └── scripts      # Scripts SQL, como init_credito.sql para tabelas e CDC
@@ -151,7 +149,7 @@ terraform
 │   ├── keyvault
 │   │   # Módulo cria Key Vault e secrets
 │   │   # - senha_db
-│   │   # - role de permissão de acesso para Data Factory (get)
+│   │   # - role 
 │   │
 │   └── storage_account
 │       # Módulo cria os containers:
