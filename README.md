@@ -35,7 +35,7 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 
 ### **2.0.2 - Escopo do Caso de Uso**
 
-- **Obtenção de dados fictícios de clientes (PF):**  
+- **Obtenção de dados fictícios de clientes (PJ):**  
   Simular a ingestão de cadastros de clientes pessoa jurídica pertencentes a uma empresa fictícia do setor de empréstimos.
 
 - **Integração com dados públicos de empresas (CNPJ):**  
@@ -296,11 +296,12 @@ meu_ip          = ""  # IP a ser Liberado no Firewall
 ```
  
 
-2. **Executar os comandos abaixo na raiz do projeto Terraform**:
+2. **Executar os comandos abaixo no terminal do visual code**:
 
 ```bash
-terraform init       # Inicializa os providers e módulos
+cd terraform         # Entrar na pasta terraform
 az login             # Autentica na conta Azure
+terraform init       # Inicializa os providers e módulos
 terraform plan       # Mostra o que será criado
 terraform apply      # Aplica as mudanças na Azure
 ```
