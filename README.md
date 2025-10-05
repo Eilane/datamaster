@@ -134,6 +134,7 @@ terraform
 │   │   # - schemas
 │   │   # - notebooks (bronze, silver, gold, governance)
 │   │   # - cluster
+│   │   # - jobs
 │   │   # - roles
 │   │
 │   ├── data_factory
@@ -197,7 +198,7 @@ terraform
 **Dia:** Último dia do mês
 **Horário:** 09:00
 
-<img width="1147" height="297" alt="image" src="https://github.com/user-attachments/assets/4fcb6490-772b-4a47-a71d-b5031a84572a" />
+![alt text](image-4.png)
 
 
 ## 6. Resiliência dos Pipelines de Dados
@@ -289,7 +290,6 @@ Dentro da pasta `terraform`, crie o arquivo `terraform.tfvars`:
 **Conteúdo:**
 ```bash
 senha_db        = ""  # Exemplo de senha válida:!CfacilBr489@demo  A senha deve conter letras maiúsculasminúsculas, números e caracteres especiais
-tenant_id       = ""  # ID do Tenant
 subscription_id = ""  # ID da Subscription
 account_id      = ""  # ID da Account
 meu_ip          = ""  # IP a ser Liberado no Firewall 
@@ -305,10 +305,26 @@ terraform plan       # Mostra o que será criado
 terraform apply      # Aplica as mudanças na Azure
 ```
 
-3. **Executar oo comando abaixo para criar a tabela no Banco de Dados e habilitar o CDC. Obs: O script init_credito.sql está na pasta terraform/modules/azure_sql**:
+3. **Deploy do código da Função na Azure**:
+
+4. **Executar oo comando abaixo para criar a tabela no Banco de Dados e habilitar o CDC. Obs: O script init_credito.sql está na pasta terraform/modules/azure_sql**:
 ```bash
 sqlcmd -S tcp:sqlcfacilbr.database.windows.net -d sqlcfacilbr -U sqladmin -P "InformarSenhaBanco" -i init_credito.sql
 ```
+
+
+6. **DESTRUIR O AMBIENTE**:
+   Não esquecer, para não gerar cobrança adicinal 😭 
+```bash
+terraform destroy       # Extrui todos os recursos
+```
+
+Pode ser que você leve um erro para destruir os schemas. Mas, calma, nesse caso, voce precisa entrar no portal e excluir manualmente o grupo de recursos.
+ ```bash
+ Error: cannot delete schema: Schema 'prd.b_cfacil_credito' is not empty. The schema has 1 tables(s), 0 functions(s), 0 volumes(s)
+ Error: cannot delete schema: Schema 'prd.s_rf_empresas' is not empty. The schema has 4 tables(s), 0 functions(s), 0 volumes(s)
+```
+
 ## 13. Análise das Tecnologias Escolhidas
 
 ### 13.0.1 Microsoft - Plataforma de Integração como Serviço 
