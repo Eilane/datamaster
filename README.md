@@ -299,9 +299,9 @@ az role assignment create `
   --scope "/subscriptions/<subscription-id>/resourceGroups/rgprdcfacilbr/providers/Microsoft.DataFactory/factories/adfcfacilbr"
 ```
 
-5. **Start Now no pipeline do Data factory. Obs: A trigger configurada é mensal**
+6. **Start Now no pipeline do Data factory. Obs: A trigger configurada é mensal**
 
-2. **DESTRUIR O AMBIENTE**:
+7. **DESTRUIR O AMBIENTE**:
    Não esquecer, para não gerar cobrança adicinal  
 ```bash
 terraform destroy       # Extrui todos os recursos
