@@ -24,3 +24,10 @@ variable "account_id" {
   type        = string
   sensitive   = true
 }
+
+
+variable "subscription_id" {
+  description = "Id subscription da Azure"
+  type        = string
+  sensitive   = true
+}

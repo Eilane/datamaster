@@ -32,6 +32,7 @@ module "databricks" {
   storage_account_name     = module.storage_account.storage_account_name
   storage_account_id       = module.storage_account.storage_account_id
   account_id = var.account_id
+  subscription_id = var.subscription_id
 }
 
 

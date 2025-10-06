@@ -149,6 +149,11 @@ resource "databricks_cluster" "datamaster" {
       package = "azure-mgmt-datafactory"
     }
   }
+
+  spark_env_vars = {
+    "SUBSCRIPTION_ID"    = var.subscription_id
+  }
+
   data_security_mode = "SINGLE_USER"
 }
 
