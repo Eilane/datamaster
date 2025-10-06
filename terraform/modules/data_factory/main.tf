@@ -76,7 +76,8 @@ resource "azurerm_resource_group_template_deployment" "http_link" {
             "location": {
                 "type": "HttpServerLocation",
             "compression": {
-                "type": "ZipDeflate"
+                "type": "ZipDeflate",
+                "level": "Optimal"
             }
             }
         }

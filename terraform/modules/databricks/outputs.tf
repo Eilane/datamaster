@@ -12,5 +12,5 @@ output "workspace_id" {
 }
 
 output "cluster_id" {
-  value = databricks_cluster.personal_cluster.id
+  value = databricks_cluster.datamaster.id
 }

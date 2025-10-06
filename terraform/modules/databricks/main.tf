@@ -127,8 +127,8 @@ resource "databricks_catalog" "prd" {
 
  
 
-resource "databricks_cluster" "personal_cluster" {
-  cluster_name            = "Personal_Cluster"
+resource "databricks_cluster" "datamaster" {
+  cluster_name            = "datamaster-demo"
   spark_version           = "17.2.x-scala2.13"  # runtime ML
   node_type_id            = "Standard_DS3_v2"
   autotermination_minutes = 10
@@ -149,7 +149,7 @@ resource "databricks_cluster" "personal_cluster" {
       package = "azure-mgmt-datafactory"
     }
   }
-  data_security_mode = "SINGLE_USER"
+  data_security_mode = "USER_ISOLATION"
 }
 
 
