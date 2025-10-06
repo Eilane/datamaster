@@ -1,0 +1,30 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  name: demo-cdc-connector-sqlserver
+  labels:
+    strimzi.io/cluster: debezium-cluster
+spec:
+  class: io.debezium.connector.sqlserver.SqlServerConnector
+  tasksMax: 1
+  config:
+    database.hostname: demodbzsql.database.windows.net
+    database.port: 1433
+    database.user: ${secrets:debezium/demodebezium-secrets:sqlserver-username}
+    database.password: ${secrets:debezium/demodebezium-secrets:sqlserver-password}
+    database.dbname: demo_debezium_cdc_db
+    database.server.name: demodbzsql
+    database.encrypt: true
+    database.trustServerCertificate: false
+    table.include.list: credito.clientes_pj  # Liste aqui as tabelas que quer capturar
+    schema.history.internal.kafka.bootstrap.servers: demodebezium-ns.servicebus.windows.net:9093
+    schema.history.internal.kafka.topic: schema-history-internal.demodbz-aks-eh
+    schema.history.internal.producer.security.protocol: SASL_SSL
+    schema.history.internal.producer.sasl.mechanism: PLAIN
+    schema.history.internal.producer.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="${secrets:debezium/demodebezium-secrets:eh-connection-string}";
+    schema.history.internal.consumer.security.protocol: SASL_SSL
+    schema.history.internal.consumer.sasl.mechanism: PLAIN
+    schema.history.internal.consumer.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="${secrets:debezium/demodebezium-secrets:eh-connection-string}";
+    include.schema.changes: true
+    snapshot.mode: when_needed
+    topic.prefix: demodbz-aks-eh
