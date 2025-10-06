@@ -409,7 +409,7 @@ resource "databricks_job" "job_vacuum" {
 
   task {
     task_key = "vacuum_task"
-    existing_cluster_id = databricks_cluster.personal_cluster.id
+    existing_cluster_id = databricks_cluster.datamaster.id
 
     notebook_task {
       notebook_path = "/Workspace/sistemas/credfacil/governance/vaccum/vaccum_notebook.py"

@@ -10,6 +10,15 @@ resource "azurerm_data_factory" "adf" {
   }
 }
 
+
+data "azuread_service_principal" "adf_sp" {
+  object_id = azurerm_data_factory.adf.identity[0].principal_id
+} 
+
+provider "databricks" {
+  host = "https://${var.databricks_workspace_url}"
+}
+
 # Role Assignment: dá permissão de Blob Data Contributor 
 resource "azurerm_role_assignment" "dbw_storage_contributor" {
   scope                =  var.storage_account_id
@@ -128,7 +137,7 @@ resource "azurerm_data_factory_linked_service_azure_databricks" "linked_adb" {
   name                = "linked_adb"
   data_factory_id     = azurerm_data_factory.adf.id
   description     = "ADB Linked Service via MSI"
-  adb_domain      = "http://${var.databricks_workspace_url}"
+  adb_domain      = "https://${var.databricks_workspace_url}"
 
   existing_cluster_id = var.databricks_cluster_id
   msi_work_space_resource_id = var.databricks_workspace_id
@@ -587,9 +596,16 @@ CONN
 }
 
 
-resource "databricks_grant" "prd_data" {
-  catalog = databricks_catalog.sandbox.name
+resource "databricks_service_principal" "adf_principal" {
+  application_id = azurerm_data_factory.adf.identity[0].principal_id
+  display_name   = azurerm_data_factory.adf.identity[0].principal_id
+}
 
-  principal  = "Data Scientists"
-  privileges = ["USE_CATALOG", "USE_SCHEMA", "CREATE_TABLE", "SELECT"]
+resource "databricks_grants" "catalog" {
+  catalog = "prd" 
+  grant {
+    principal  = azurerm_data_factory.adf.identity[0].principal_id
+    privileges = ["USE_CATALOG", "USE_SCHEMA", "SELECT"]
+  }
+  depends_on = [ databricks_service_principal.adf_principal]
 }
