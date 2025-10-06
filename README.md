@@ -134,10 +134,6 @@ terraform
 │   ├── functions_app
 │   │   # Módulo cria função Python
 │   │
-│   ├── keyvault
-│   │   # Módulo cria Key Vault e secrets
-│   │   # - senha_db
-│   │   # - role 
 │   │
 │   └── storage_account
 │       # Módulo cria os containers:
