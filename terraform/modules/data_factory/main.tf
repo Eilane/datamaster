@@ -11,10 +11,6 @@ resource "azurerm_data_factory" "adf" {
 }
 
 
-data "azuread_service_principal" "adf_sp" {
-  object_id = azurerm_data_factory.adf.identity[0].principal_id
-} 
-
 provider "databricks" {
   host = "https://${var.databricks_workspace_url}"
 }
@@ -594,3 +590,4 @@ CONN
     secret_name         = var.azurerm_key_vault_secret_name
   }
 }
+

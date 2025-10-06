@@ -42,34 +42,52 @@ END
 GO
 
 -- ========================================
---  Habilitar CDC no banco e na tabela
+-- Criar tabela de controle de watermark
 -- ========================================
--- Habilitar CDC no banco
-IF NOT EXISTS (SELECT * FROM sys.databases d WHERE d.name = DB_NAME() AND d.is_cdc_enabled = 1)
+IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON t.schema_id = s.schema_id
+               WHERE t.name = 'control_watermark' AND s.name = 'credito')
 BEGIN
-    EXEC sys.sp_cdc_enable_db;
-    PRINT 'CDC habilitado no banco.';
+    CREATE TABLE credito.control_watermark
+    (
+        id INT IDENTITY(1,1) PRIMARY KEY,
+        ultima_atualizacao DATETIME NOT NULL
+    );
+
+    -- primeira carga full 
+    INSERT INTO credito.control_watermark (ultima_atualizacao)
+    VALUES ('1900-01-01');
+
+    PRINT 'Tabela control_watermark criada e inicializada.';
 END
 ELSE
 BEGIN
-    PRINT 'CDC já está habilitado no banco.';
+    PRINT 'Tabela control_watermark já existe.';
 END
 GO
 
--- Habilitar CDC na tabela credito.clientes_pj
-IF NOT EXISTS (SELECT * FROM cdc.change_tables ct
-               JOIN sys.tables t ON ct.object_id = t.object_id
-               JOIN sys.schemas s ON t.schema_id = s.schema_id
-               WHERE t.name = 'clientes_pj' AND s.name = 'credito')
+-- ========================================
+-- Criar procedure para atualizar watermark
+-- ========================================
+IF NOT EXISTS (
+    SELECT * FROM sys.objects 
+    WHERE type = 'P' 
+      AND name = 'sp_update_watermark' 
+      AND schema_id = SCHEMA_ID('credito')
+)
 BEGIN
-    EXEC sys.sp_cdc_enable_table
-        @source_schema = N'credito',
-        @source_name   = N'clientes_pj',
-        @role_name     = NULL;  -- ajustar role se necessário
-    PRINT 'CDC habilitado na tabela clientes_pj.';
+    EXEC('
+            CREATE PROCEDURE credito.sp_atualiza_watermark
+            AS
+            BEGIN
+                SET NOCOUNT ON;
+                INSERT INTO credito.control_watermark (ultima_atualizacao)
+                VALUES (GETDATE());
+            END
+    ');
+    PRINT 'Procedure credito.sp_update_watermark criada com sucesso.';
 END
 ELSE
 BEGIN
-    PRINT 'CDC já está habilitado na tabela clientes_pj.';
+    PRINT 'Procedure credito.sp_update_watermark já existe.';
 END
 GO

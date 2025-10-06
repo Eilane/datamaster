@@ -9,6 +9,7 @@ resource "azurerm_databricks_workspace" "adb" {
   tags = {
     Environment = "prd"
   }
+
 }
 
 # -------------------------------------------------
@@ -62,6 +63,11 @@ resource "databricks_metastore_assignment" "assign_uc" {
   metastore_id = databricks_metastore.unity.id
 }
 
+
+data "azurerm_databricks_workspace" "dbm" {
+  name                = azurerm_databricks_workspace.adb.name
+  resource_group_name = var.resource_group_name
+}
 
 # Storage Credential
 resource "databricks_storage_credential" "storage_cred" {
@@ -152,6 +158,7 @@ resource "databricks_cluster" "datamaster" {
 
   spark_env_vars = {
     "SUBSCRIPTION_ID"    = var.subscription_id
+    "RESOURCE_GROUP" = "rgprdcfacilbr"
   }
 
   data_security_mode = "SINGLE_USER"
@@ -393,6 +400,14 @@ resource "databricks_notebook" "vacuum" {
 }
 
 
+resource "databricks_notebook" "mnt" {
+  source   = "${path.module}/notebooks/governance/monitoramento/mnt_pipelines_jobs.py"
+  path     = "/Workspace/sistemas/credfacil/governance/monitoramento/mnt_pipelines_jobs.py"
+  language = "PYTHON"
+}
+
+
+
 # resource "databricks_notebook" "clientes_pj_stream" {
 #   source   = "${path.module}/notebooks/bronze/syscredito/clientes_pj_stream.py"
 #   path     = "/Workspace/sistemas/credfacil/bronze/syscredito/clientes_pj_stream.py"
@@ -418,6 +433,7 @@ resource "databricks_notebook" "vacuum" {
 #jobs
 resource "databricks_job" "job_vacuum" {
   name = "job-vacuum-semanal"
+  depends_on = [databricks_notebook.vacuum]
 
   task {
     task_key = "vacuum_task"
@@ -433,10 +449,30 @@ resource "databricks_job" "job_vacuum" {
     timezone_id            = "America/Sao_Paulo"
   }
 
-  max_concurrent_runs = 1
+  max_concurrent_runs = 3
 }
 
 
+resource "databricks_job" "job_adf_pipeline" {
+  name = "job-adf-pipeline"
+  depends_on = [databricks_notebook.mnt]
+
+  task {
+    task_key = "adf_task"
+    existing_cluster_id = databricks_cluster.datamaster.id
+
+    notebook_task {
+      notebook_path = "/Workspace/sistemas/credfacil/governance/monitoramento/mnt_pipelines_jobs.py"
+    }
+  }
+
+  schedule {
+    quartz_cron_expression = "0 0/5 * * * ?"
+    timezone_id            = "America/Sao_Paulo"
+  }
+
+  max_concurrent_runs = 3
+}
 
 
 
