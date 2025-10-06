@@ -586,3 +586,10 @@ CONN
   }
 }
 
+
+resource "databricks_grant" "prd_data" {
+  catalog = databricks_catalog.sandbox.name
+
+  principal  = "Data Scientists"
+  privileges = ["USE_CATALOG", "USE_SCHEMA", "CREATE_TABLE", "SELECT"]
+}
