@@ -174,7 +174,7 @@ terraform
 
 - Os dados das demais camadas serão movidos para uma **camada cold storage** após **5 anos**, permitindo retenção de longo prazo com custo reduzido.
 
-## 4. Monitoramento e Observabilidade
+## 4. Monitoramento, Auditoria e Controle de Ativos
 ![alt text](image-5.png)
 
 ## 5. Funções e Pipelines de Dados
