@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %sql
-# MAGIC CREATE TABLE IF NOT EXISTS TABLE prd.s_rf_empresas.motivo(
+# MAGIC CREATE TABLE IF NOT EXISTS  prd.s_rf_empresas.motivo(
 # MAGIC     cod_moti STRING COMMENT 'Código do motivo',
 # MAGIC     ds_moti  STRING COMMENT 'Descrição do motivo'    
 # MAGIC )
