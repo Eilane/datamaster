@@ -37,7 +37,7 @@ class DQ:
     Classe de Data Quality para aplicar regras e gerar métricas de validação.
     """
 
-    def __init__(self, nm_table: str, df_table: DataFrame):
+    def __init__(self, nm_table, df_table):
         self.nm_table = nm_table
         self.df_table = df_table
         self.df_rules = None
