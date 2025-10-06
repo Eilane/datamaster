@@ -9,12 +9,12 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 1. Criação da tabela motivos
+# MAGIC ## 1. Criação da tabela motivo
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC CREATE TABLE IF NOT EXISTS prd.b_ext_rf_empresas.motivos(
+# MAGIC CREATE TABLE IF NOT EXISTS prd.b_ext_rf_empresas.motivo(
 # MAGIC     cod_moti STRING COMMENT 'Código do motivo',
 # MAGIC     ds_moti  STRING COMMENT 'Descrição do motivo',
 # MAGIC     ano_mes_carga STRING COMMENT 'Ano e mês de referencia da carga'
