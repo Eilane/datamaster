@@ -28,7 +28,7 @@
 # MAGIC     bairro STRING COMMENT 'Bairro do endereço',
 # MAGIC     cep STRING COMMENT 'CEP do endereço',
 # MAGIC     uf STRING COMMENT 'Unidade federativa',
-# MAGIC     municipio STRING COMMENT 'Município do endereço',
+# MAGIC     municipio INT COMMENT 'Município do endereço',
 # MAGIC     ddd_1 STRING COMMENT 'DDD do telefone principal',
 # MAGIC     telefone_1 STRING COMMENT 'Telefone principal',
 # MAGIC     ddd_2 STRING COMMENT 'DDD do telefone secundário',
