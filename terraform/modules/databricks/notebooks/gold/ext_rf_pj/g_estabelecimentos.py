@@ -10,7 +10,7 @@
 
 # COMMAND ----------
 
-from pyspark.sql.functions import concat_ws, lit, count, countDistinct
+from pyspark.sql.functions import concat_ws, lit, count, countDistinct, col
 
 # COMMAND ----------
 
@@ -151,8 +151,8 @@ df_endereco_count = (
     .agg(
         countDistinct("nr_cnpj").alias("qtd_cnpjs")
     )
-    .filter(F.col("qtd_cnpjs") > 1)
-    .withColumn("suspeito", F.lit(True))
+    .filter(col("qtd_cnpjs") > 1)
+    .withColumn("suspeito", lit(True))
 )
 
 
