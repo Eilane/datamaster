@@ -217,7 +217,7 @@ Técnica de gerenciamento de dados que define como as tabelas lidam com informa�
 
 ###  7.0.2 - Organização das tabelas
 
-![alt text](image-8.png)
+![alt text](image-9.png)
 
 ## 8. Qualidade de Dados
 ### 8.0.1 - Tabela com regras de qualidade
