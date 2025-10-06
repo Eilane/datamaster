@@ -37,22 +37,22 @@ module "databricks" {
 
 
 # # SQL
-module "azure_sql" {
-  source = "./modules/azure_sql"
-  resource_group_name      = module.resource_group.azurerm_resource_group_rg_name
-  location                 = module.resource_group.azurerm_resource_group_rg_location
-  senha_db = var.senha_db
-  meu_ip = var.meu_ip
-}
+# module "azure_sql" {
+#   source = "./modules/azure_sql"
+#   resource_group_name      = module.resource_group.azurerm_resource_group_rg_name
+#   location                 = module.resource_group.azurerm_resource_group_rg_location
+#   senha_db = var.senha_db
+#   meu_ip = var.meu_ip
+# }
 
 
-module "keyvault" {
-  source = "./modules/keyvault"
-  resource_group_name = module.resource_group.azurerm_resource_group_rg_name
-  location = module.resource_group.azurerm_resource_group_rg_location
-  senha_db = var.senha_db
+# module "keyvault" {
+#   source = "./modules/keyvault"
+#   resource_group_name = module.resource_group.azurerm_resource_group_rg_name
+#   location = module.resource_group.azurerm_resource_group_rg_location
+#   senha_db = var.senha_db
   
-}
+# }
 
 # #Criação do Data Factory
 module "data_factory" {
