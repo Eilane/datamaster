@@ -1,7 +1,7 @@
 # Databricks notebook source
 # MAGIC  %md
 # MAGIC #Ingestão dos dados externos nas tabelas Estabelecimentos e Motivos
-# MAGIC  **Tabelas:** `b_ext_rf_empresas.estabelecimentos`  `b_ext_rf_empresas.motivos`  
+# MAGIC  **Tabelas:** `b_ext_rf_empresas.estabelecimentos`  `b_ext_rf_empresas.motivo`  
 # MAGIC
 # MAGIC  **Descrição**:  
 # MAGIC  Tabela que contém informações públicas de empresas, com detalhes sobre cada estabelecimento, incluindo:  
