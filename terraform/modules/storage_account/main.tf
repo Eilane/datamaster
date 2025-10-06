@@ -60,3 +60,23 @@ resource "azurerm_storage_management_policy" "raw_lifecycle" {
   }
  }
 }
+
+
+resource "azurerm_storage_management_policy" "cold_policy" {
+  storage_account_id = azurerm_storage_account.adls.id
+
+  rule {
+    name    = "move-to-cold-after-5-years"
+    enabled = true
+
+    filters {
+      blob_types = ["blockBlob"]
+    }
+
+    actions {
+      base_blob {
+        tier_to_cool_after_days_since_modification_greater_than = 1800
+      }
+    }
+  }
+}
