@@ -141,7 +141,7 @@ resource "databricks_cluster" "datamaster" {
 
   autoscale {
     min_workers = 1
-    max_workers = 1
+    max_workers = 3
   }
 
   library {
