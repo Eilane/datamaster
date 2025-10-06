@@ -14,3 +14,12 @@ output "workspace_id" {
 output "cluster_id" {
   value = databricks_cluster.datamaster.id
 }
+
+output "ext_location_raw_id" {
+  value = databricks_external_location.ext_location_raw.id
+}
+
+output "databricks_token" {
+  value     = databricks_token.token.token_value
+  sensitive = true
+}

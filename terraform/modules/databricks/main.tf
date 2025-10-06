@@ -149,7 +149,14 @@ resource "databricks_cluster" "datamaster" {
       package = "azure-mgmt-datafactory"
     }
   }
-  data_security_mode = "USER_ISOLATION"
+  data_security_mode = "SINGLE_USER"
+}
+
+
+#Gera token de acesso
+resource "databricks_token" "token" {
+  comment          = "Token de acesso gerado pelo Terraform para entidade de serviço"
+  lifetime_seconds = 8640000   
 }
 
 

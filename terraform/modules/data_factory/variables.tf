@@ -45,3 +45,11 @@ variable "azurerm_key_vault_secret_name" {
   type        = string
   sensitive   = true
 }
+
+
+variable "databricks_token" {
+  description = "token databricks"
+  type        = string
+  sensitive   = true
+}
+

@@ -136,12 +136,12 @@ resource "azurerm_data_factory_dataset_binary" "ds_binary_datalake" {
 resource "azurerm_data_factory_linked_service_azure_databricks" "linked_adb" {
   name                = "linked_adb"
   data_factory_id     = azurerm_data_factory.adf.id
-  description     = "ADB Linked Service via MSI"
-  adb_domain      = "https://${var.databricks_workspace_url}"
-
+  description         = "ADB Linked Service"
+  adb_domain          = "https://${var.databricks_workspace_url}"
   existing_cluster_id = var.databricks_cluster_id
-  msi_work_space_resource_id = var.databricks_workspace_id
 
+  # Autenticação via token
+  access_token        = var.databricks_token
 }
 
 #####################Libera acesso no workspace##############
@@ -593,19 +593,4 @@ CONN
     linked_service_name = azurerm_data_factory_linked_service_key_vault.ls_kv.name
     secret_name         = var.azurerm_key_vault_secret_name
   }
-}
-
-
-resource "databricks_service_principal" "adf_principal" {
-  application_id = azurerm_data_factory.adf.identity[0].principal_id
-  display_name   = azurerm_data_factory.adf.identity[0].principal_id
-}
-
-resource "databricks_grants" "catalog" {
-  catalog = "prd" 
-  grant {
-    principal  = azurerm_data_factory.adf.identity[0].principal_id
-    privileges = ["USE_CATALOG", "USE_SCHEMA", "SELECT"]
-  }
-  depends_on = [ databricks_service_principal.adf_principal]
 }

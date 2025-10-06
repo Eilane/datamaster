@@ -64,7 +64,9 @@ module "data_factory" {
   databricks_workspace_id  = module.databricks.workspace_id
   databricks_cluster_id    = module.databricks.cluster_id
   azurerm_key_vault_id = module.keyvault.azurerm_key_vault_id
-  azurerm_key_vault_secret_name = module.keyvault.azurerm_key_vault_secret_name  
+  azurerm_key_vault_secret_name = module.keyvault.azurerm_key_vault_secret_name 
+  databricks_token           = module.databricks.databricks_token
+
 }  
 
 ################ EVENTOS ################
