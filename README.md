@@ -175,8 +175,7 @@ terraform
 - Os dados das demais camadas serão movidos para uma **camada cold storage** após **5 anos**, permitindo retenção de longo prazo com custo reduzido.
 
 ## 4. Monitoramento e Observabilidade
-<img width="673" height="415" alt="image" src="https://github.com/user-attachments/assets/19773a54-2a82-417d-9737-63e506cb32c1" />
-
+![alt text](image-5.png)
 
 ## 5. Funções e Pipelines de Dados
 
@@ -318,7 +317,15 @@ Click com o botão direito do mouse "Deploy to Function App" para subir o códig
 <img width="471" height="511" alt="image" src="https://github.com/user-attachments/assets/c3a3cc23-0168-4b5a-bdca-07285ee03b80" />
 
 
-4. **Executar oo comando abaixo para criar a tabela no Banco de Dados e habilitar o CDC. Obs: O script init_credito.sql está na pasta terraform/modules/azure_sql**:
+5. **Execute o comando abaixo no terminal para liberar acesso a Manage Identity do Workspace para ler os logs de execução dos pipelines no Data Factory, substitua apenas o id da subscription**
+```bash
+az role assignment create `
+  --assignee $(az identity show --name "dbmanagedidentity" --resource-group "databricks-rg-rgprdcfacilbr" --query principalId -o tsv) `
+  --role "Reader" `
+  --scope "/subscriptions/<subscription-id>/resourceGroups/rgprdcfacilbr/providers/Microsoft.DataFactory/factories/adfcfacilbr"
+```
+
+6. **Executar oo comando abaixo para criar a tabela no Banco de Dados. Obs: O script init_credito.sql está na pasta terraform/modules/azure_sql**:
 ```bash
 sqlcmd -S tcp:sqlcfacilbr.database.windows.net -d sqlcfacilbr -U sqladmin -P "InformarSenhaBanco" -i init_credito.sql
 ```
@@ -354,6 +361,10 @@ Databricks como Líder no Quadrante Mágico™ da Gartner® de 2025 para Platafo
 
 
 ## 14. Referências
+
+databricks_grant Resource
+https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/grant
+
 
 Captura de dados alterados (CDC) com o Banco de Dados SQL do Azure
 https://learn.microsoft.com/en-us/azure/azure-sql/database/change-data-capture-overview?view=azuresql
