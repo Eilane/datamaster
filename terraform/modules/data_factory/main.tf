@@ -591,3 +591,186 @@ CONN
   }
 }
 
+
+resource "azurerm_data_factory_dataset_sql_server_table" "ds_sqldatabase" {
+  name                = "ds_sqldatabase"
+  data_factory_id     = azurerm_data_factory.adf.id
+  linked_service_name = "linked_sqldatabase"
+  table_name          = "@dataset().tabela"
+  depends_on = [azurerm_data_factory_linked_service_azure_sql_database.linked_sqldatabase]
+
+  parameters = {
+    tabela: "String"
+    }
+  }
+
+#   type_properties = {
+#     schema = "credito"
+#     table  = {
+#       value = "@dataset().tabela"
+#       type  = "Expression"
+#     }
+#   }
+
+
+
+# resource "azurerm_data_factory_dataset_parquet" "ds_parquet_datalake" {
+#   name            = "ds_parquet_datalake"
+#   data_factory_id = azurerm_data_factory.adf.id
+#   linked_service_name = "linked_gen2"
+
+#   depends_on = [azurerm_data_factory_linked_service_data_lake_storage_gen2.linked_gen2]
+
+#   parameters = {
+#     path      =  "String" 
+#     file_name =  "String" 
+#   }
+
+#   azure_blob_fs_location  {
+#     file_system = "raw"
+#     path = "@dataset().path"
+#     filename = "@dataset().file_name"
+#   }
+ 
+# }
+
+
+#####################PIPELINEs##############
+
+# resource "azurerm_data_factory_pipeline" "ppl_sql_database" {
+#   name            = "ppl_sql_database"
+#   data_factory_id = azurerm_data_factory.adf.id
+  
+#   activities_json =<<JSON
+# [
+#              {
+#                 "name": "Lookup",
+#                 "type": "Lookup",
+#                 "dependsOn": [],
+#                 "policy": {
+#                     "timeout": "0.12:00:00",
+#                     "retry": 0,
+#                     "retryIntervalInSeconds": 30,
+#                     "secureOutput": false,
+#                     "secureInput": false
+#                 },
+#                 "userProperties": [],
+#                 "typeProperties": {
+#                     "source": {
+#                         "type": "AzureSqlSource",
+#                         "sqlReaderQuery": "SELECT MAX(ultima_atualizacao) AS ultima_atualizacao\nFROM credito.control_watermark;",
+#                         "queryTimeout": "02:00:00",
+#                         "partitionOption": "None"
+#                     },
+#                     "dataset": {
+#                         "referenceName": "ds_sqldatabase",
+#                         "type": "DatasetReference",
+#                         "parameters": {
+#                             "tabela": "control_watermark"
+#                         }
+#                     }
+#                 }
+#             },
+#             {
+#                 "name": "Copy Data",
+#                 "type": "Copy",
+#                 "dependsOn": [
+#                     {
+#                         "activity": "Lookup",
+#                         "dependencyConditions": [
+#                             "Succeeded"
+#                         ]
+#                     }
+#                 ],
+#                 "policy": {
+#                     "timeout": "0.12:00:00",
+#                     "retry": 0,
+#                     "retryIntervalInSeconds": 30,
+#                     "secureOutput": false,
+#                     "secureInput": false
+#                 },
+#                 "userProperties": [],
+#                 "typeProperties": {
+#                     "source": {
+#                         "type": "AzureSqlSource",
+#                         "sqlReaderQuery": {
+#                             "value": "SELECT *\nFROM credito.clientes_pj\nWHERE data_atualizacao > '@{activity('Lookup').output.firstRow.ultima_atualizacao}'",
+#                             "type": "Expression"
+#                         },
+#                         "queryTimeout": "02:00:00",
+#                         "partitionOption": "None"
+#                     },
+#                     "sink": {
+#                         "type": "ParquetSink",
+#                         "storeSettings": {
+#                             "type": "AzureBlobFSWriteSettings",
+#                             "maxConcurrentConnections": 3,
+#                             "copyBehavior": "FlattenHierarchy"
+#                         },
+#                         "formatSettings": {
+#                             "type": "ParquetWriteSettings"
+#                         }
+#                     },
+#                     "enableStaging": false,
+#                     "translator": {
+#                         "type": "TabularTranslator",
+#                         "typeConversion": true,
+#                         "typeConversionSettings": {
+#                             "allowDataTruncation": true,
+#                             "treatBooleanAsNumber": false
+#                         }
+#                     }
+#                 },
+#                 "inputs": [
+#                     {
+#                         "referenceName": "ds_sqldatabase",
+#                         "type": "DatasetReference",
+#                         "parameters": {
+#                             "tabela": "clientes_pj"
+#                         }
+#                     }
+#                 ],
+#                 "outputs": [
+#                     {
+#                         "referenceName": "ds_parquet_datalake",
+#                         "type": "DatasetReference",
+#                         "parameters": {
+#                             "path": "unity/credito.clientes_pj",
+#                             "file_name": " "
+#                         }
+#                     }
+#                 ]
+#             },
+#             {
+#                 "name": "procedure",
+#                 "type": "SqlServerStoredProcedure",
+#                 "dependsOn": [
+#                     {
+#                         "activity": "Copy Data",
+#                         "dependencyConditions": [
+#                             "Succeeded"
+#                         ]
+#                     }
+#                 ],
+#                 "policy": {
+#                     "timeout": "0.12:00:00",
+#                     "retry": 0,
+#                     "retryIntervalInSeconds": 30,
+#                     "secureOutput": false,
+#                     "secureInput": false
+#                 },
+#                 "userProperties": [],
+#                 "typeProperties": {
+#                     "storedProcedureName": "[credito].[sp_atualiza_watermark]"
+#                 },
+#                 "linkedServiceName": {
+#                     "referenceName": "linked_sqldatabase",
+#                     "type": "LinkedServiceReference"
+#                 }
+#             }
+#         ]
+#   JSON
+
+ 
+# }      
+

@@ -38,3 +38,25 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "fsgov" {
   name               = "governance"
   storage_account_id = azurerm_storage_account.adls.id
 }
+
+
+# Lifecycle Management Policy
+resource "azurerm_storage_management_policy" "raw_lifecycle" {
+  storage_account_id = azurerm_storage_account.adls.id
+
+  rule {
+    name    = "delete-raw-after-6-months"
+    enabled = true
+
+    filters {
+      blob_types = ["blockBlob"]
+      prefix_match = ["raw/"] 
+    }
+
+    actions {
+       base_blob {
+      delete_after_days_since_modification_greater_than  = 180        
+    }
+  }
+ }
+}

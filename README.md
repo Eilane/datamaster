@@ -31,14 +31,11 @@ A solução será focada na disponibilização de dados com **alta qualidade**, 
 **Caso de Uso:** Integração de Dados Clientes PJ  
 
 ### **2.0.1 - Descrição**
-Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públicos de empresas com uma base da receita federal, com foco em qualidade, governança e integração ao ecossistema analítico corporativo.
+Coletar, analisar e disponibilizar dados públicos de empresas com uma base da receita federal, com foco em qualidade, governança e integração ao ecossistema analítico corporativo.
 
 ### **2.0.2 - Escopo do Caso de Uso**
 
-- **Obtenção de dados fictícios de clientes (PJ):**  
-  Simular a ingestão de cadastros de clientes pessoa jurídica pertencentes a uma empresa fictícia do setor de empréstimos.
-
-- **Integração com dados públicos de empresas (CNPJ):**  
+- **Integração de dados públicos de empresas (CNPJ):**  
   Realizar a extração de dados públicos junto ao Ministério da Fazenda.
 
 - **Armazenamento no Data Lake corporativo:**  
@@ -57,7 +54,7 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 
 ### **2.0.3 - Diagrama do Caso de Uso**
 
-![alt text](image-1.png)
+![alt text](image-6.png)
 
 
 ### 2.0.4 - Riscos Operacionais Mapeados na utilização de Dados Públicos
@@ -70,19 +67,13 @@ Coletar, analisar e disponibilizar dados cadastrais de clientes PJ e dados públ
 | Presença de dados duplicados nos arquivos disponibilizados | Aumento no volume de armazenamento e risco de análises incorretas | Aplicar deduplicação no processamento e gerar relatórios de controle para acompanhamento contínuo |
 
 
-### 2.0.5 Premissas
-
-- Atualização dos **dados de clientes** do sistema de crédito no Data Lake.  
-- Latência máxima de **15 minutos** para refletir as alterações.  
-- Objetivo: **evitar o envio de campanhas de crédito** para clientes já cadastrados na base de dados.
-
 
 ## 3. Arquitetura
 
 ### 3.0.1 Desenho de Arquitetura
 Para viabilizar o caso de uso descrito no item 2, os dados serão extraídos diretamente de suas fontes de origem e integrados a uma arquitetura de dados Lakehouse na nuvem pública Microsoft Azure.
 
-![alt text](image-2.png)
+![alt text](image-7.png)
 
 
 ### 3.0.2 - Estrutura lógica das camadas do Data Lake
@@ -117,9 +108,6 @@ terraform
 ├── modules
 │   ├── resource_group
 │   │   # Módulo cria o Resource Group principal do projeto
-│   │  
-│   ├── azure_sql        # Módulo cria o SQL DATABASE
-│   │   └── scripts      # Scripts SQL, como init_credito.sql para tabelas e CDC
 │   │
 │   ├── databricks
 │   │   # Módulo cria os recursos abaixo:
@@ -229,7 +217,7 @@ Técnica de gerenciamento de dados que define como as tabelas lidam com informa�
 
 ###  7.0.2 - Organização das tabelas
 
-<img width="886" height="613" alt="image" src="https://github.com/user-attachments/assets/dacadf5e-77ad-400e-b57a-34d4c424254e" />
+![alt text](image-8.png)
 
 ## 8. Qualidade de Dados
 ### 8.0.1 - Tabela com regras de qualidade
@@ -238,14 +226,6 @@ Técnica de gerenciamento de dados que define como as tabelas lidam com informa�
 Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silver** e **Gold** para garantir a integridade e consistência dos dados.
 
 **Tabela:** `prd.governance.regras_qualidade`
-
-**Descrição:**  
-- Centraliza todas as regras de validação de dados.  
-- Permite auditoria e monitoramento da conformidade dos dados.  
-
-**Exemplo de uso:**  
-- Validar campos obrigatórios (`NOT NULL`)  
-- Calcular scores de qualidade por tabela e coluna
 
 <img width="988" height="430" alt="image" src="https://github.com/user-attachments/assets/5c066b05-2a8c-45d8-bce8-6d90a0f697a6" />
 
@@ -256,27 +236,22 @@ Registrar as **regras de qualidade** que devem ser aplicadas nas tabelas **Silve
   - Periodicidade: Semanal (Sábado)
   - Horário: 06:00
 
-## 10. Visualização de Dados
-*Em desenvolvimento...*
-
-## 11 Acompanhamento de custos por recurso via portal
+## 10 Acompanhamento de custos por recurso via portal
 ![alt text](image-3.png)
 
-## 12. Solução Técnica
+## 10. Solução Técnica
 
-### 12.0.1 Pré-requisitos
+### 10.0.1 Pré-requisitos
 
 - **Assinatura do Azure** com permissões administrativas 
 - **Conta no Azure Databricks Enterprise** [Identificar o Account ID](https://accounts.azuredatabricks.net) 
 - **Azure CLI**: [Instalar](https://aka.ms/installazurecliwindows) 
 - **Terraform**: [Download](https://www.terraform.io/downloads.html)
-- **SQLCMD**:[Download](https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-download-install?view=sql-server-ver17&tabs=windows)
 - **Visual Studio Code**: [Download](https://code.visualstudio.com/download)  
   - Extensões recomendadas:  
     - **Azure Resources**  
     - **Microsoft Terraform**  
     - **HashiCorp Terraform**  
-- **Meu Ip** [Link](https://meuip.com.br/) Liberar o firewall no banco de dados 
 ---
 
 ### 12.0.2 Passo a passo
@@ -293,7 +268,6 @@ Dentro da pasta `terraform`, crie o arquivo `terraform.tfvars`:
 senha_db        = ""  # Exemplo de senha válida:!CfacilBr489@demo  A senha deve conter letras maiúsculasminúsculas, números e caracteres especiais
 subscription_id = ""  # ID da Subscription
 account_id      = ""  # ID da Account
-meu_ip          = ""  # IP a ser Liberado no Firewall 
 ```
  
 
@@ -325,14 +299,10 @@ az role assignment create `
   --scope "/subscriptions/<subscription-id>/resourceGroups/rgprdcfacilbr/providers/Microsoft.DataFactory/factories/adfcfacilbr"
 ```
 
-6. **Executar oo comando abaixo para criar a tabela no Banco de Dados. Obs: O script init_credito.sql está na pasta terraform/modules/azure_sql**:
-```bash
-sqlcmd -S tcp:sqlcfacilbr.database.windows.net -d sqlcfacilbr -U sqladmin -P "InformarSenhaBanco" -i init_credito.sql
-```
+5. **Start Now no pipeline do Data factory. Obs: A trigger configurada é mensal**
 
-
-6. **DESTRUIR O AMBIENTE**:
-   Não esquecer, para não gerar cobrança adicinal 😭 
+2. **DESTRUIR O AMBIENTE**:
+   Não esquecer, para não gerar cobrança adicinal  
 ```bash
 terraform destroy       # Extrui todos os recursos
 ```
