@@ -558,51 +558,51 @@ resource "azurerm_data_factory_trigger_schedule" "trigger_mensal" {
 }
 
 
-resource "azurerm_data_factory_linked_service_key_vault" "ls_kv" {
-  name                = "linked_kv"
-  data_factory_id     = azurerm_data_factory.adf.id
-  key_vault_id        = var.azurerm_key_vault_id
-}
+# resource "azurerm_data_factory_linked_service_key_vault" "ls_kv" {
+#   name                = "linked_kv"
+#   data_factory_id     = azurerm_data_factory.adf.id
+#   key_vault_id        = var.azurerm_key_vault_id
+# }
 
-# role de acesso
-resource "azurerm_key_vault_access_policy" "adf_policy" {
-  key_vault_id = var.azurerm_key_vault_id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = azurerm_data_factory.adf.identity[0].principal_id
+# # role de acesso
+# resource "azurerm_key_vault_access_policy" "adf_policy" {
+#   key_vault_id = var.azurerm_key_vault_id
+#   tenant_id    = data.azurerm_client_config.current.tenant_id
+#   object_id    = azurerm_data_factory.adf.identity[0].principal_id
 
-  secret_permissions = [
-    "Get"
-  ]
-}
+#   secret_permissions = [
+#     "Get"
+#   ]
+# }
 
-resource "azurerm_data_factory_linked_service_azure_sql_database" "linked_sqldatabase" {
-  name                = "linked_sqldatabase"
-  data_factory_id     = azurerm_data_factory.adf.id
+# resource "azurerm_data_factory_linked_service_azure_sql_database" "linked_sqldatabase" {
+#   name                = "linked_sqldatabase"
+#   data_factory_id     = azurerm_data_factory.adf.id
 
-  connection_string = <<CONN
-Server=tcp:sqlcfacilbr.database.windows.net,1433;
-Database=sqlcfacilbr;
-User ID=sqladmin;
-CONN
+#   connection_string = <<CONN
+# Server=tcp:sqlcfacilbr.database.windows.net,1433;
+# Database=sqlcfacilbr;
+# User ID=sqladmin;
+# CONN
 
-  key_vault_password {
-    linked_service_name = azurerm_data_factory_linked_service_key_vault.ls_kv.name
-    secret_name         = var.azurerm_key_vault_secret_name
-  }
-}
+#   key_vault_password {
+#     linked_service_name = azurerm_data_factory_linked_service_key_vault.ls_kv.name
+#     secret_name         = var.azurerm_key_vault_secret_name
+#   }
+# }
 
 
-resource "azurerm_data_factory_dataset_sql_server_table" "ds_sqldatabase" {
-  name                = "ds_sqldatabase"
-  data_factory_id     = azurerm_data_factory.adf.id
-  linked_service_name = "linked_sqldatabase"
-  table_name          = "@dataset().tabela"
-  depends_on = [azurerm_data_factory_linked_service_azure_sql_database.linked_sqldatabase]
+# resource "azurerm_data_factory_dataset_sql_server_table" "ds_sqldatabase" {
+#   name                = "ds_sqldatabase"
+#   data_factory_id     = azurerm_data_factory.adf.id
+#   linked_service_name = "linked_sqldatabase"
+#   table_name          = "@dataset().tabela"
+#   depends_on = [azurerm_data_factory_linked_service_azure_sql_database.linked_sqldatabase]
 
-  parameters = {
-    tabela: "String"
-    }
-  }
+#   parameters = {
+#     tabela: "String"
+#     }
+#   }
 
 #   type_properties = {
 #     schema = "credito"

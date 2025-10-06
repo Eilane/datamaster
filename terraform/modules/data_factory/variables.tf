@@ -34,17 +34,17 @@ variable "databricks_cluster_id" {
   type        = string
 }
 
-variable "azurerm_key_vault_id" {
-  description = "ID da Key Vault"
-  type        = string
-  sensitive   = true
-}
+# variable "azurerm_key_vault_id" {
+#   description = "ID da Key Vault"
+#   type        = string
+#   sensitive   = true
+# }
 
-variable "azurerm_key_vault_secret_name" {
-  description = "Nome da Secret"
-  type        = string
-  sensitive   = true
-}
+# variable "azurerm_key_vault_secret_name" {
+#   description = "Nome da Secret"
+#   type        = string
+#   sensitive   = true
+# }
 
 
 variable "databricks_token" {
