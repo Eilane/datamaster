@@ -25,7 +25,7 @@ resource "azurerm_role_assignment" "dbw_storage_contributor" {
 
 
 #Necessidade de subida via Arm template devido a falta de um recurso Nativo para link Http 
-resource "azurerm_resource_group_template_deployment" "http_link" {
+resource "azurerm_resource_group_template_deployment" "link_http" {
   name                = "httpLinkedServiceDeployment"
   resource_group_name = var.resource_group_name
   deployment_mode     = "Incremental"
@@ -54,7 +54,24 @@ resource "azurerm_resource_group_template_deployment" "http_link" {
           "authenticationType": "Anonymous"
         }
       }
-    },
+    }
+  ]
+}
+TEMPLATE
+}
+
+
+
+resource "azurerm_resource_group_template_deployment" "http_link" {
+  name                = "DataSetLinkedServiceDeployment"
+  resource_group_name = var.resource_group_name
+  deployment_mode     = "Incremental"
+  depends_on = [ azurerm_resource_group_template_deployment.link_http ]
+  template_content = <<TEMPLATE
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "resources": [
     {
     "type": "Microsoft.DataFactory/factories/datasets",
     "apiVersion": "2018-06-01",
@@ -92,7 +109,6 @@ resource "azurerm_resource_group_template_deployment" "http_link" {
 }
 TEMPLATE
 }
-
 
 # Linked Service Data Lake Gen2 no Data Factory
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "linked_gen2" {
