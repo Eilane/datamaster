@@ -54,13 +54,22 @@ resource "databricks_metastore" "unity" {
 }
 
 
+# # # -------------------------------------------------
+# # # Associar Workspace ao Metastore
+# # # -------------------------------------------------
+resource "databricks_metastore_assignment" "assign_uc" {
+  workspace_id = azurerm_databricks_workspace.adb.workspace_id
+  metastore_id = databricks_metastore.unity.id
+}
+
+
 # Storage Credential
 resource "databricks_storage_credential" "storage_cred" {
   name = "cred-unity"
   azure_managed_identity {
     access_connector_id = azurerm_databricks_access_connector.adb_connector.id
   }
-  depends_on = [databricks_metastore.unity, azurerm_databricks_access_connector.adb_connector]
+  depends_on = [databricks_metastore.unity, azurerm_databricks_access_connector.adb_connector, databricks_metastore_assignment.assign_uc]
 }
 
 resource "databricks_external_location" "ext_location_raw" {
@@ -101,13 +110,6 @@ resource "databricks_external_location" "ext_location_governance" {
   comment         = "External location para a camada governance"
 }
 
-# # # -------------------------------------------------
-# # # Associar Workspace ao Metastore
-# # # -------------------------------------------------
-resource "databricks_metastore_assignment" "assign_uc" {
-  workspace_id = azurerm_databricks_workspace.adb.workspace_id
-  metastore_id = databricks_metastore.unity.id
-}
 
 
 # -------------------------------------------------
